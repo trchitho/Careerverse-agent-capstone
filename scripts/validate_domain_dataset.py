@@ -125,3 +125,17 @@ def validate_careers(
             errors.append(f"career {career['id']} has invalid family")
         if career["level"] not in CAREER_LEVELS:
             errors.append(f"career {career['id']} has invalid level")
+        if career["market_relevance"].get("level") not in MARKET_LEVELS:
+            errors.append(f"career {career['id']} has invalid market relevance")
+        if career["learning_difficulty"].get("level") not in DIFFICULTY_LEVELS:
+            errors.append(f"career {career['id']} has invalid learning difficulty")
+        if not 6 <= len(career["required_skills"]) <= 12:
+            errors.append(f"career {career['id']} has invalid required skill count")
+        if not 4 <= len(career["nice_to_have_skills"]) <= 10:
+            errors.append(f"career {career['id']} has invalid optional skill count")
+        if not career["recommended_for"]:
+            errors.append(f"career {career['id']} has no recommendation tags")
+        referenced = set(career["required_skills"] + career["nice_to_have_skills"])
+        if missing := referenced - skill_names:
+            errors.append(f"career {career['id']} missing skills: {sorted(missing)}")
+    return set(ids), set(titles), errors
