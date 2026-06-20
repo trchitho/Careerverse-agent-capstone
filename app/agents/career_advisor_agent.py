@@ -61,3 +61,25 @@ class CareerAdvisorAgent:
             raise ValueError(
                 "No career recommendations could be generated for the provided profile."
             )
+        top_career = recommendations[0]
+        skill_gap = self.skill_gap_agent.analyze(
+            user_skills=normalized.skills,
+            required_skills=top_career["required_skills"],
+            nice_to_have_skills=top_career["nice_to_have_skills"],
+        )
+        roadmap = self.roadmap_agent.get_roadmap(
+            career_id=str(top_career["career_id"]),
+            career_title=str(top_career["title"]),
+            missing_skills=skill_gap["priority_skills"],
+        )
+        payload = {
+            "user_summary": UserProfileSummary.model_validate(
+                normalized.model_dump()
+            ).model_dump(),
+            "top_recommendations": recommendations,
+            "skill_gap": skill_gap,
+            "personalized_roadmap": roadmap,
+            "safety_notice": SAFETY_NOTICE,
+            "course_concepts_demonstrated": COURSE_CONCEPTS,
+        }
+        return AgentRecommendationResponse.model_validate(payload).model_dump()
