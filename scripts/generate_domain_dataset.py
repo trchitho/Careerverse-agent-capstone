@@ -469,3 +469,33 @@ def roadmap_week(
             f"work as a {title}."
         ),
     }
+
+
+def build_roadmap(career: dict[str, Any]) -> dict[str, Any]:
+    """Build 30-day and eight-week plans customized to one career."""
+    title = career["title"]
+    required = career["required_skills"]
+    focus = career["recommended_for"][0]
+    short_phases = [
+        "Foundations", "Guided implementation", "Quality and feedback",
+        "Portfolio integration",
+    ]
+    long_phases = [
+        "Role orientation", "Core foundations", "Applied practice",
+        "System integration", "Quality assurance", "Delivery readiness",
+        "Capstone implementation", "Portfolio presentation",
+    ]
+    thirty_day = [
+        roadmap_week(
+            week, title, focus, [required[(week - 1) % len(required)],
+            required[week % len(required)]], phase
+        )
+        for week, phase in enumerate(short_phases, start=1)
+    ]
+    eight_week = [
+        roadmap_week(
+            week, title, focus, [required[(week + 1) % len(required)],
+            required[(week + 2) % len(required)]], phase
+        )
+        for week, phase in enumerate(long_phases, start=1)
+    ]
