@@ -269,3 +269,38 @@ def _matched_skills(
         if key in user:
             matched.append(required)
     return matched
+
+
+def _matched_interests(
+    interests: list[str], career_tags: list[str]
+) -> list[str]:
+    """Return user interests with meaningful overlap to career tags."""
+    return [
+        interest
+        for interest in interests
+        if max((_match_strength(interest, tag) for tag in career_tags), default=0.0)
+        >= 0.65
+    ]
+
+
+def build_matched_reasons(
+    interests: list[str],
+    matched_skills: list[str],
+    goal_score: float,
+    career: dict[str, Any],
+) -> list[str]:
+    """Build concise, truthful explanations for one recommendation."""
+    reasons = [
+        f"Matches your interest in {interest}."
+        for interest in _matched_interests(interests, career.get("recommended_for", []))[:2]
+    ]
+    reasons.extend(
+        f"Matches your skill: {skill}." for skill in matched_skills[:2]
+    )
+    if goal_score > 0:
+        reasons.append(f"Your career goal aligns with {career.get('title', 'this role')}.")
+    if not reasons:
+        reasons.append(
+            "This role appears because it has limited overlap with your stated profile."
+        )
+    return reasons[:6]
