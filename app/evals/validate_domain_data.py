@@ -46,3 +46,28 @@ def validate_skills(skills: Any) -> tuple[set[str], list[str]]:
         if skill.get("level") not in ALLOWED_LEVELS:
             errors.append(f"skill {index} has an invalid level")
     return set(names), errors
+
+
+def validate_careers(careers: Any, skill_names: set[str]) -> tuple[set[str], list[str]]:
+    """Validate career records and references to the skill catalog."""
+    errors: list[str] = []
+    if not isinstance(careers, list) or len(careers) < 8:
+        return set(), ["careers.json must contain at least 8 career objects"]
+
+    ids = [career.get("id") for career in careers if isinstance(career, dict)]
+    if len(ids) != len(set(ids)):
+        errors.append("careers.json contains duplicate career ids")
+
+    for index, career in enumerate(careers):
+        if not isinstance(career, dict) or set(career) != CAREER_FIELDS:
+            errors.append(f"career {index} has invalid fields")
+            continue
+        if not re.fullmatch(r"[a-z0-9]+(?:_[a-z0-9]+)*", career["id"]):
+            errors.append(f"career {index} id must use snake_case")
+        if career["market_relevance"].get("level") not in MARKET_LEVELS:
+            errors.append(f"career {career['id']} has an invalid market level")
+        referenced = set(career["required_skills"] + career["nice_to_have_skills"])
+        missing = sorted(referenced - skill_names)
+        if missing:
+            errors.append(f"career {career['id']} references missing skills: {missing}")
+    return set(ids), errors
