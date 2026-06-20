@@ -206,3 +206,28 @@ def validate_roadmaps(
             )
         )
     return errors
+
+
+def validate_skill_references(
+    skills: list[dict[str, Any]], career_titles: set[str], skill_names: set[str]
+) -> list[str]:
+    """Validate optional reverse references inside skill records."""
+    errors: list[str] = []
+    for skill in skills:
+        if missing := set(skill["related_skills"]) - skill_names:
+            errors.append(
+                f"skill {skill['id']} has missing related skills: {sorted(missing)}"
+            )
+        if missing := set(skill["used_in_roles"]) - career_titles:
+            errors.append(
+                f"skill {skill['id']} has missing roles: {sorted(missing)}"
+            )
+    return errors
+
+
+def line_counts() -> dict[str, int]:
+    """Return physical line counts for generated JSON files."""
+    return {
+        filename: len((DATA_DIR / filename).read_text(encoding="utf-8").splitlines())
+        for filename in FILES
+    }
