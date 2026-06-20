@@ -30,3 +30,30 @@ class RoadmapAgent:
         if not isinstance(payload, dict):
             raise ValueError("roadmaps.json root must be a JSON object")
         return payload
+
+    @staticmethod
+    def _fallback_week(
+        week: int,
+        career_title: str,
+        priority_skills: list[str],
+        phase: str,
+    ) -> dict[str, object]:
+        """Build one conservative fallback roadmap week."""
+        first = priority_skills[(week - 1) % len(priority_skills)]
+        second = priority_skills[week % len(priority_skills)]
+        return {
+            "week": week,
+            "focus": f"{phase}: {career_title} foundations",
+            "learning_goals": [
+                f"Understand how {first} supports this career path",
+                f"Practice {second} in a small guided exercise",
+            ],
+            "tasks": [
+                f"Complete a focused {first} learning activity",
+                f"Build a small exercise using {second}",
+                "Review the result and document remaining questions",
+            ],
+            "deliverable": f"A documented week {week} learning artifact",
+            "skills_practiced": [first, second],
+            "checkpoint": "The learner can explain the work and identify a next step.",
+        }
