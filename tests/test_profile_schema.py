@@ -1,9 +1,12 @@
 """Unit tests for profile request and response validation."""
 
+import json
+from pathlib import Path
+
 import pytest
 from pydantic import ValidationError
 
-from app.schemas.profile_schema import UserProfileRequest
+from app.schemas.profile_schema import RoadmapResult, SkillGapResult, UserProfileRequest
 
 
 def valid_payload() -> dict[str, object]:
@@ -117,3 +120,21 @@ def test_extra_fields_are_rejected() -> None:
 def test_blank_required_strings_are_rejected(field: str) -> None:
     with pytest.raises(ValidationError):
         UserProfileRequest.model_validate(valid_payload() | {field: "   "})
+
+
+def test_skill_gap_priority_must_be_missing() -> None:
+    with pytest.raises(ValidationError):
+        SkillGapResult(
+            matched_skills=["Python"],
+            missing_skills=["FastAPI"],
+            priority_skills=["Docker"],
+            readiness_score=50,
+        )
+
+
+def test_public_roadmap_schema_matches_generated_data() -> None:
+    path = Path(__file__).resolve().parents[1] / "app" / "data" / "roadmaps.json"
+    roadmaps = json.loads(path.read_text(encoding="utf-8"))
+
+    first_roadmap = next(iter(roadmaps.values()))
+    assert RoadmapResult.model_validate(first_roadmap).career_id
