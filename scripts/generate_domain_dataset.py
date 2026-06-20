@@ -271,3 +271,30 @@ FAMILY_TRAITS = {
     "Education / Social Good": ("empathetic", "motivated by social impact"),
     "Tech Support / Operations": ("service-oriented", "persistent with problems"),
 }
+
+
+def all_role_definitions() -> list[tuple[str, str, str, str]]:
+    """Flatten curated role groups while preserving stable ordering."""
+    return [
+        (title, family, level, focus)
+        for family, roles in ROLE_GROUPS.items()
+        for title, level, focus in roles
+    ]
+
+
+def aliases_for(name: str) -> list[str]:
+    """Create conservative search aliases without inventing terminology."""
+    aliases = [name.lower()]
+    acronym = "".join(word[0] for word in re.findall(r"[A-Za-z0-9]+", name))
+    if 2 <= len(acronym) <= 6 and acronym.lower() != name.lower():
+        aliases.append(acronym.lower())
+    return aliases[:2]
+
+
+def roles_using_category(category: str) -> list[str]:
+    """Return representative career titles connected to a skill category."""
+    titles = []
+    for title, family, _level, _focus in all_role_definitions():
+        if category in FAMILY_SKILL_MIX[family]:
+            titles.append(title)
+    return titles[:8]
