@@ -62,5 +62,26 @@
     ],
     "recommended_mini_project": "Build an asynchronous AI document-analysis API with job status and safe model fallbacks.",
     "portfolio_output": "A tested backend repository with API documentation, data-flow diagrams, operational notes, and demo requests."
+  },
+  "data_analyst": {
+    "career_title": "Data Analyst", "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "SQL and question framing", "tasks": ["Define measurable questions", "Write filtering and aggregation queries", "Check data quality"], "deliverable": "A documented SQL analysis notebook"},
+      {"week": 2, "focus": "Cleaning and exploration", "tasks": ["Clean missing values", "Explore distributions", "Record assumptions"], "deliverable": "A reproducible cleaned dataset"},
+      {"week": 3, "focus": "Visualization and insights", "tasks": ["Choose appropriate charts", "Build a small dashboard", "Explain limitations"], "deliverable": "A decision-focused dashboard"},
+      {"week": 4, "focus": "Stakeholder communication", "tasks": ["Write an executive summary", "Validate calculations", "Present recommendations"], "deliverable": "A complete analysis case study"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "Business questions", "tasks": ["Frame a decision", "Define useful metrics"], "deliverable": "An analysis brief"},
+      {"week": 2, "focus": "SQL foundations", "tasks": ["Practice joins", "Build aggregations", "Validate totals"], "deliverable": "A query portfolio"},
+      {"week": 3, "focus": "Data cleaning", "tasks": ["Profile quality issues", "Transform inconsistent values"], "deliverable": "A cleaning log and dataset"},
+      {"week": 4, "focus": "Statistics basics", "tasks": ["Summarize variation", "Compare groups responsibly"], "deliverable": "A statistical interpretation note"},
+      {"week": 5, "focus": "Pandas analysis", "tasks": ["Reproduce SQL metrics", "Automate transformations"], "deliverable": "A reusable analysis notebook"},
+      {"week": 6, "focus": "Data visualization", "tasks": ["Select chart types", "Build an accessible dashboard"], "deliverable": "A polished visual report"},
+      {"week": 7, "focus": "Insight communication", "tasks": ["Prioritize findings", "State uncertainty"], "deliverable": "A stakeholder-ready summary"},
+      {"week": 8, "focus": "Portfolio publication", "tasks": ["Clean the repository", "Document data sources", "Record a walkthrough"], "deliverable": "A public analytics case study"}
+    ],
+    "recommended_mini_project": "Analyze a public student-learning dataset and build a dashboard that explains engagement patterns.",
+    "portfolio_output": "A repository containing SQL, a reproducible notebook, an accessible dashboard, and a concise insight report."
   }
 }
