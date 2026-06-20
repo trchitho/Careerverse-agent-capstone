@@ -52,13 +52,20 @@ Interactive API documentation is available at `/docs` while the server is runnin
 
 ## Domain Data
 
-The MVP uses local JSON data instead of a production database:
+This project uses production-minded local JSON datasets for a reproducible Kaggle Capstone demo:
 
-- `app/data/careers.json`: career paths and required skills
-- `app/data/skills.json`: skill metadata
-- `app/data/roadmaps.json`: 30-day and 8-week roadmap templates
+- `app/data/careers.json`: career profiles, required skills, daily work, market relevance,
+  and fit explanations
+- `app/data/skills.json`: skill catalog with categories, levels, aliases, related skills,
+  and assessment hints
+- `app/data/roadmaps.json`: 30-day and 8-week learning roadmaps for every career profile
 
-This keeps the Kaggle Capstone demo reproducible without external APIs or private data.
+The dataset is generated and validated locally without external APIs, secrets, or private data.
+
+```bash
+python scripts/generate_domain_dataset.py
+python scripts/validate_domain_dataset.py
+```
 
 ## Development
 
