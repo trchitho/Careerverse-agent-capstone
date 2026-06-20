@@ -304,3 +304,31 @@ def build_matched_reasons(
             "This role appears because it has limited overlap with your stated profile."
         )
     return reasons[:6]
+
+
+def _score_career(
+    career: dict[str, Any],
+    interests: list[str],
+    skills: list[str],
+    goal: str,
+) -> dict[str, Any]:
+    """Score and format one career without mutating source data."""
+    required = normalize_list(career.get("required_skills"))
+    matched = _matched_skills(skills, required)
+    interest_score = calculate_interest_score(
+        interests, career.get("recommended_for")
+    )
+    skill_score = calculate_skill_score(skills, required)
+    goal_score = calculate_goal_score(goal, career)
+    total = round(clamp_score(
+        interest_score * SCORE_WEIGHTS["interest"]
+        + skill_score * SCORE_WEIGHTS["skill"]
+        + goal_score * SCORE_WEIGHTS["goal"]
+    ), 2)
+    return {
+        "career_id": str(career.get("id", "")),
+        "title": str(career.get("title", "")),
+        "family": career.get("family"),
+        "level": career.get("level"),
+        "description": str(career.get("description", "")),
+        "score": total,
