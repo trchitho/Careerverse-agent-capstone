@@ -12,9 +12,9 @@ def test_required_catalog_sizes() -> None:
     skills = load_json("skills.json")
     roadmaps = load_json("roadmaps.json")
 
-    assert len(careers) == 8
-    assert len(skills) >= 40
-    assert len(roadmaps) == 8
+    assert len(careers) >= 80
+    assert len(skills) >= 250
+    assert len(roadmaps) == len(careers)
 
 
 def test_roadmaps_match_career_ids() -> None:
