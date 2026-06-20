@@ -1,7 +1,8 @@
 """FastAPI entrypoint for the CareerVerse Agent service."""
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Query
 
+from app.agents import CareerAdvisorAgent
 from app.core.config import get_settings
 from app.core.constants import (
     COURSE_CONCEPTS,
@@ -11,12 +12,14 @@ from app.core.constants import (
     PROJECT_VERSION,
 )
 from app.schemas import (
+    AgentRecommendationResponse,
     ProfileValidationResponse,
     UserProfileRequest,
     UserProfileSummary,
 )
 
 settings = get_settings()
+career_advisor = CareerAdvisorAgent()
 app = FastAPI(
     title=settings.app_name,
     description=PROJECT_DESCRIPTION,
@@ -39,7 +42,7 @@ def metadata() -> dict[str, object]:
         "version": PROJECT_VERSION,
         "track": KAGGLE_TRACK,
         "environment": settings.environment,
-        "current_stage": "schemas_and_input_validation",
+        "current_stage": "multi_agent_recommendation",
         "course_concepts_demonstrated": COURSE_CONCEPTS,
     }
 
@@ -49,3 +52,16 @@ def validate_profile(profile: UserProfileRequest) -> ProfileValidationResponse:
     """Return a normalized profile without running recommendation logic."""
     summary = UserProfileSummary.model_validate(profile.model_dump())
     return ProfileValidationResponse(normalized_profile=summary)
+
+
+@app.post("/recommend", response_model=AgentRecommendationResponse)
+def recommend(
+    profile: UserProfileRequest,
+    top_k: int = Query(default=3, ge=1, le=10),
+) -> AgentRecommendationResponse:
+    """Run the deterministic multi-agent career guidance workflow."""
+    try:
+        payload = career_advisor.run(profile, top_k=top_k)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    return AgentRecommendationResponse.model_validate(payload)
