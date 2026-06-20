@@ -359,3 +359,31 @@ def market_level(level: str, family: str) -> str:
     if level == "advanced":
         return "medium"
     return "high"
+
+
+def build_career(
+    title: str, family: str, level: str, focus: str, role_index: int
+) -> dict[str, Any]:
+    """Build one detailed career profile from a curated role definition."""
+    required, nice = select_role_skills(family, role_index)
+    traits = FAMILY_TRAITS[family]
+    return {
+        "id": slugify(title),
+        "title": title,
+        "family": family,
+        "level": level,
+        "description": (
+            f"A {title} works on {focus} by combining technical practice, "
+            "team collaboration, and responsible delivery."
+        ),
+        "target_users": [
+            f"Learners interested in {focus}",
+            f"Early-career professionals building skills in {family.lower()}",
+            f"Career changers who prefer practical projects related to {title.lower()}",
+        ],
+        "required_skills": required,
+        "nice_to_have_skills": nice,
+        "recommended_for": [
+            focus, family.lower(), "project-based learning",
+            "continuous improvement", traits[0],
+        ],
