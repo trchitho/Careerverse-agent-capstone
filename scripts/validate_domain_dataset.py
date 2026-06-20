@@ -49,3 +49,30 @@ WEEK_FIELDS = {
     "week", "focus", "learning_goals", "tasks", "deliverable",
     "skills_practiced", "checkpoint",
 }
+
+
+def validate_files() -> tuple[dict[str, Any], list[str]]:
+    """Check required files and load valid JSON payloads."""
+    payloads: dict[str, Any] = {}
+    errors: list[str] = []
+    for filename in FILES:
+        path = DATA_DIR / filename
+        if not path.is_file():
+            errors.append(f"missing required file: {path}")
+            continue
+        try:
+            payloads[filename] = load_json(filename)
+        except json.JSONDecodeError as error:
+            errors.append(f"{filename} is invalid JSON: {error}")
+    return payloads, errors
+
+
+def duplicate_values(values: list[str]) -> set[str]:
+    """Return values occurring more than once."""
+    seen: set[str] = set()
+    duplicates: set[str] = set()
+    for value in values:
+        if value in seen:
+            duplicates.add(value)
+        seen.add(value)
+    return duplicates
