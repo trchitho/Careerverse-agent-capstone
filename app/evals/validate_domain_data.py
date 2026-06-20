@@ -71,3 +71,31 @@ def validate_careers(careers: Any, skill_names: set[str]) -> tuple[set[str], lis
         if missing:
             errors.append(f"career {career['id']} references missing skills: {missing}")
     return set(ids), errors
+
+
+def validate_plan(career_id: str, name: str, plan: Any, weeks: int) -> list[str]:
+    """Validate week numbering, tasks, and deliverables in one plan."""
+    if not isinstance(plan, list) or len(plan) != weeks:
+        return [f"{career_id} {name} must contain {weeks} weeks"]
+
+    errors: list[str] = []
+    if [item.get("week") for item in plan if isinstance(item, dict)] != list(
+        range(1, weeks + 1)
+    ):
+        errors.append(f"{career_id} {name} has invalid week numbering")
+    for item in plan:
+        if not isinstance(item, dict) or set(item) != {"week", "focus", "tasks", "deliverable"}:
+            errors.append(f"{career_id} {name} has an invalid week record")
+            continue
+        if not 2 <= len(item["tasks"]) <= 5:
+            errors.append(f"{career_id} {name} week {item['week']} has invalid task count")
+    return errors
+
+
+def validate_roadmaps(roadmaps: Any, career_ids: set[str]) -> list[str]:
+    """Validate roadmap coverage and required roadmap structure."""
+    if not isinstance(roadmaps, dict) or set(roadmaps) != career_ids:
+        return ["roadmaps.json keys must exactly match career ids"]
+    errors: list[str] = []
+    required = {"career_title", "duration_options", "thirty_day_plan", "eight_week_plan",
+                "recommended_mini_project", "portfolio_output"}
