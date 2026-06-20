@@ -46,5 +46,17 @@
     "market_relevance": {"level": "high", "reason": "Teams across many sectors need people who can transform operational data into understandable evidence."},
     "explanation": "This path can fit learners who combine curiosity about data with clear communication and practical decision making.",
     "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  },
+  {
+    "id": "machine_learning_engineer", "title": "Machine Learning Engineer",
+    "description": "Develops, evaluates, and deploys machine learning systems with attention to reproducibility and operational quality.",
+    "target_users": ["Learners comfortable with Python and quantitative reasoning", "Developers interested in model lifecycle engineering"],
+    "required_skills": ["Python", "Machine Learning Fundamentals", "Feature Engineering", "Model Evaluation", "Pandas", "Statistics Basics"],
+    "nice_to_have_skills": ["MLOps Basics", "Model Deployment", "Docker", "Monitoring"],
+    "recommended_for": ["machine learning", "model evaluation", "data pipelines", "MLOps"],
+    "sample_projects": ["Train and evaluate a transparent classifier on a public dataset", "Package a small prediction service with monitoring notes"],
+    "market_relevance": {"level": "high", "reason": "Organizations need engineers who can move models from experiments into testable and maintainable services."},
+    "explanation": "This path may fit learners who enjoy both model experimentation and the engineering needed to operate models responsibly.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
   }
 ]
