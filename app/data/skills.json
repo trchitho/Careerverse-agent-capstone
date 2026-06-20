@@ -1,1 +1,12 @@
-[]
+[
+  {"name": "HTML", "category": "frontend", "level": "beginner", "description": "HTML provides semantic structure for accessible web interfaces."},
+  {"name": "CSS", "category": "frontend", "level": "beginner", "description": "CSS controls responsive layout, visual hierarchy, and interface presentation."},
+  {"name": "JavaScript", "category": "frontend", "level": "beginner", "description": "JavaScript enables interactive behavior in web applications."},
+  {"name": "TypeScript", "category": "frontend", "level": "intermediate", "description": "TypeScript adds static typing to improve JavaScript maintainability."},
+  {"name": "React", "category": "frontend", "level": "intermediate", "description": "React supports component-based development for interactive user interfaces."},
+  {"name": "Next.js", "category": "frontend", "level": "intermediate", "description": "Next.js provides routing, rendering, and production conventions for React applications."},
+  {"name": "Tailwind CSS", "category": "frontend", "level": "beginner", "description": "Tailwind CSS provides utility classes for consistent interface styling."},
+  {"name": "Accessibility", "category": "frontend", "level": "intermediate", "description": "Accessibility makes digital products usable with diverse abilities and input methods."},
+  {"name": "API Integration", "category": "frontend", "level": "intermediate", "description": "API integration connects user interfaces to backend services safely."},
+  {"name": "State Management", "category": "frontend", "level": "intermediate", "description": "State management organizes changing data and UI behavior predictably."}
+]
