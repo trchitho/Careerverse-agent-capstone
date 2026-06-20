@@ -187,3 +187,22 @@ def validate_roadmaps(
         extra = sorted(set(roadmaps) - career_ids)
         return [f"roadmap key mismatch; missing={missing}, extra={extra}"]
     errors: list[str] = []
+    for career_id, roadmap in roadmaps.items():
+        if not isinstance(roadmap, dict) or set(roadmap) != ROADMAP_FIELDS:
+            errors.append(f"roadmap {career_id} has invalid fields")
+            continue
+        if roadmap["career_id"] != career_id:
+            errors.append(f"roadmap {career_id} has mismatched career_id")
+        if roadmap["duration_options"] != ["30 days", "8 weeks"]:
+            errors.append(f"roadmap {career_id} has invalid durations")
+        errors.extend(
+            validate_plan(
+                career_id, "thirty_day_plan", roadmap["thirty_day_plan"], 4, skill_names
+            )
+        )
+        errors.extend(
+            validate_plan(
+                career_id, "eight_week_plan", roadmap["eight_week_plan"], 8, skill_names
+            )
+        )
+    return errors
