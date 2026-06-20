@@ -97,3 +97,29 @@ class UserProfileSummary(StrictSchema):
     language: SupportedLanguage
     experience_level: ExperienceLevel
     time_budget_hours_per_week: int = Field(ge=1, le=80)
+
+
+class CareerRecommendation(StrictSchema):
+    """Ranked career option produced by a future recommendation engine."""
+
+    career_id: str = Field(min_length=1)
+    title: str = Field(min_length=1)
+    family: str | None = None
+    level: str | None = None
+    description: str = Field(min_length=1)
+    score: float = Field(ge=0, le=100)
+    matched_reasons: list[str] = Field(min_length=1)
+    required_skills: list[str] = Field(min_length=1)
+    nice_to_have_skills: list[str] = Field(default_factory=list)
+    missing_skills_preview: list[str] = Field(default_factory=list)
+    market_relevance: dict[str, str] | None = None
+    explanation: str | None = None
+
+
+class SkillGapResult(StrictSchema):
+    """Structured comparison between current and required skills."""
+
+    matched_skills: list[str]
+    missing_skills: list[str]
+    priority_skills: list[str]
+    readiness_score: float = Field(ge=0, le=100)
