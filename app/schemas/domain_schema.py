@@ -134,3 +134,20 @@ class CareerRoadmap(DomainSchema):
     prerequisites: list[str] = Field(min_length=1)
     thirty_day_plan: list[DomainRoadmapWeek]
     eight_week_plan: list[DomainRoadmapWeek]
+    recommended_mini_project: DomainMiniProject
+    portfolio_output: DomainPortfolioOutput
+    safety_note: str = Field(min_length=1)
+
+    _validate_id = field_validator("career_id")(require_snake_case)
+
+    @model_validator(mode="after")
+    def validate_plan_structure(self) -> "CareerRoadmap":
+        """Require dataset duration labels and exact sequential weeks."""
+        durations = {value.casefold() for value in self.duration_options}
+        if not {"30 days", "8 weeks"}.issubset(durations):
+            raise ValueError("duration_options must include 30 days and 8 weeks")
+        if [item.week for item in self.thirty_day_plan] != [1, 2, 3, 4]:
+            raise ValueError("thirty_day_plan must contain weeks 1 through 4")
+        if [item.week for item in self.eight_week_plan] != list(range(1, 9)):
+            raise ValueError("eight_week_plan must contain weeks 1 through 8")
+        return self
