@@ -415,3 +415,31 @@ def build_career(
                 "demand varies by region, industry, and experience."
             ),
         },
+        "learning_difficulty": {
+            "level": "high" if level in {"mid", "advanced"} else "medium",
+            "reason": (
+                f"The role requires consistent practice across {len(required)} core "
+                "skills and regular adaptation to new tools."
+            ),
+        },
+        "personality_fit": {
+            "good_fit_traits": [traits[0], traits[1], "open to feedback"],
+            "may_struggle_if": [
+                "dislikes debugging or iterative improvement",
+                "avoids collaboration and written communication",
+            ],
+        },
+        "explanation": (
+            f"This path may fit learners who are {traits[0]}, enjoy {focus}, "
+            f"and want to develop through realistic {title.lower()} projects."
+        ),
+        "safety_note": SAFETY_NOTE,
+    }
+
+
+def build_careers() -> list[dict[str, Any]]:
+    """Build all curated career profiles."""
+    return [
+        build_career(title, family, level, focus, index)
+        for index, (title, family, level, focus) in enumerate(all_role_definitions())
+    ]
