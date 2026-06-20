@@ -148,3 +148,37 @@ def test_recommendation_contains_explainable_fields() -> None:
     assert result["matched_reasons"]
     assert len(result["missing_skills_preview"]) <= 8
     assert result["safety_note"]
+
+
+def test_recommend_careers_accepts_pydantic_profile() -> None:
+    profile = UserProfileRequest(
+        name="Demo User",
+        education="IT student",
+        interests=["AI"],
+        skills=["Python"],
+        career_goal="Build AI products",
+    )
+
+    assert len(recommend_careers(profile)) == 3
+
+
+def test_missing_optional_profile_fields_do_not_crash() -> None:
+    results = recommend_careers({"skills": ["Python"]})
+
+    assert len(results) == 3
+
+
+def test_empty_profile_is_rejected() -> None:
+    with pytest.raises(ValueError, match="at least one interest"):
+        recommend_careers({})
+
+
+def test_recommend_careers_does_not_mutate_inputs_or_dataset() -> None:
+    profile = sample_profile()
+    profile_before = deepcopy(profile)
+    careers_before = deepcopy(load_careers())
+
+    recommend_careers(profile)
+
+    assert profile == profile_before
+    assert load_careers() == careers_before
