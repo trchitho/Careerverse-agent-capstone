@@ -83,3 +83,34 @@ def normalize_list(values: list[str] | None) -> list[str]:
             seen.add(key)
             result.append(cleaned)
     return result
+
+
+def tokenize_text(value: str | None) -> set[str]:
+    """Return stable normalized tokens for lightweight matching."""
+    return {
+        token
+        for token in normalize_text(value).split()
+        if token and token not in STOPWORDS
+    }
+
+
+STOPWORDS = {
+    "a", "an", "and", "as", "at", "be", "build", "career", "for", "in",
+    "is", "of", "on", "or", "the", "to", "with", "work", "want",
+    "become", "developer", "engineer", "role", "using", "my", "i",
+    "và", "là", "của", "cho", "trong", "với", "muốn", "trở", "thành",
+}
+
+
+@lru_cache(maxsize=1)
+def load_skill_alias_index() -> dict[str, str]:
+    """Map normalized names and aliases to canonical skill names."""
+    aliases: dict[str, str] = {}
+    for skill in load_skills():
+        canonical = str(skill["name"])
+        candidates = [canonical, *skill.get("aliases", [])]
+        for candidate in candidates:
+            key = normalize_text(str(candidate))
+            if key:
+                aliases.setdefault(key, canonical)
+    return aliases
