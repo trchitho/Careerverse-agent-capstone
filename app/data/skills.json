@@ -38,5 +38,15 @@
   {"name": "Feature Engineering", "category": "ai", "level": "intermediate", "description": "Feature engineering transforms raw data into useful model inputs."},
   {"name": "Model Evaluation", "category": "testing", "level": "intermediate", "description": "Model evaluation selects metrics and tests performance on unseen data."},
   {"name": "MLOps Basics", "category": "devops", "level": "advanced", "description": "MLOps basics cover reproducible training, versioning, deployment, and monitoring."},
-  {"name": "Model Deployment", "category": "cloud", "level": "advanced", "description": "Model deployment serves trained models through stable application interfaces."}
+  {"name": "Model Deployment", "category": "cloud", "level": "advanced", "description": "Model deployment serves trained models through stable application interfaces."},
+  {"name": "Docker", "category": "devops", "level": "intermediate", "description": "Docker packages applications and dependencies into reproducible containers."},
+  {"name": "Git", "category": "devops", "level": "beginner", "description": "Git tracks source changes and supports collaborative development workflows."},
+  {"name": "GitHub", "category": "devops", "level": "beginner", "description": "GitHub hosts repositories, reviews, issues, and automation workflows."},
+  {"name": "CI/CD", "category": "devops", "level": "intermediate", "description": "CI/CD automates validation and repeatable software delivery."},
+  {"name": "Cloud Run", "category": "cloud", "level": "intermediate", "description": "Cloud Run deploys containerized services on managed infrastructure."},
+  {"name": "Linux Basics", "category": "devops", "level": "beginner", "description": "Linux basics support command-line operation and server troubleshooting."},
+  {"name": "Logging", "category": "devops", "level": "intermediate", "description": "Logging records useful application events without exposing sensitive data."},
+  {"name": "Monitoring", "category": "devops", "level": "intermediate", "description": "Monitoring tracks service health, reliability, and operational signals."},
+  {"name": "Secret Management", "category": "security", "level": "intermediate", "description": "Secret management stores credentials outside source code and limits access."},
+  {"name": "Unit Testing", "category": "testing", "level": "beginner", "description": "Unit testing verifies small behaviors with fast and isolated checks."}
 ]
