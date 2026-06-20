@@ -167,3 +167,23 @@ def validate_plan(
     """Validate roadmap week count, order, and week records."""
     if not isinstance(plan, list) or len(plan) != expected_weeks:
         return [f"{career_id} {name} must have {expected_weeks} weeks"]
+    errors: list[str] = []
+    weeks = [week.get("week") for week in plan if isinstance(week, dict)]
+    if weeks != list(range(1, expected_weeks + 1)):
+        errors.append(f"{career_id} {name} has invalid week numbering")
+    for week in plan:
+        errors.extend(validate_week(career_id, name, week, skill_names))
+    return errors
+
+
+def validate_roadmaps(
+    roadmaps: Any, career_ids: set[str], skill_names: set[str]
+) -> list[str]:
+    """Validate complete roadmap coverage and schemas."""
+    if not isinstance(roadmaps, dict):
+        return ["roadmaps.json must be an object"]
+    if set(roadmaps) != career_ids:
+        missing = sorted(career_ids - set(roadmaps))
+        extra = sorted(set(roadmaps) - career_ids)
+        return [f"roadmap key mismatch; missing={missing}, extra={extra}"]
+    errors: list[str] = []
