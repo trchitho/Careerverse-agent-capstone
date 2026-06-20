@@ -53,3 +53,33 @@ def load_careers() -> list[dict[str, Any]]:
     return _validate_records(
         _load_json("careers.json"), "careers.json", REQUIRED_CAREER_FIELDS
     )
+
+
+@lru_cache(maxsize=1)
+def load_skills() -> list[dict[str, Any]]:
+    """Load and minimally validate the cached skill catalog."""
+    return _validate_records(
+        _load_json("skills.json"), "skills.json", REQUIRED_SKILL_FIELDS
+    )
+
+
+def normalize_text(value: str | None) -> str:
+    """Normalize text while preserving useful technology punctuation."""
+    if value is None:
+        return ""
+    lowered = value.casefold().strip()
+    cleaned = re.sub(r"[^\w\s+#./-]", " ", lowered, flags=re.UNICODE)
+    return re.sub(r"\s+", " ", cleaned).strip()
+
+
+def normalize_list(values: list[str] | None) -> list[str]:
+    """Clean and stably deduplicate human-readable string values."""
+    result: list[str] = []
+    seen: set[str] = set()
+    for value in values or []:
+        cleaned = re.sub(r"\s+", " ", value).strip()
+        key = normalize_text(cleaned)
+        if cleaned and key not in seen:
+            seen.add(key)
+            result.append(cleaned)
+    return result
