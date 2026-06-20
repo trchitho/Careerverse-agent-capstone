@@ -10,5 +10,17 @@
     "market_relevance": {"level": "high", "reason": "Organizations increasingly need engineers who can turn AI capabilities into usable, maintainable products."},
     "explanation": "This path can suit learners who enjoy connecting frontend experiences, backend services, and practical AI features.",
     "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  },
+  {
+    "id": "ai_agent_engineer", "title": "AI Agent Engineer",
+    "description": "Designs agent workflows that coordinate models, tools, contextual resources, safeguards, and evaluation.",
+    "target_users": ["Python learners interested in autonomous workflows", "Developers who enjoy orchestration and system behavior"],
+    "required_skills": ["Python", "Prompt Engineering", "Tool Calling", "Agent Orchestration", "Agent Evaluation", "Input Validation"],
+    "nice_to_have_skills": ["MCP", "Prompt Injection Defense", "FastAPI", "Logging"],
+    "recommended_for": ["AI agents", "automation", "tool integration", "evaluation"],
+    "sample_projects": ["Build a guarded research agent that uses approved local tools", "Create a multi-agent learning assistant with offline evaluations"],
+    "market_relevance": {"level": "emerging", "reason": "Agent-based systems are expanding, while reliable orchestration and evaluation remain developing engineering practices."},
+    "explanation": "This path can fit learners who prefer designing reliable workflows and testing model behavior rather than only building prompts.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
   }
 ]
