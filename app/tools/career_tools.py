@@ -210,3 +210,31 @@ def calculate_goal_score(user_goal: str | None, career: dict[str, Any]) -> float
         field_tokens = _field_tokens(value)
         score += len(goal_tokens & field_tokens) / len(goal_tokens) * weight * 100
     return round(clamp_score(score), 2)
+
+
+def build_search_text(career: dict[str, Any]) -> str:
+    """Build a stable search representation from relevant career fields."""
+    fields = [
+        career.get("title", ""),
+        career.get("description", ""),
+        career.get("family", ""),
+        career.get("explanation", ""),
+        *career.get("recommended_for", []),
+        *career.get("daily_work", []),
+        *career.get("sample_projects", []),
+    ]
+    return normalize_text(" ".join(str(value) for value in fields))
+
+
+def extract_profile_fields(profile: object) -> tuple[list[str], list[str], str]:
+    """Extract matching fields from a mapping or Pydantic model."""
+    if hasattr(profile, "model_dump"):
+        payload = profile.model_dump()
+    elif isinstance(profile, dict):
+        payload = profile
+    else:
+        raise TypeError("profile must be a dictionary or Pydantic model")
+    interests = normalize_list(payload.get("interests"))
+    skills = normalize_list(payload.get("skills"))
+    goal = str(payload.get("career_goal") or "").strip()
+    return interests, skills, goal
