@@ -20,5 +20,26 @@
     ],
     "recommended_mini_project": "Build an AI-powered career guidance dashboard with a FastAPI backend and React interface.",
     "portfolio_output": "A public repository with tested APIs, an accessible interface, architecture notes, and a short demo video."
+  },
+  "ai_agent_engineer": {
+    "career_title": "AI Agent Engineer", "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "Agent workflow foundations", "tasks": ["Define an agent goal and boundaries", "Model the workflow as explicit steps", "Create deterministic tool interfaces"], "deliverable": "A documented single-agent workflow"},
+      {"week": 2, "focus": "Tool calling and orchestration", "tasks": ["Implement structured tool arguments", "Add routing between tools", "Record tool outcomes"], "deliverable": "An agent that safely invokes local tools"},
+      {"week": 3, "focus": "Safety and evaluation", "tasks": ["Add input screening", "Create offline test cases", "Measure task completion and refusal behavior"], "deliverable": "A repeatable agent evaluation report"},
+      {"week": 4, "focus": "Multi-agent demonstration", "tasks": ["Separate advisor and reviewer roles", "Add controlled handoffs", "Document limitations"], "deliverable": "A small evaluated multi-agent demo"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "Agent problem framing", "tasks": ["Choose a narrow user task", "Define success criteria"], "deliverable": "A bounded agent specification"},
+      {"week": 2, "focus": "Structured prompts", "tasks": ["Design system instructions", "Define structured outputs"], "deliverable": "A versioned prompt contract"},
+      {"week": 3, "focus": "Tool calling", "tasks": ["Create local tools", "Validate tool inputs", "Handle tool errors"], "deliverable": "A tested tool layer"},
+      {"week": 4, "focus": "Agent orchestration", "tasks": ["Implement workflow state", "Add explicit routing"], "deliverable": "A traceable agent workflow"},
+      {"week": 5, "focus": "MCP-style resources", "tasks": ["Expose local career data", "Document tool schemas"], "deliverable": "A local contextual resource server"},
+      {"week": 6, "focus": "Safety controls", "tasks": ["Detect injection patterns", "Protect hidden instructions", "Add safe refusals"], "deliverable": "A documented safety guard"},
+      {"week": 7, "focus": "Offline evaluation", "tasks": ["Build representative cases", "Score expected behaviors"], "deliverable": "A deterministic evaluation suite"},
+      {"week": 8, "focus": "Demo and review", "tasks": ["Run end-to-end scenarios", "Document known failure modes", "Record a demo"], "deliverable": "A portfolio-ready agent demonstration"}
+    ],
+    "recommended_mini_project": "Build a career advisor agent that calls local recommendation, skill-gap, and roadmap tools.",
+    "portfolio_output": "A repository with agent traces, tool schemas, safety tests, evaluation results, and a concise demo."
   }
 }
