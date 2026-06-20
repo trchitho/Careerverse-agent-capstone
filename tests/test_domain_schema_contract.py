@@ -27,3 +27,29 @@ def test_skill_profiles_match_schema() -> None:
 
     samples = skills[:10] + skills[-10:]
     assert all(SkillProfile.model_validate(item) for item in samples)
+
+
+def test_career_roadmaps_match_schema() -> None:
+    roadmaps = load_json("roadmaps.json")
+    assert isinstance(roadmaps, dict)
+
+    samples = list(roadmaps.values())
+    selected = samples[:5] + samples[-5:]
+    assert all(CareerRoadmap.model_validate(item) for item in selected)
+
+
+def test_domain_identifiers_are_unique_and_complete() -> None:
+    careers = load_json("careers.json")
+    skills = load_json("skills.json")
+    roadmaps = load_json("roadmaps.json")
+    assert isinstance(careers, list)
+    assert isinstance(skills, list)
+    assert isinstance(roadmaps, dict)
+
+    career_ids = [item["id"] for item in careers]
+    skill_ids = [item["id"] for item in skills]
+    skill_names = [item["name"] for item in skills]
+    assert len(career_ids) == len(set(career_ids))
+    assert len(skill_ids) == len(set(skill_ids))
+    assert len(skill_names) == len(set(skill_names))
+    assert set(roadmaps) == set(career_ids)
