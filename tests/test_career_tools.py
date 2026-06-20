@@ -231,3 +231,22 @@ def test_load_skills_rejects_missing_fields(
             career_tools.load_skills()
     finally:
         career_tools.load_skills.cache_clear()
+
+
+def test_ties_sort_by_title_then_career_id(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    careers = [
+        {"id": "beta_role", "title": "Beta Role", "description": "No overlap"},
+        {"id": "alpha_two", "title": "Alpha Role", "description": "No overlap"},
+        {"id": "alpha_one", "title": "Alpha Role", "description": "No overlap"},
+    ]
+    monkeypatch.setattr(career_tools, "load_careers", lambda: careers)
+
+    results = recommend_careers({"career_goal": "unrelated"}, top_k=3)
+
+    assert [item["career_id"] for item in results] == [
+        "alpha_one",
+        "alpha_two",
+        "beta_role",
+    ]
