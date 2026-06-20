@@ -251,3 +251,29 @@ def validate_dataset() -> tuple[list[str], dict[str, Any]]:
     if sum(counts.values()) < 10_000:
         errors.append("total dataset line count must be at least 10000")
     return errors, payloads
+
+
+def main() -> int:
+    """Print dataset counts, line counts, and validation status."""
+    errors, payloads = validate_dataset()
+    careers = payloads.get("careers.json", [])
+    skills = payloads.get("skills.json", [])
+    roadmaps = payloads.get("roadmaps.json", {})
+    print(f"careers count: {len(careers)}")
+    print(f"skills count: {len(skills)}")
+    print(f"roadmaps count: {len(roadmaps)}")
+    counts = line_counts() if all((DATA_DIR / name).is_file() for name in FILES) else {}
+    for filename, count in counts.items():
+        print(f"{filename} lines: {count}")
+    print(f"total lines: {sum(counts.values())}")
+    if errors:
+        print("DOMAIN DATASET VALIDATION: FAIL")
+        for error in errors:
+            print(f"- {error}")
+        return 1
+    print("DOMAIN DATASET VALIDATION: PASS")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
