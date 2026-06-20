@@ -27,3 +27,27 @@ def test_validate_profile_returns_normalized_response() -> None:
     assert body["normalized_profile"]["interests"] == ["AI", "web development"]
     assert body["normalized_profile"]["skills"] == ["Python", "React", "SQL"]
     assert body["warnings"] == []
+
+
+def test_validate_profile_rejects_invalid_payload() -> None:
+    response = client.post(
+        "/profiles/validate",
+        json=valid_payload() | {"language": "unsupported"},
+    )
+
+    assert response.status_code == 422
+
+
+def test_existing_health_endpoint_still_works() -> None:
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "ok"
+
+
+def test_existing_metadata_endpoint_reports_stage() -> None:
+    response = client.get("/metadata")
+
+    assert response.status_code == 200
+    assert response.json()["project"] == "CareerVerse Agent"
+    assert response.json()["current_stage"] == "schemas_and_input_validation"
