@@ -363,3 +363,25 @@ def _sort_key(item: dict[str, Any]) -> tuple[float, float, float, str, str]:
         normalize_text(str(item["title"])),
         normalize_text(str(item["career_id"])),
     )
+
+
+def recommend_careers(profile: object, top_k: int = 3) -> list[dict[str, Any]]:
+    """Rank careers for a profile using deterministic offline scoring."""
+    if not 1 <= top_k <= 20:
+        raise ValueError("top_k must be between 1 and 20")
+    interests, skills, goal = extract_profile_fields(profile)
+    if not interests and not skills and not normalize_text(goal):
+        raise ValueError(
+            "Profile must include at least one interest, skill, or career goal."
+        )
+
+    ranked = [
+        _score_career(career, interests, skills, goal)
+        for career in load_careers()
+    ]
+    ranked.sort(key=_sort_key)
+    results = ranked[:top_k]
+    for item in results:
+        item.pop("_sort_skill_score", None)
+        item.pop("_sort_interest_score", None)
+    return results
