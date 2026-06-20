@@ -106,3 +106,31 @@ class DomainRoadmapWeek(DomainSchema):
     deliverable: str = Field(min_length=1, max_length=300)
     skills_practiced: list[str] = Field(min_length=2, max_length=6)
     checkpoint: str = Field(min_length=1, max_length=300)
+
+
+class DomainMiniProject(DomainSchema):
+    """Mini-project stored in each generated roadmap."""
+
+    title: str = Field(min_length=1)
+    description: str = Field(min_length=1)
+    core_features: list[str] = Field(min_length=1)
+    stretch_features: list[str] = Field(default_factory=list)
+
+
+class DomainPortfolioOutput(DomainSchema):
+    """Portfolio artifacts expected from a generated roadmap."""
+
+    github: str = Field(min_length=1)
+    demo: str = Field(min_length=1)
+    documentation: str = Field(min_length=1)
+
+
+class CareerRoadmap(DomainSchema):
+    """Validated generated roadmap for one career."""
+
+    career_title: str = Field(min_length=1)
+    career_id: str
+    duration_options: list[str] = Field(min_length=2)
+    prerequisites: list[str] = Field(min_length=1)
+    thirty_day_plan: list[DomainRoadmapWeek]
+    eight_week_plan: list[DomainRoadmapWeek]
