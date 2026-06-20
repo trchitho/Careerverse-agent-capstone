@@ -139,3 +139,31 @@ def validate_careers(
         if missing := referenced - skill_names:
             errors.append(f"career {career['id']} missing skills: {sorted(missing)}")
     return set(ids), set(titles), errors
+
+
+def validate_week(
+    career_id: str, plan_name: str, week: Any, skill_names: set[str]
+) -> list[str]:
+    """Validate one roadmap week and its skill references."""
+    if not isinstance(week, dict) or set(week) != WEEK_FIELDS:
+        return [f"{career_id} {plan_name} contains an invalid week"]
+    errors: list[str] = []
+    if not 2 <= len(week["learning_goals"]) <= 4:
+        errors.append(f"{career_id} week {week['week']} has invalid learning goals")
+    if not 3 <= len(week["tasks"]) <= 5:
+        errors.append(f"{career_id} week {week['week']} has invalid task count")
+    if not 2 <= len(week["skills_practiced"]) <= 6:
+        errors.append(f"{career_id} week {week['week']} has invalid skills count")
+    if missing := set(week["skills_practiced"]) - skill_names:
+        errors.append(
+            f"{career_id} week {week['week']} references skills: {sorted(missing)}"
+        )
+    return errors
+
+
+def validate_plan(
+    career_id: str, name: str, plan: Any, expected_weeks: int, skill_names: set[str]
+) -> list[str]:
+    """Validate roadmap week count, order, and week records."""
+    if not isinstance(plan, list) or len(plan) != expected_weeks:
+        return [f"{career_id} {name} must have {expected_weeks} weeks"]
