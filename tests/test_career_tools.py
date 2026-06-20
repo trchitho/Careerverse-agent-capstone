@@ -59,3 +59,32 @@ def test_interest_score_is_case_insensitive_and_deduplicated() -> None:
     score = calculate_interest_score(["AI", " ai "], ["Ai"])
 
     assert score == 100.0
+
+
+def test_skill_score_exact_and_case_insensitive_match() -> None:
+    score = calculate_skill_score(["python", "REACT"], ["Python", "React", "SQL"])
+
+    assert score == pytest.approx(66.67)
+
+
+def test_skill_score_alias_match_if_alias_exists() -> None:
+    alias_index = load_skill_alias_index()
+    alias = next(
+        (
+            key
+            for key, canonical in alias_index.items()
+            if normalize_text(key) != normalize_text(canonical)
+        ),
+        None,
+    )
+    if alias is None:
+        pytest.skip("The generated dataset contains no distinct skill alias")
+    canonical = alias_index[alias]
+
+    assert calculate_skill_score([alias], [canonical]) == 100.0
+
+
+def test_skill_score_empty_inputs_and_duplicates() -> None:
+    assert calculate_skill_score([], ["Python"]) == 0.0
+    assert calculate_skill_score(["Python"], []) == 0.0
+    assert calculate_skill_score(["Python", "python"], ["Python", "SQL"]) == 50.0
