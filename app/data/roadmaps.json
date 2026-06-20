@@ -125,5 +125,26 @@
     ],
     "recommended_mini_project": "Build an accessible career exploration dashboard that consumes local JSON through a mock API.",
     "portfolio_output": "A responsive deployed interface with typed components, accessibility evidence, README, and demo recording."
+  },
+  "devops_cloud_engineer": {
+    "career_title": "DevOps / Cloud Engineer", "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "Linux and version control", "tasks": ["Practice shell navigation", "Use Git branches safely", "Document repeatable commands"], "deliverable": "A versioned operations practice repository"},
+      {"week": 2, "focus": "Containers", "tasks": ["Write a Dockerfile", "Configure runtime variables", "Add a health check"], "deliverable": "A reproducible application container"},
+      {"week": 3, "focus": "CI/CD and cloud delivery", "tasks": ["Automate lint and tests", "Deploy a containerized service", "Protect deployment secrets"], "deliverable": "An automated delivery pipeline"},
+      {"week": 4, "focus": "Observability and reliability", "tasks": ["Add structured logs", "Define service metrics", "Write an incident checklist"], "deliverable": "An observable cloud service demo"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "Linux basics", "tasks": ["Practice files and processes", "Use shell commands"], "deliverable": "A command reference and exercises"},
+      {"week": 2, "focus": "Git workflows", "tasks": ["Use branches", "Review changes", "Resolve a conflict"], "deliverable": "A clean collaborative repository"},
+      {"week": 3, "focus": "Docker foundations", "tasks": ["Build an image", "Run configured containers"], "deliverable": "A containerized FastAPI service"},
+      {"week": 4, "focus": "CI validation", "tasks": ["Automate lint", "Automate tests"], "deliverable": "A repeatable validation pipeline"},
+      {"week": 5, "focus": "Cloud deployment", "tasks": ["Configure Cloud Run", "Set environment variables"], "deliverable": "A managed service deployment"},
+      {"week": 6, "focus": "Secret safety", "tasks": ["Separate credentials", "Review access boundaries"], "deliverable": "A secure configuration checklist"},
+      {"week": 7, "focus": "Logging and monitoring", "tasks": ["Emit useful logs", "Define health alerts"], "deliverable": "An operational dashboard plan"},
+      {"week": 8, "focus": "Reliability demonstration", "tasks": ["Test a failure scenario", "Write a runbook", "Record a deployment demo"], "deliverable": "A cloud operations portfolio case"}
+    ],
+    "recommended_mini_project": "Containerize a FastAPI API, validate it in CI, and deploy it with logging and health checks.",
+    "portfolio_output": "A public infrastructure repository with pipeline evidence, deployment instructions, monitoring notes, and a runbook."
   }
 }
