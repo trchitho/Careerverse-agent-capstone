@@ -50,10 +50,21 @@ GET /metadata
 
 Interactive API documentation is available at `/docs` while the server is running.
 
+## Domain Data
+
+The MVP uses local JSON data instead of a production database:
+
+- `app/data/careers.json`: career paths and required skills
+- `app/data/skills.json`: skill metadata
+- `app/data/roadmaps.json`: 30-day and 8-week roadmap templates
+
+This keeps the Kaggle Capstone demo reproducible without external APIs or private data.
+
 ## Development
 
 ```bash
 python -m compileall app
+python -m app.evals.validate_domain_data
 ruff check .
 pytest
 ```
