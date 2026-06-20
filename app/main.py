@@ -23,3 +23,16 @@ app = FastAPI(
 def health_check() -> dict[str, str]:
     """Return the public service health state."""
     return {"status": "ok", "message": "CareerVerse Agent is running."}
+
+
+@app.get("/metadata")
+def metadata() -> dict[str, object]:
+    """Return public project and runtime metadata."""
+    return {
+        "project": PROJECT_NAME,
+        "description": PROJECT_DESCRIPTION,
+        "version": PROJECT_VERSION,
+        "track": KAGGLE_TRACK,
+        "environment": settings.environment,
+        "course_concepts_demonstrated": COURSE_CONCEPTS,
+    }
