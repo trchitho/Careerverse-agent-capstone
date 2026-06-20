@@ -30,3 +30,34 @@ COURSE_CONCEPTS = [
 
 class CareerAdvisorAgent:
     """Coordinate recommendation, skill gap, and roadmap agents."""
+
+    def __init__(
+        self,
+        skill_gap_agent: SkillGapAgent | None = None,
+        roadmap_agent: RoadmapAgent | None = None,
+    ) -> None:
+        self.skill_gap_agent = skill_gap_agent or SkillGapAgent()
+        self.roadmap_agent = roadmap_agent or RoadmapAgent()
+
+    @staticmethod
+    def _normalize_profile(profile: object) -> UserProfileRequest:
+        """Return a validated profile copy from a mapping or Pydantic model."""
+        if hasattr(profile, "model_dump"):
+            payload = profile.model_dump()
+        elif isinstance(profile, dict):
+            payload = deepcopy(profile)
+        else:
+            raise ValueError("Profile must be a dictionary or Pydantic model.")
+        try:
+            return UserProfileRequest.model_validate(payload)
+        except ValidationError as error:
+            raise ValueError("Profile is invalid and could not be processed.") from error
+
+    def run(self, profile: object, top_k: int = 3) -> dict[str, object]:
+        """Run the complete deterministic multi-agent workflow."""
+        normalized = self._normalize_profile(profile)
+        recommendations = recommend_careers(normalized, top_k=top_k)
+        if not recommendations:
+            raise ValueError(
+                "No career recommendations could be generated for the provided profile."
+            )
