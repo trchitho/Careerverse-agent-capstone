@@ -34,3 +34,28 @@ def test_load_careers_returns_non_empty_list() -> None:
 def test_load_skills_returns_non_empty_list() -> None:
     assert isinstance(load_skills(), list)
     assert load_skills()
+
+
+def test_normalize_text_handles_case_spaces_and_unicode() -> None:
+    assert normalize_text("  C++   và  Node.js  ") == "c++ và node.js"
+
+
+def test_normalize_list_deduplicates_case_insensitive() -> None:
+    values = normalize_list([" Python ", "python", "  C#  ", "", "c#"])
+
+    assert values == ["Python", "C#"]
+
+
+def test_interest_score_exact_match() -> None:
+    assert calculate_interest_score(["AI"], ["ai", "automation"]) == 100.0
+
+
+def test_interest_score_empty_inputs() -> None:
+    assert calculate_interest_score([], ["AI"]) == 0.0
+    assert calculate_interest_score(["AI"], []) == 0.0
+
+
+def test_interest_score_is_case_insensitive_and_deduplicated() -> None:
+    score = calculate_interest_score(["AI", " ai "], ["Ai"])
+
+    assert score == 100.0
