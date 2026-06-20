@@ -110,3 +110,34 @@ class RoadmapAgent:
             },
             "safety_note": ROADMAP_SAFETY_NOTE,
         }
+
+    @staticmethod
+    def _personalize_prerequisites(
+        roadmap: dict[str, Any], missing_skills: list[str] | None
+    ) -> None:
+        """Add top missing skills without altering the cached roadmap."""
+        priorities = normalize_list(missing_skills)[:5]
+        existing = normalize_list(roadmap.get("prerequisites"))
+        roadmap["prerequisites"] = normalize_list([*priorities, *existing])
+
+    def get_roadmap(
+        self,
+        career_id: str,
+        career_title: str | None = None,
+        missing_skills: list[str] | None = None,
+    ) -> dict[str, object]:
+        """Return a personalized, schema-validated roadmap."""
+        normalized_id = career_id.strip()
+        if not normalized_id:
+            raise ValueError("career_id must not be blank")
+        stored = self.load_roadmaps().get(normalized_id)
+        if stored is None:
+            payload = self._build_fallback(
+                normalized_id,
+                career_title or normalized_id.replace("_", " ").title(),
+                missing_skills,
+            )
+        else:
+            payload = deepcopy(stored)
+            self._personalize_prerequisites(payload, missing_skills)
+        return RoadmapResult.model_validate(payload).model_dump()
