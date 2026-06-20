@@ -84,3 +84,29 @@ class RoadmapAgent:
             self._fallback_week(week, career_title, priorities, phase)
             for week, phase in enumerate(long_phases, start=1)
         ]
+        return {
+            "career_title": career_title,
+            "career_id": career_id,
+            "duration_options": ["30 days", "8 weeks"],
+            "prerequisites": priorities,
+            "thirty_day_plan": thirty_day,
+            "eight_week_plan": eight_week,
+            "recommended_mini_project": {
+                "title": f"{career_title} Foundations Project",
+                "description": (
+                    "Build a small project that demonstrates the selected priority skills."
+                ),
+                "core_features": [
+                    "A documented user goal",
+                    "A working learning artifact",
+                    "Validation notes and limitations",
+                ],
+                "stretch_features": ["Collect feedback and document one improvement"],
+            },
+            "portfolio_output": {
+                "github": "Public repository with setup instructions and limitations.",
+                "demo": "Short walkthrough of the project and learning outcomes.",
+                "documentation": "Architecture notes, usage examples, and reflections.",
+            },
+            "safety_note": ROADMAP_SAFETY_NOTE,
+        }
