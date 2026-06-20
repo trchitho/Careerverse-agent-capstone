@@ -53,3 +53,19 @@ def test_domain_identifiers_are_unique_and_complete() -> None:
     assert len(skill_ids) == len(set(skill_ids))
     assert len(skill_names) == len(set(skill_names))
     assert set(roadmaps) == set(career_ids)
+
+
+def test_all_generated_records_match_domain_schemas() -> None:
+    careers = load_json("careers.json")
+    skills = load_json("skills.json")
+    roadmaps = load_json("roadmaps.json")
+    assert isinstance(careers, list)
+    assert isinstance(skills, list)
+    assert isinstance(roadmaps, dict)
+
+    for career in careers:
+        CareerProfile.model_validate(career)
+    for skill in skills:
+        SkillProfile.model_validate(skill)
+    for roadmap in roadmaps.values():
+        CareerRoadmap.model_validate(roadmap)
