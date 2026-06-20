@@ -527,3 +527,24 @@ def build_roadmap(career: dict[str, Any]) -> dict[str, Any]:
                 "Collect structured feedback and document one improvement",
             ],
         },
+        "portfolio_output": {
+            "github": (
+                "Public repository with a clear README, setup instructions, "
+                "tests, and an honest limitations section."
+            ),
+            "demo": (
+                f"Short walkthrough showing the {project_title.lower()} and its "
+                "main user workflow."
+            ),
+            "documentation": (
+                "Architecture diagram, usage examples, learning reflections, "
+                "and validation evidence."
+            ),
+        },
+        "safety_note": ROADMAP_SAFETY_NOTE,
+    }
+
+
+def build_roadmaps(careers: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """Build one roadmap for every career profile."""
+    return {career["id"]: build_roadmap(career) for career in careers}
