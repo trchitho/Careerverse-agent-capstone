@@ -26,3 +26,30 @@ def _load_json(filename: str) -> object:
         raise FileNotFoundError(f"Domain data file not found: {path}")
     with path.open(encoding="utf-8") as file:
         return json.load(file)
+
+
+def _validate_records(
+    payload: object, filename: str, required_fields: set[str]
+) -> list[dict[str, Any]]:
+    """Validate a dataset root and minimum record fields."""
+    if not isinstance(payload, list):
+        raise ValueError(f"{filename} root must be a JSON array")
+    records: list[dict[str, Any]] = []
+    for index, record in enumerate(payload):
+        if not isinstance(record, dict):
+            raise ValueError(f"{filename} record {index} must be an object")
+        missing = required_fields - set(record)
+        if missing:
+            raise ValueError(
+                f"{filename} record {index} is missing fields: {sorted(missing)}"
+            )
+        records.append(record)
+    return records
+
+
+@lru_cache(maxsize=1)
+def load_careers() -> list[dict[str, Any]]:
+    """Load and minimally validate the cached career catalog."""
+    return _validate_records(
+        _load_json("careers.json"), "careers.json", REQUIRED_CAREER_FIELDS
+    )
