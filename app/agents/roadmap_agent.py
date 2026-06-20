@@ -57,3 +57,30 @@ class RoadmapAgent:
             "skills_practiced": [first, second],
             "checkpoint": "The learner can explain the work and identify a next step.",
         }
+
+    def _build_fallback(
+        self,
+        career_id: str,
+        career_title: str,
+        missing_skills: list[str] | None,
+    ) -> dict[str, object]:
+        """Build a complete educational fallback for an unknown career."""
+        priorities = normalize_list(missing_skills)[:5] or [
+            "Problem Framing",
+            "Learning Planning",
+        ]
+        short_phases = [
+            "Foundations", "Guided practice", "Project application", "Portfolio review"
+        ]
+        long_phases = [
+            "Orientation", "Foundations", "Guided practice", "Applied practice",
+            "Quality review", "Project build", "Iteration", "Portfolio presentation",
+        ]
+        thirty_day = [
+            self._fallback_week(week, career_title, priorities, phase)
+            for week, phase in enumerate(short_phases, start=1)
+        ]
+        eight_week = [
+            self._fallback_week(week, career_title, priorities, phase)
+            for week, phase in enumerate(long_phases, start=1)
+        ]
