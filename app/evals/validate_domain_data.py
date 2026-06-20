@@ -99,3 +99,16 @@ def validate_roadmaps(roadmaps: Any, career_ids: set[str]) -> list[str]:
     errors: list[str] = []
     required = {"career_title", "duration_options", "thirty_day_plan", "eight_week_plan",
                 "recommended_mini_project", "portfolio_output"}
+    for career_id, roadmap in roadmaps.items():
+        if not isinstance(roadmap, dict) or set(roadmap) != required:
+            errors.append(f"roadmap {career_id} has invalid fields")
+            continue
+        if roadmap["duration_options"] != ["30 days", "8 weeks"]:
+            errors.append(f"roadmap {career_id} has invalid duration options")
+        errors.extend(
+            validate_plan(career_id, "thirty_day_plan", roadmap["thirty_day_plan"], 4)
+        )
+        errors.extend(
+            validate_plan(career_id, "eight_week_plan", roadmap["eight_week_plan"], 8)
+        )
+    return errors
