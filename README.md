@@ -57,3 +57,33 @@ python -m compileall app
 ruff check .
 pytest
 ```
+
+## Security
+
+Do not commit `.env`, API keys, passwords, tokens, build output, or local cache files.
+
+CareerVerse Agent provides educational guidance only and does not guarantee employment
+outcomes or replace professional counseling.
+
+## Kaggle Capstone Concepts
+
+- Agent / Multi-agent system
+- MCP-style tool integration
+- Agent Skills
+- Security and input validation
+- Local evaluation pipeline
+- FastAPI deployability
+
+## Project Rules
+
+This repository uses `AGENTS.md` as the global instruction file for coding agents.
+
+Before making changes, read:
+
+- `AGENTS.md`
+- `docs/PROJECT_RULES.md`
+- `docs/CODE_QUALITY_RULES.md`
+- `docs/SECURITY_RULES.md`
+- `docs/GIT_WORKFLOW_RULES.md`
+
+Future implementation prompts should follow these rules without repeating them.
