@@ -22,5 +22,17 @@
     "market_relevance": {"level": "emerging", "reason": "Agent-based systems are expanding, while reliable orchestration and evaluation remain developing engineering practices."},
     "explanation": "This path can fit learners who prefer designing reliable workflows and testing model behavior rather than only building prompts.",
     "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  },
+  {
+    "id": "backend_ai_engineer", "title": "Backend AI Engineer",
+    "description": "Builds reliable backend services that expose model capabilities through validated APIs and asynchronous workflows.",
+    "target_users": ["Students who prefer server-side systems", "Backend developers interested in production AI integration"],
+    "required_skills": ["Python", "FastAPI", "REST API Design", "PostgreSQL", "Background Jobs", "Error Handling"],
+    "nice_to_have_skills": ["Queue Systems", "Docker", "LLM API Integration", "Monitoring"],
+    "recommended_for": ["backend systems", "APIs", "reliability", "AI services"],
+    "sample_projects": ["Create an API that queues and tracks AI document analysis jobs", "Build a rate-aware model gateway with safe error responses"],
+    "market_relevance": {"level": "high", "reason": "AI-enabled products depend on dependable services, data access, observability, and API contracts."},
+    "explanation": "This path may suit learners who value service reliability, data flows, and clean interfaces more than visual UI work.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
   }
 ]
