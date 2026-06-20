@@ -150,3 +150,33 @@ def _match_strength(left: str, right: str) -> float:
         if left_normalized in right_normalized or right_normalized in left_normalized:
             return 0.35
     return 0.0
+
+
+def calculate_interest_score(
+    user_interests: list[str] | None,
+    career_recommended_for: list[str] | None,
+) -> float:
+    """Calculate deterministic interest overlap on a 0–100 scale."""
+    interests = normalize_list(user_interests)
+    tags = normalize_list(career_recommended_for)
+    if not interests or not tags:
+        return 0.0
+
+    strengths = [
+        max((_match_strength(interest, tag) for tag in tags), default=0.0)
+        for interest in interests
+    ]
+    return round(clamp_score(sum(strengths) / len(strengths) * 100), 2)
+
+
+def calculate_skill_score(
+    user_skills: list[str] | None,
+    career_required_skills: list[str] | None,
+) -> float:
+    """Calculate required-skill coverage using canonical aliases."""
+    required = _canonicalize_skills(career_required_skills)
+    if not required:
+        return 0.0
+    user = _canonicalize_skills(user_skills)
+    matched = set(required) & set(user)
+    return round(clamp_score(len(matched) / len(required) * 100), 2)
