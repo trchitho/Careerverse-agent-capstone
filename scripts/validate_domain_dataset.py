@@ -76,3 +76,27 @@ def duplicate_values(values: list[str]) -> set[str]:
             duplicates.add(value)
         seen.add(value)
     return duplicates
+
+
+def validate_skills(skills: Any) -> tuple[set[str], list[str]]:
+    """Validate skill records and return known names."""
+    errors: list[str] = []
+    if not isinstance(skills, list) or len(skills) < 250:
+        return set(), ["skills.json must contain at least 250 records"]
+    ids = [skill.get("id", "") for skill in skills if isinstance(skill, dict)]
+    names = [skill.get("name", "") for skill in skills if isinstance(skill, dict)]
+    if duplicates := duplicate_values(ids):
+        errors.append(f"duplicate skill ids: {sorted(duplicates)}")
+    if duplicates := duplicate_values(names):
+        errors.append(f"duplicate skill names: {sorted(duplicates)}")
+    for index, skill in enumerate(skills):
+        if not isinstance(skill, dict) or set(skill) != SKILL_FIELDS:
+            errors.append(f"skill {index} has invalid fields")
+            continue
+        if not re.fullmatch(r"[a-z0-9]+(?:_[a-z0-9]+)*", skill["id"]):
+            errors.append(f"skill {skill['name']} has invalid id")
+        if skill["category"] not in SKILL_CATEGORIES:
+            errors.append(f"skill {skill['name']} has invalid category")
+        if skill["level"] not in SKILL_LEVELS:
+            errors.append(f"skill {skill['name']} has invalid level")
+    return set(names), errors
