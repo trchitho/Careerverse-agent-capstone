@@ -331,3 +331,31 @@ def build_skills() -> list[dict[str, Any]]:
                 ),
             })
     return skills
+
+
+def select_role_skills(family: str, role_index: int) -> tuple[list[str], list[str]]:
+    """Select stable, varied skill sets from the role family mix."""
+    categories = FAMILY_SKILL_MIX[family]
+    required: list[str] = []
+    nice: list[str] = []
+    for category_index, category in enumerate(categories):
+        names = SKILL_GROUPS[category]
+        start = (role_index * 2 + category_index * 3) % len(names)
+        required.extend([names[start], names[(start + 1) % len(names)]])
+        nice.append(names[(start + 2) % len(names)])
+    first_names = SKILL_GROUPS[categories[0]]
+    second_names = SKILL_GROUPS[categories[1]]
+    nice.extend([
+        first_names[(role_index * 2 + 4) % len(first_names)],
+        second_names[(role_index * 2 + 5) % len(second_names)],
+    ])
+    return list(dict.fromkeys(required)), list(dict.fromkeys(nice))
+
+
+def market_level(level: str, family: str) -> str:
+    """Choose a realistic qualitative market label."""
+    if family == "AI / ML / Agent":
+        return "emerging"
+    if level == "advanced":
+        return "medium"
+    return "high"
