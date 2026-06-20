@@ -332,3 +332,34 @@ def _score_career(
         "level": career.get("level"),
         "description": str(career.get("description", "")),
         "score": total,
+        "score_breakdown": {
+            "interest_score": interest_score,
+            "skill_score": skill_score,
+            "goal_score": goal_score,
+            "weights": deepcopy(SCORE_WEIGHTS),
+        },
+        "matched_reasons": build_matched_reasons(
+            interests, matched, goal_score, career
+        ),
+        "required_skills": required,
+        "nice_to_have_skills": normalize_list(career.get("nice_to_have_skills")),
+        "matched_skills": matched,
+        "missing_skills_preview": calculate_missing_skills(skills, required)[:8],
+        "recommended_for": normalize_list(career.get("recommended_for")),
+        "market_relevance": deepcopy(career.get("market_relevance")),
+        "explanation": career.get("explanation"),
+        "safety_note": career.get("safety_note") or DEFAULT_SAFETY_NOTE,
+        "_sort_skill_score": skill_score,
+        "_sort_interest_score": interest_score,
+    }
+
+
+def _sort_key(item: dict[str, Any]) -> tuple[float, float, float, str, str]:
+    """Return the deterministic recommendation ordering key."""
+    return (
+        -float(item["score"]),
+        -float(item["_sort_skill_score"]),
+        -float(item["_sort_interest_score"]),
+        normalize_text(str(item["title"])),
+        normalize_text(str(item["career_id"])),
+    )
