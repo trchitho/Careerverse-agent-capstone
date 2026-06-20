@@ -1,1 +1,24 @@
-{}
+{
+  "ai_fullstack_developer": {
+    "career_title": "AI Full-stack Developer",
+    "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "FastAPI and typed API foundations", "tasks": ["Create validated request and response models", "Build documented API endpoints", "Write endpoint tests"], "deliverable": "A tested FastAPI service with OpenAPI documentation"},
+      {"week": 2, "focus": "React application foundations", "tasks": ["Build reusable interface components", "Connect the UI to mock API data", "Add loading and error states"], "deliverable": "A responsive frontend that consumes structured data"},
+      {"week": 3, "focus": "Safe AI integration", "tasks": ["Wrap an LLM call behind a service boundary", "Validate model inputs and outputs", "Add a deterministic fallback"], "deliverable": "A guarded AI feature with predictable failure behavior"},
+      {"week": 4, "focus": "Product integration and deployment", "tasks": ["Connect the complete user flow", "Containerize the service", "Document setup and demo steps"], "deliverable": "A deployable AI-enabled full-stack MVP"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "Python and API design", "tasks": ["Review typed Python", "Design REST resources", "Create health and metadata endpoints"], "deliverable": "An API contract and service skeleton"},
+      {"week": 2, "focus": "FastAPI data flow", "tasks": ["Add Pydantic schemas", "Implement safe errors", "Test API behavior"], "deliverable": "A validated backend API"},
+      {"week": 3, "focus": "React and TypeScript", "tasks": ["Create the page structure", "Build typed components", "Handle local state"], "deliverable": "A typed interface prototype"},
+      {"week": 4, "focus": "Frontend-backend integration", "tasks": ["Connect API requests", "Handle loading states", "Present structured results"], "deliverable": "An end-to-end non-AI workflow"},
+      {"week": 5, "focus": "LLM service integration", "tasks": ["Create a model adapter", "Use structured prompts", "Protect configuration secrets"], "deliverable": "An isolated AI service layer"},
+      {"week": 6, "focus": "Safety and testing", "tasks": ["Validate untrusted input", "Add prompt injection checks", "Test fallback behavior"], "deliverable": "A tested safety boundary"},
+      {"week": 7, "focus": "Deployment readiness", "tasks": ["Create a container", "Configure runtime settings", "Add operational logging"], "deliverable": "A reproducible deployment package"},
+      {"week": 8, "focus": "Portfolio presentation", "tasks": ["Polish the README", "Record a short demo", "Document limitations"], "deliverable": "A public portfolio-ready demonstration"}
+    ],
+    "recommended_mini_project": "Build an AI-powered career guidance dashboard with a FastAPI backend and React interface.",
+    "portfolio_output": "A public repository with tested APIs, an accessible interface, architecture notes, and a short demo video."
+  }
+}
