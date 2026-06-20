@@ -41,5 +41,26 @@
     ],
     "recommended_mini_project": "Build a career advisor agent that calls local recommendation, skill-gap, and roadmap tools.",
     "portfolio_output": "A repository with agent traces, tool schemas, safety tests, evaluation results, and a concise demo."
+  },
+  "backend_ai_engineer": {
+    "career_title": "Backend AI Engineer", "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "Reliable API foundations", "tasks": ["Design REST resources", "Create Pydantic schemas", "Implement safe error responses"], "deliverable": "A documented and validated backend service"},
+      {"week": 2, "focus": "Persistence and background work", "tasks": ["Model relational data", "Add a job abstraction", "Track job status"], "deliverable": "An API with persistent asynchronous workflow design"},
+      {"week": 3, "focus": "Model service integration", "tasks": ["Create a model gateway", "Add timeouts and fallbacks", "Protect credentials"], "deliverable": "A resilient model integration boundary"},
+      {"week": 4, "focus": "Testing and operations", "tasks": ["Add API tests", "Introduce structured logging", "Document deployment settings"], "deliverable": "A tested backend AI service"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "Python service design", "tasks": ["Review typing", "Define module boundaries"], "deliverable": "A maintainable service layout"},
+      {"week": 2, "focus": "FastAPI contracts", "tasks": ["Create schemas", "Implement endpoints", "Generate API docs"], "deliverable": "A usable API contract"},
+      {"week": 3, "focus": "PostgreSQL foundations", "tasks": ["Design tables", "Practice SQL queries"], "deliverable": "A relational data model"},
+      {"week": 4, "focus": "Background jobs", "tasks": ["Define queue messages", "Track task states"], "deliverable": "An asynchronous processing prototype"},
+      {"week": 5, "focus": "AI gateway", "tasks": ["Wrap model calls", "Validate outputs", "Add failure handling"], "deliverable": "A guarded model service adapter"},
+      {"week": 6, "focus": "Reliability", "tasks": ["Add logging", "Define health signals", "Test timeouts"], "deliverable": "An observable service"},
+      {"week": 7, "focus": "Container delivery", "tasks": ["Build a container", "Configure environment variables"], "deliverable": "A reproducible runtime image"},
+      {"week": 8, "focus": "Portfolio hardening", "tasks": ["Run API tests", "Write architecture notes", "Record a demo"], "deliverable": "A documented backend portfolio project"}
+    ],
+    "recommended_mini_project": "Build an asynchronous AI document-analysis API with job status and safe model fallbacks.",
+    "portfolio_output": "A tested backend repository with API documentation, data-flow diagrams, operational notes, and demo requests."
   }
 }
