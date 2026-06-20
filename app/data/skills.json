@@ -28,5 +28,15 @@
   {"name": "Embeddings", "category": "ai", "level": "intermediate", "description": "Embeddings represent content numerically for semantic comparison and retrieval."},
   {"name": "Vector Search", "category": "ai", "level": "advanced", "description": "Vector search retrieves semantically similar records from embedding indexes."},
   {"name": "Prompt Injection Defense", "category": "security", "level": "advanced", "description": "Prompt injection defense limits untrusted instructions and protects system boundaries."},
-  {"name": "Security Review", "category": "security", "level": "intermediate", "description": "Security review identifies exposed secrets, unsafe flows, and public-demo risks."}
+  {"name": "Security Review", "category": "security", "level": "intermediate", "description": "Security review identifies exposed secrets, unsafe flows, and public-demo risks."},
+  {"name": "Data Cleaning", "category": "data", "level": "beginner", "description": "Data cleaning corrects missing, inconsistent, and invalid values before analysis."},
+  {"name": "Data Visualization", "category": "data", "level": "intermediate", "description": "Data visualization communicates patterns through clear charts and dashboards."},
+  {"name": "Statistics Basics", "category": "data", "level": "beginner", "description": "Statistics basics support responsible interpretation of samples, variation, and relationships."},
+  {"name": "Pandas", "category": "data", "level": "intermediate", "description": "Pandas provides tabular data manipulation and analysis in Python."},
+  {"name": "SQL Analysis", "category": "data", "level": "intermediate", "description": "SQL analysis turns relational data into metrics and decision-ready summaries."},
+  {"name": "Machine Learning Fundamentals", "category": "ai", "level": "intermediate", "description": "Machine learning fundamentals cover supervised learning, generalization, and model selection."},
+  {"name": "Feature Engineering", "category": "ai", "level": "intermediate", "description": "Feature engineering transforms raw data into useful model inputs."},
+  {"name": "Model Evaluation", "category": "testing", "level": "intermediate", "description": "Model evaluation selects metrics and tests performance on unseen data."},
+  {"name": "MLOps Basics", "category": "devops", "level": "advanced", "description": "MLOps basics cover reproducible training, versioning, deployment, and monitoring."},
+  {"name": "Model Deployment", "category": "cloud", "level": "advanced", "description": "Model deployment serves trained models through stable application interfaces."}
 ]
