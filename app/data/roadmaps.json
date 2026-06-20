@@ -83,5 +83,26 @@
     ],
     "recommended_mini_project": "Analyze a public student-learning dataset and build a dashboard that explains engagement patterns.",
     "portfolio_output": "A repository containing SQL, a reproducible notebook, an accessible dashboard, and a concise insight report."
+  },
+  "machine_learning_engineer": {
+    "career_title": "Machine Learning Engineer", "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "ML problem and data foundations", "tasks": ["Define a supervised learning task", "Clean a public dataset", "Create a baseline"], "deliverable": "A reproducible baseline experiment"},
+      {"week": 2, "focus": "Features and model training", "tasks": ["Engineer useful features", "Train two model families", "Track experiment settings"], "deliverable": "A comparable set of model experiments"},
+      {"week": 3, "focus": "Evaluation and error analysis", "tasks": ["Select appropriate metrics", "Evaluate unseen data", "Inspect common errors"], "deliverable": "An evidence-based model report"},
+      {"week": 4, "focus": "Serving and monitoring basics", "tasks": ["Expose predictions through an API", "Containerize the service", "Document monitoring signals"], "deliverable": "A small deployable ML service"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "ML fundamentals", "tasks": ["Review generalization", "Define train and test splits"], "deliverable": "A learning problem specification"},
+      {"week": 2, "focus": "Data preparation", "tasks": ["Clean records", "Prevent leakage", "Document assumptions"], "deliverable": "A reproducible dataset pipeline"},
+      {"week": 3, "focus": "Feature engineering", "tasks": ["Create candidate features", "Build preprocessing steps"], "deliverable": "A reusable feature pipeline"},
+      {"week": 4, "focus": "Model training", "tasks": ["Train baselines", "Tune a limited set of parameters"], "deliverable": "Versioned experiment results"},
+      {"week": 5, "focus": "Model evaluation", "tasks": ["Choose metrics", "Analyze errors", "Check subgroup behavior"], "deliverable": "A responsible evaluation report"},
+      {"week": 6, "focus": "Model API", "tasks": ["Serialize the model", "Create a prediction endpoint", "Validate inputs"], "deliverable": "A tested prediction service"},
+      {"week": 7, "focus": "MLOps basics", "tasks": ["Containerize the API", "Log model version", "Define monitoring"], "deliverable": "A reproducible serving package"},
+      {"week": 8, "focus": "Portfolio review", "tasks": ["Document limitations", "Create a model card", "Record a demonstration"], "deliverable": "A transparent ML portfolio project"}
+    ],
+    "recommended_mini_project": "Train, evaluate, and serve a student-course completion classifier using a public synthetic dataset.",
+    "portfolio_output": "A repository with reproducible experiments, evaluation evidence, a model card, tested API, and demo video."
   }
 }
