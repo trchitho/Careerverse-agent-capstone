@@ -150,3 +150,31 @@ class RoadmapWeek(StrictSchema):
     deliverable: str = Field(min_length=1, max_length=300)
     skills_practiced: list[str] = Field(default_factory=list, max_length=10)
     checkpoint: str = Field(min_length=1, max_length=300)
+
+
+class MiniProject(StrictSchema):
+    """Portfolio mini-project embedded in a roadmap."""
+
+    title: str = Field(min_length=1)
+    description: str = Field(min_length=1)
+    core_features: list[str] = Field(min_length=1)
+    stretch_features: list[str] = Field(default_factory=list)
+
+
+class PortfolioOutput(StrictSchema):
+    """Expected public artifacts created from a roadmap."""
+
+    github: str = Field(min_length=1)
+    demo: str = Field(min_length=1)
+    documentation: str = Field(min_length=1)
+
+
+class RoadmapResult(StrictSchema):
+    """Complete personalized learning roadmap contract."""
+
+    career_title: str = Field(min_length=1)
+    career_id: str = Field(min_length=1)
+    duration_options: list[str] = Field(min_length=2)
+    prerequisites: list[str] = Field(default_factory=list)
+    thirty_day_plan: list[RoadmapWeek]
+    eight_week_plan: list[RoadmapWeek]
