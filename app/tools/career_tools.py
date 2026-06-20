@@ -238,3 +238,34 @@ def extract_profile_fields(profile: object) -> tuple[list[str], list[str], str]:
     skills = normalize_list(payload.get("skills"))
     goal = str(payload.get("career_goal") or "").strip()
     return interests, skills, goal
+
+
+def calculate_missing_skills(
+    user_skills: list[str] | None,
+    required_skills: list[str] | None,
+) -> list[str]:
+    """Return unmatched required skills in source order."""
+    user = _canonicalize_skills(user_skills)
+    missing: list[str] = []
+    seen: set[str] = set()
+    for required in normalize_list(required_skills):
+        canonical = _canonicalize_skills([required])
+        key = next(iter(canonical), normalize_text(required))
+        if key not in user and key not in seen:
+            seen.add(key)
+            missing.append(required)
+    return missing
+
+
+def _matched_skills(
+    user_skills: list[str], required_skills: list[str]
+) -> list[str]:
+    """Return canonical matched skills in career requirement order."""
+    user = _canonicalize_skills(user_skills)
+    matched: list[str] = []
+    for required in normalize_list(required_skills):
+        canonical = _canonicalize_skills([required])
+        key = next(iter(canonical), normalize_text(required))
+        if key in user:
+            matched.append(required)
+    return matched
