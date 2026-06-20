@@ -28,3 +28,32 @@ This initial version bootstraps the backend architecture for the Kaggle Capstone
 - Pydantic Settings
 - pytest
 - ruff
+
+## Setup
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+Copy `.env.example` to `.env` only for local configuration. The API key is optional during
+bootstrap and must never be committed.
+
+## API
+
+```text
+GET /
+GET /metadata
+```
+
+Interactive API documentation is available at `/docs` while the server is running.
+
+## Development
+
+```bash
+python -m compileall app
+ruff check .
+pytest
+```
