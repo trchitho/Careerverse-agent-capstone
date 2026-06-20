@@ -180,3 +180,33 @@ def calculate_skill_score(
     user = _canonicalize_skills(user_skills)
     matched = set(required) & set(user)
     return round(clamp_score(len(matched) / len(required) * 100), 2)
+
+
+def _field_tokens(value: object) -> set[str]:
+    """Collect tokens from a string or list of strings."""
+    if isinstance(value, str):
+        return tokenize_text(value)
+    if isinstance(value, list):
+        return set().union(*(tokenize_text(str(item)) for item in value))
+    return set()
+
+
+def calculate_goal_score(user_goal: str | None, career: dict[str, Any]) -> float:
+    """Score weighted career-goal relevance across explainable fields."""
+    goal_tokens = tokenize_text(user_goal)
+    if not goal_tokens:
+        return 0.0
+    weighted_fields = (
+        (career.get("title", ""), 0.30),
+        (career.get("recommended_for", []), 0.25),
+        (career.get("family", ""), 0.15),
+        (career.get("description", ""), 0.10),
+        (career.get("daily_work", []), 0.08),
+        (career.get("sample_projects", []), 0.07),
+        (career.get("explanation", ""), 0.05),
+    )
+    score = 0.0
+    for value, weight in weighted_fields:
+        field_tokens = _field_tokens(value)
+        score += len(goal_tokens & field_tokens) / len(goal_tokens) * weight * 100
+    return round(clamp_score(score), 2)
