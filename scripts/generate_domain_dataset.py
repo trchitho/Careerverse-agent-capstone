@@ -150,3 +150,29 @@ SKILL_LEVELS = {
     "soft-skill": "beginner", "database": "intermediate",
     "architecture": "advanced", "documentation": "beginner",
 }
+
+ROLE_GROUPS = {
+    "Software Engineering": [
+        ("Frontend Developer", "entry_to_mid", "accessible web interfaces"),
+        ("Backend Developer", "entry_to_mid", "reliable server-side services"),
+        ("Full-stack Developer", "entry_to_mid", "end-to-end web products"),
+        ("Mobile Developer", "entry_to_mid", "mobile application experiences"),
+        ("Software Engineer", "entry_to_mid", "maintainable software systems"),
+        ("QA Automation Engineer", "entry_to_mid", "automated quality checks"),
+        ("API Engineer", "mid", "stable service contracts"),
+        ("Platform Engineer", "mid", "internal developer platforms"),
+        ("Integration Engineer", "mid", "connected business systems"),
+        ("Junior Frontend Developer", "entry", "entry-level web interfaces"),
+    ],
+    "AI / ML / Agent": [
+        ("AI Full-stack Developer", "entry_to_mid", "AI-enabled web products"),
+        ("AI Agent Engineer", "mid", "tool-using agent workflows"),
+        ("LLM Application Developer", "entry_to_mid", "language-model applications"),
+        ("Prompt Engineer", "entry_to_mid", "structured model instructions"),
+        ("Machine Learning Engineer", "mid", "production machine learning"),
+        ("MLOps Engineer", "mid", "model delivery and operations"),
+        ("NLP Engineer", "mid", "language processing systems"),
+        ("Computer Vision Engineer", "mid", "visual recognition systems"),
+        ("AI Product Engineer", "mid", "user-centered AI features"),
+        ("AI Evaluation Engineer", "mid", "AI quality and safety evaluation"),
+    ],
