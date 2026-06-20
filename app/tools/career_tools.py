@@ -114,3 +114,39 @@ def load_skill_alias_index() -> dict[str, str]:
             if key:
                 aliases.setdefault(key, canonical)
     return aliases
+
+
+def _canonicalize_skills(values: list[str] | None) -> dict[str, str]:
+    """Return normalized canonical keys mapped to display names."""
+    alias_index = load_skill_alias_index()
+    canonical: dict[str, str] = {}
+    for value in normalize_list(values):
+        normalized = normalize_text(value)
+        display = alias_index.get(normalized, value)
+        canonical.setdefault(normalize_text(display), display)
+    return canonical
+
+
+def clamp_score(
+    value: float, min_value: float = 0.0, max_value: float = 100.0
+) -> float:
+    """Clamp a score into an inclusive numeric range."""
+    return max(min_value, min(max_value, value))
+
+
+def _match_strength(left: str, right: str) -> float:
+    """Score exact, token-overlap, and safe substring text matches."""
+    left_normalized = normalize_text(left)
+    right_normalized = normalize_text(right)
+    if not left_normalized or not right_normalized:
+        return 0.0
+    if left_normalized == right_normalized:
+        return 1.0
+    left_tokens = tokenize_text(left_normalized)
+    right_tokens = tokenize_text(right_normalized)
+    if left_tokens and right_tokens and left_tokens & right_tokens:
+        return 0.65
+    if min(len(left_normalized), len(right_normalized)) >= 3:
+        if left_normalized in right_normalized or right_normalized in left_normalized:
+            return 0.35
+    return 0.0
