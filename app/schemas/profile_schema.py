@@ -3,7 +3,14 @@
 import re
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    ValidationInfo,
+    field_validator,
+    model_validator,
+)
 
 SupportedLanguage = Literal["en", "vi"]
 LearningStyle = Literal["visual", "reading", "hands_on", "project_based", "mixed"]
@@ -64,10 +71,9 @@ class UserProfileRequest(StrictSchema):
 
     @field_validator("interests", "skills", mode="before")
     @classmethod
-    def normalize_lists(cls, value: object, info: object) -> list[str]:
+    def normalize_lists(cls, value: object, info: ValidationInfo) -> list[str]:
         """Normalize interests and skills before length constraints."""
-        field_name = getattr(info, "field_name", "values")
-        return normalize_unique_strings(value, field_name)
+        return normalize_unique_strings(value, info.field_name)
 
     @field_validator("career_goal")
     @classmethod
@@ -77,3 +83,17 @@ class UserProfileRequest(StrictSchema):
         if any(pattern in normalized for pattern in PROMPT_INJECTION_PATTERNS):
             raise ValueError("career_goal contains a disallowed instruction pattern")
         return value
+
+
+class UserProfileSummary(StrictSchema):
+    """Normalized profile returned by validation and recommendation APIs."""
+
+    name: str
+    education: str
+    interests: list[str]
+    skills: list[str]
+    career_goal: str
+    preferred_learning_style: LearningStyle
+    language: SupportedLanguage
+    experience_level: ExperienceLevel
+    time_budget_hours_per_week: int = Field(ge=1, le=80)
