@@ -31,3 +31,29 @@ class SkillGapAgent:
                 priority_skills=[],
                 readiness_score=0.0,
             ).model_dump()
+        required_missing = calculate_missing_skills(user_skills, required)
+        missing_keys = {normalize_text(skill) for skill in required_missing}
+        matched = [
+            skill for skill in required if normalize_text(skill) not in missing_keys
+        ]
+        optional_missing = calculate_missing_skills(user_skills, nice_to_have_skills)
+        missing = normalize_list([*required_missing, *optional_missing])
+        priorities = required_missing[:max_priority_skills]
+
+        if len(priorities) < max_priority_skills:
+            known = {normalize_text(skill) for skill in priorities}
+            for skill in optional_missing:
+                key = normalize_text(canonicalize_skill_names([skill])[0])
+                if key not in known:
+                    priorities.append(skill)
+                    known.add(key)
+                if len(priorities) == max_priority_skills:
+                    break
+
+        result = SkillGapResult(
+            matched_skills=matched,
+            missing_skills=missing,
+            priority_skills=priorities,
+            readiness_score=calculate_skill_score(user_skills, required),
+        )
+        return result.model_dump()
