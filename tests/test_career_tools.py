@@ -88,3 +88,32 @@ def test_skill_score_empty_inputs_and_duplicates() -> None:
     assert calculate_skill_score([], ["Python"]) == 0.0
     assert calculate_skill_score(["Python"], []) == 0.0
     assert calculate_skill_score(["Python", "python"], ["Python", "SQL"]) == 50.0
+
+
+def test_goal_score_matches_title_or_description() -> None:
+    career = {
+        "title": "Backend Developer",
+        "description": "Build reliable Python API services",
+        "family": "Software Engineering",
+        "recommended_for": ["backend systems"],
+    }
+
+    assert calculate_goal_score("Build backend Python APIs", career) > 0
+
+
+def test_goal_score_empty_or_unicode_goal_is_safe() -> None:
+    career = {"title": "Data Analyst", "recommended_for": ["data analysis"]}
+
+    assert calculate_goal_score("", career) == 0.0
+    assert 0 <= calculate_goal_score("Phân tích dữ liệu cho giáo dục", career) <= 100
+
+
+def test_recommend_careers_returns_top_three() -> None:
+    results = recommend_careers(sample_profile())
+
+    assert len(results) == 3
+    assert all(0 <= item["score"] <= 100 for item in results)
+
+
+def test_recommend_careers_top_k_five() -> None:
+    assert len(recommend_careers(sample_profile(), top_k=5)) == 5
