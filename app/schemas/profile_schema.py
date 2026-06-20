@@ -99,6 +99,23 @@ class UserProfileSummary(StrictSchema):
     time_budget_hours_per_week: int = Field(ge=1, le=80)
 
 
+class ScoreWeights(StrictSchema):
+    """Weights used by the deterministic recommendation engine."""
+
+    interest: float = Field(ge=0, le=1)
+    skill: float = Field(ge=0, le=1)
+    goal: float = Field(ge=0, le=1)
+
+
+class ScoreBreakdown(StrictSchema):
+    """Explainable component scores for one career recommendation."""
+
+    interest_score: float = Field(ge=0, le=100)
+    skill_score: float = Field(ge=0, le=100)
+    goal_score: float = Field(ge=0, le=100)
+    weights: ScoreWeights
+
+
 class CareerRecommendation(StrictSchema):
     """Ranked career option produced by a future recommendation engine."""
 
@@ -108,6 +125,7 @@ class CareerRecommendation(StrictSchema):
     level: str | None = None
     description: str = Field(min_length=1)
     score: float = Field(ge=0, le=100)
+    score_breakdown: ScoreBreakdown
     matched_reasons: list[str] = Field(min_length=1)
     required_skills: list[str] = Field(min_length=1)
     nice_to_have_skills: list[str] = Field(default_factory=list)
