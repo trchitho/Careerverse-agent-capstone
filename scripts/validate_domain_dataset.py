@@ -231,3 +231,23 @@ def line_counts() -> dict[str, int]:
         filename: len((DATA_DIR / filename).read_text(encoding="utf-8").splitlines())
         for filename in FILES
     }
+
+
+def validate_dataset() -> tuple[list[str], dict[str, Any]]:
+    """Run all validations and return errors plus loaded payloads."""
+    payloads, errors = validate_files()
+    if errors:
+        return errors, payloads
+    skills = payloads["skills.json"]
+    careers = payloads["careers.json"]
+    roadmaps = payloads["roadmaps.json"]
+    skill_names, skill_errors = validate_skills(skills)
+    career_ids, career_titles, career_errors = validate_careers(careers, skill_names)
+    errors.extend(skill_errors)
+    errors.extend(career_errors)
+    errors.extend(validate_roadmaps(roadmaps, career_ids, skill_names))
+    errors.extend(validate_skill_references(skills, career_titles, skill_names))
+    counts = line_counts()
+    if sum(counts.values()) < 10_000:
+        errors.append("total dataset line count must be at least 10000")
+    return errors, payloads
