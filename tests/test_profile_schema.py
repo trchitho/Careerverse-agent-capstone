@@ -58,3 +58,30 @@ def test_empty_profile_lists_are_rejected(field: str) -> None:
 def test_blank_profile_list_items_are_rejected(field: str) -> None:
     with pytest.raises(ValidationError):
         UserProfileRequest.model_validate(valid_payload() | {field: ["   "]})
+
+
+def test_too_many_interests_are_rejected() -> None:
+    payload = valid_payload() | {"interests": [f"interest {index}" for index in range(21)]}
+
+    with pytest.raises(ValidationError):
+        UserProfileRequest.model_validate(payload)
+
+
+def test_too_many_skills_are_rejected() -> None:
+    payload = valid_payload() | {"skills": [f"skill {index}" for index in range(51)]}
+
+    with pytest.raises(ValidationError):
+        UserProfileRequest.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("language", "fr"),
+        ("preferred_learning_style", "audio_only"),
+        ("experience_level", "senior"),
+    ],
+)
+def test_invalid_supported_values_are_rejected(field: str, value: str) -> None:
+    with pytest.raises(ValidationError):
+        UserProfileRequest.model_validate(valid_payload() | {field: value})
