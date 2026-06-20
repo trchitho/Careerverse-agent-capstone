@@ -30,3 +30,20 @@ def write_json(filename: str, payload: Any) -> None:
     with (DATA_DIR / filename).open("w", encoding="utf-8", newline="\n") as file:
         json.dump(payload, file, ensure_ascii=False, indent=2)
         file.write("\n")
+
+
+SKILL_GROUPS = {
+    "frontend": [
+        "HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js",
+        "Tailwind CSS", "Accessibility", "Responsive Design", "API Integration",
+        "State Management", "Form Validation", "Component Design", "UI Testing",
+        "Frontend Performance", "Web Components", "Design Systems",
+        "Browser DevTools", "Progressive Web Apps", "Internationalization",
+    ],
+    "backend": [
+        "Python", "FastAPI", "Node.js", "REST API Design", "GraphQL Basics",
+        "Authentication Basics", "JWT", "OAuth2 Basics", "Background Jobs",
+        "Error Handling", "API Documentation", "Caching", "Rate Limiting",
+        "Webhooks", "Message Queues", "Server-side Validation", "API Versioning",
+        "Concurrency Basics", "Dependency Injection", "Service Integration",
+    ],
