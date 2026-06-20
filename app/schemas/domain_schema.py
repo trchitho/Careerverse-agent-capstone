@@ -77,3 +77,32 @@ class CareerProfile(DomainSchema):
     safety_note: str = Field(min_length=1)
 
     _validate_id = field_validator("id")(require_snake_case)
+
+
+class SkillProfile(DomainSchema):
+    """Validated skill catalog record."""
+
+    id: str
+    name: str = Field(min_length=1)
+    category: SkillCategory
+    level: SkillLevel
+    aliases: list[str] = Field(min_length=1)
+    description: str = Field(min_length=1)
+    used_in_roles: list[str] = Field(min_length=1)
+    related_skills: list[str] = Field(min_length=1)
+    learning_resources_keywords: list[str] = Field(min_length=1)
+    assessment_hint: str = Field(min_length=1)
+
+    _validate_id = field_validator("id")(require_snake_case)
+
+
+class DomainRoadmapWeek(DomainSchema):
+    """Validated roadmap week stored in the domain dataset."""
+
+    week: int = Field(ge=1, le=8)
+    focus: str = Field(min_length=1, max_length=200)
+    learning_goals: list[str] = Field(min_length=2, max_length=4)
+    tasks: list[str] = Field(min_length=3, max_length=5)
+    deliverable: str = Field(min_length=1, max_length=300)
+    skills_practiced: list[str] = Field(min_length=2, max_length=6)
+    checkpoint: str = Field(min_length=1, max_length=300)
