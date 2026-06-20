@@ -548,3 +548,33 @@ def build_roadmap(career: dict[str, Any]) -> dict[str, Any]:
 def build_roadmaps(careers: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """Build one roadmap for every career profile."""
     return {career["id"]: build_roadmap(career) for career in careers}
+
+
+def line_count(filename: str) -> int:
+    """Count generated file lines for the dataset report."""
+    return len((DATA_DIR / filename).read_text(encoding="utf-8").splitlines())
+
+
+def main() -> None:
+    """Generate all datasets and print a deterministic summary."""
+    skills = build_skills()
+    careers = build_careers()
+    roadmaps = build_roadmaps(careers)
+    write_json("skills.json", skills)
+    write_json("careers.json", careers)
+    write_json("roadmaps.json", roadmaps)
+
+    counts = {
+        filename: line_count(filename)
+        for filename in ("careers.json", "skills.json", "roadmaps.json")
+    }
+    print(f"careers count: {len(careers)}")
+    print(f"skills count: {len(skills)}")
+    print(f"roadmaps count: {len(roadmaps)}")
+    for filename, lines in counts.items():
+        print(f"{filename} lines: {lines}")
+    print(f"total lines: {sum(counts.values())}")
+
+
+if __name__ == "__main__":
+    main()
