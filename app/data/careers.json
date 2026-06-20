@@ -82,5 +82,17 @@
     "market_relevance": {"level": "high", "reason": "Reliable delivery and cloud operations are foundational to maintaining modern software services."},
     "explanation": "This path may fit systematic learners who like automation, operational feedback, and improving how teams ship software.",
     "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  },
+  {
+    "id": "product_oriented_software_engineer", "title": "Product-oriented Software Engineer",
+    "description": "Builds practical software while connecting technical decisions to user research, product goals, and measurable feedback.",
+    "target_users": ["Generalist developers who enjoy rapid product experiments", "Learners interested in both engineering and user needs"],
+    "required_skills": ["Product Thinking", "Problem Framing", "User Empathy", "Rapid Prototyping", "Communication", "Git"],
+    "nice_to_have_skills": ["User Research", "Analytics", "React", "FastAPI"],
+    "recommended_for": ["product building", "full-stack development", "user research", "prototyping"],
+    "sample_projects": ["Prototype a student planning tool and document user feedback", "Build a small full-stack product with an analytics measurement plan"],
+    "market_relevance": {"level": "high", "reason": "Small teams value engineers who can connect implementation choices with user outcomes and product learning."},
+    "explanation": "This path can fit adaptable learners who enjoy shipping useful experiments, gathering feedback, and communicating tradeoffs.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
   }
 ]
