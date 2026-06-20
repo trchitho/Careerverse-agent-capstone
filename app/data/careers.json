@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "ai_fullstack_developer", "title": "AI Full-stack Developer",
+    "description": "Builds user-facing products that combine modern web interfaces, backend APIs, and responsibly integrated AI capabilities.",
+    "target_users": ["Students who enjoy building complete web applications", "Early-career developers interested in AI-enabled products"],
+    "required_skills": ["Python", "FastAPI", "React", "TypeScript", "REST API Design", "LLM API Integration"],
+    "nice_to_have_skills": ["Next.js", "Docker", "Cloud Run", "API Testing"],
+    "recommended_for": ["AI", "web development", "product building", "API integration"],
+    "sample_projects": ["Build a career guidance dashboard backed by a FastAPI service", "Create an AI study planner with structured tool calls"],
+    "market_relevance": {"level": "high", "reason": "Organizations increasingly need engineers who can turn AI capabilities into usable, maintainable products."},
+    "explanation": "This path can suit learners who enjoy connecting frontend experiences, backend services, and practical AI features.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  }
+]
