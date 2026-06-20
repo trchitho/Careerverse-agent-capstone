@@ -129,9 +129,12 @@ class CareerRecommendation(StrictSchema):
     matched_reasons: list[str] = Field(min_length=1)
     required_skills: list[str] = Field(min_length=1)
     nice_to_have_skills: list[str] = Field(default_factory=list)
+    matched_skills: list[str] = Field(default_factory=list)
     missing_skills_preview: list[str] = Field(default_factory=list)
+    recommended_for: list[str] = Field(default_factory=list)
     market_relevance: dict[str, str] | None = None
     explanation: str | None = None
+    safety_note: str = Field(min_length=1)
 
 
 class SkillGapResult(StrictSchema):
