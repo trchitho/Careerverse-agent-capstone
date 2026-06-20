@@ -443,3 +443,29 @@ def build_careers() -> list[dict[str, Any]]:
         build_career(title, family, level, focus, index)
         for index, (title, family, level, focus) in enumerate(all_role_definitions())
     ]
+
+
+def roadmap_week(
+    week: int, title: str, focus: str, skills: list[str], phase: str
+) -> dict[str, Any]:
+    """Create one role-specific roadmap week."""
+    primary, secondary = skills[0], skills[1]
+    return {
+        "week": week,
+        "focus": f"{phase}: {focus}",
+        "learning_goals": [
+            f"Explain how {primary} supports {title.lower()} work",
+            f"Apply {secondary} in a small, reviewable exercise",
+        ],
+        "tasks": [
+            f"Complete a focused {primary} practice activity",
+            f"Build one {secondary} feature related to {focus}",
+            "Review the result against documented acceptance criteria",
+        ],
+        "deliverable": f"A documented {focus} artifact for week {week}",
+        "skills_practiced": [primary, secondary],
+        "checkpoint": (
+            f"The learner can demonstrate the artifact and explain how it supports "
+            f"work as a {title}."
+        ),
+    }
