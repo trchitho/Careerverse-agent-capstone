@@ -146,5 +146,26 @@
     ],
     "recommended_mini_project": "Containerize a FastAPI API, validate it in CI, and deploy it with logging and health checks.",
     "portfolio_output": "A public infrastructure repository with pipeline evidence, deployment instructions, monitoring notes, and a runbook."
+  },
+  "product_oriented_software_engineer": {
+    "career_title": "Product-oriented Software Engineer", "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "Problem framing and users", "tasks": ["Choose a narrow learner problem", "Interview or observe sample users ethically", "Define a measurable outcome"], "deliverable": "A concise product problem brief"},
+      {"week": 2, "focus": "Rapid prototype", "tasks": ["Sketch the core flow", "Build a small working prototype", "Document technical tradeoffs"], "deliverable": "A testable product prototype"},
+      {"week": 3, "focus": "Feedback and iteration", "tasks": ["Run usability sessions", "Prioritize evidence-based changes", "Add basic analytics events"], "deliverable": "An improved prototype with learning notes"},
+      {"week": 4, "focus": "Product delivery", "tasks": ["Complete the core workflow", "Measure the target outcome", "Present decisions and limitations"], "deliverable": "A portfolio-ready product case study"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "Problem discovery", "tasks": ["Identify user pain", "Map assumptions"], "deliverable": "A problem opportunity statement"},
+      {"week": 2, "focus": "User research", "tasks": ["Prepare questions", "Synthesize observations"], "deliverable": "A research summary"},
+      {"week": 3, "focus": "Solution framing", "tasks": ["Define the smallest workflow", "Select success metrics"], "deliverable": "An MVP specification"},
+      {"week": 4, "focus": "Prototype implementation", "tasks": ["Build the core UI", "Create a simple backend"], "deliverable": "A working vertical slice"},
+      {"week": 5, "focus": "Usability feedback", "tasks": ["Observe task completion", "Record friction"], "deliverable": "A prioritized issue list"},
+      {"week": 6, "focus": "Iteration", "tasks": ["Fix high-value issues", "Improve error states"], "deliverable": "A refined product flow"},
+      {"week": 7, "focus": "Analytics and quality", "tasks": ["Add measurement events", "Test critical behavior"], "deliverable": "A measurable tested MVP"},
+      {"week": 8, "focus": "Product storytelling", "tasks": ["Explain tradeoffs", "Document evidence", "Record a demo"], "deliverable": "A complete engineering product case study"}
+    ],
+    "recommended_mini_project": "Build and validate a lightweight student learning planner with one measurable user outcome.",
+    "portfolio_output": "A working full-stack prototype plus a case study covering research, tradeoffs, iteration, analytics, and limitations."
   }
 }
