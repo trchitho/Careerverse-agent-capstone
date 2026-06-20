@@ -70,5 +70,17 @@
     "market_relevance": {"level": "high", "reason": "Digital services continue to require usable, accessible interfaces across devices and user contexts."},
     "explanation": "This path can suit learners who care about interaction details, visual feedback, accessibility, and direct user impact.",
     "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  },
+  {
+    "id": "devops_cloud_engineer", "title": "DevOps / Cloud Engineer",
+    "description": "Automates delivery, operates cloud services, and improves the reliability and visibility of software systems.",
+    "target_users": ["Learners who enjoy automation and infrastructure", "Developers interested in reliable software delivery"],
+    "required_skills": ["Docker", "Git", "CI/CD", "Linux Basics", "Logging", "Monitoring"],
+    "nice_to_have_skills": ["Cloud Run", "GitHub", "Secret Management", "Security Review"],
+    "recommended_for": ["cloud deployment", "automation", "reliability", "infrastructure"],
+    "sample_projects": ["Containerize and deploy a FastAPI service with health checks", "Create a CI pipeline that validates and tests a student project"],
+    "market_relevance": {"level": "high", "reason": "Reliable delivery and cloud operations are foundational to maintaining modern software services."},
+    "explanation": "This path may fit systematic learners who like automation, operational feedback, and improving how teams ship software.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
   }
 ]
