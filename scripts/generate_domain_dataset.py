@@ -387,3 +387,31 @@ def build_career(
             focus, family.lower(), "project-based learning",
             "continuous improvement", traits[0],
         ],
+        "avoid_if": [
+            f"You strongly dislike the core work involved in {focus}",
+            "You prefer roles with little ongoing learning or feedback",
+            f"You are not willing to practice {required[0]} through hands-on work",
+        ],
+        "sample_projects": [
+            f"Build a small {focus} solution for a student or community need",
+            f"Create a documented {title.lower()} case study using public sample data",
+            f"Improve an existing project by applying {required[0]} and {required[1]}",
+        ],
+        "daily_work": [
+            f"Plan and implement tasks related to {focus}",
+            f"Review work involving {required[0]} and {required[1]}",
+            "Collaborate with teammates and clarify requirements",
+            "Test outcomes, document decisions, and address defects",
+        ],
+        "growth_paths": [
+            f"Senior {title}",
+            f"{title} Team Lead",
+            f"{family} Solutions Specialist",
+        ],
+        "market_relevance": {
+            "level": market_level(level, family),
+            "reason": (
+                f"Organizations continue to need practical capability in {focus}; "
+                "demand varies by region, industry, and experience."
+            ),
+        },
