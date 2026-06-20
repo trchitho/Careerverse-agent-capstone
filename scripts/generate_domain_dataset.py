@@ -499,3 +499,31 @@ def build_roadmap(career: dict[str, Any]) -> dict[str, Any]:
         )
         for week, phase in enumerate(long_phases, start=1)
     ]
+    project_title = f"{title} Applied Portfolio Project"
+    return {
+        "career_title": title,
+        "career_id": career["id"],
+        "duration_options": ["30 days", "8 weeks"],
+        "prerequisites": [
+            f"Basic familiarity with {required[0]}",
+            "Ability to use Git for small project changes",
+            "Time for regular hands-on practice and reflection",
+        ],
+        "thirty_day_plan": thirty_day,
+        "eight_week_plan": eight_week,
+        "recommended_mini_project": {
+            "title": project_title,
+            "description": (
+                f"Build a small {focus} solution that demonstrates the core "
+                f"responsibilities of a {title}."
+            ),
+            "core_features": [
+                f"A working feature using {required[0]}",
+                f"A tested workflow using {required[1]}",
+                "Clear setup instructions and responsible limitations",
+            ],
+            "stretch_features": [
+                f"Add an advanced capability using {required[-1]}",
+                "Collect structured feedback and document one improvement",
+            ],
+        },
