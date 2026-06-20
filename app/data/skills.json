@@ -48,5 +48,15 @@
   {"name": "Logging", "category": "devops", "level": "intermediate", "description": "Logging records useful application events without exposing sensitive data."},
   {"name": "Monitoring", "category": "devops", "level": "intermediate", "description": "Monitoring tracks service health, reliability, and operational signals."},
   {"name": "Secret Management", "category": "security", "level": "intermediate", "description": "Secret management stores credentials outside source code and limits access."},
-  {"name": "Unit Testing", "category": "testing", "level": "beginner", "description": "Unit testing verifies small behaviors with fast and isolated checks."}
+  {"name": "Unit Testing", "category": "testing", "level": "beginner", "description": "Unit testing verifies small behaviors with fast and isolated checks."},
+  {"name": "API Testing", "category": "testing", "level": "intermediate", "description": "API testing verifies contracts, validation, responses, and failure handling."},
+  {"name": "Product Thinking", "category": "product", "level": "intermediate", "description": "Product thinking connects technical choices to user needs and measurable outcomes."},
+  {"name": "Communication", "category": "soft-skill", "level": "beginner", "description": "Communication makes technical ideas, decisions, and risks understandable."},
+  {"name": "Documentation", "category": "soft-skill", "level": "beginner", "description": "Documentation makes setup, behavior, and maintenance knowledge reproducible."},
+  {"name": "Problem Framing", "category": "product", "level": "intermediate", "description": "Problem framing defines the user need, constraints, and useful success criteria."},
+  {"name": "User Empathy", "category": "product", "level": "beginner", "description": "User empathy supports respectful products grounded in real learner contexts."},
+  {"name": "Learning Planning", "category": "soft-skill", "level": "beginner", "description": "Learning planning turns skill goals into realistic milestones and practice."},
+  {"name": "User Research", "category": "product", "level": "intermediate", "description": "User research gathers evidence about needs, behavior, and usability."},
+  {"name": "Analytics", "category": "product", "level": "intermediate", "description": "Analytics uses product data to evaluate behavior and outcomes."},
+  {"name": "Rapid Prototyping", "category": "product", "level": "intermediate", "description": "Rapid prototyping tests product assumptions with small working experiments."}
 ]
