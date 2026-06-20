@@ -27,3 +27,25 @@ def load_json(filename: str) -> Any:
     """Load one required UTF-8 JSON file."""
     with (DATA_DIR / filename).open(encoding="utf-8") as file:
         return json.load(file)
+
+
+CAREER_FIELDS = {
+    "id", "title", "family", "level", "description", "target_users",
+    "required_skills", "nice_to_have_skills", "recommended_for", "avoid_if",
+    "sample_projects", "daily_work", "growth_paths", "market_relevance",
+    "learning_difficulty", "personality_fit", "explanation", "safety_note",
+}
+SKILL_FIELDS = {
+    "id", "name", "category", "level", "aliases", "description",
+    "used_in_roles", "related_skills", "learning_resources_keywords",
+    "assessment_hint",
+}
+ROADMAP_FIELDS = {
+    "career_title", "career_id", "duration_options", "prerequisites",
+    "thirty_day_plan", "eight_week_plan", "recommended_mini_project",
+    "portfolio_output", "safety_note",
+}
+WEEK_FIELDS = {
+    "week", "focus", "learning_goals", "tasks", "deliverable",
+    "skills_practiced", "checkpoint",
+}
