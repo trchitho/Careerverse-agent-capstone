@@ -111,3 +111,9 @@ def test_time_budget_outside_range_is_rejected(hours: int) -> None:
 def test_extra_fields_are_rejected() -> None:
     with pytest.raises(ValidationError):
         UserProfileRequest.model_validate(valid_payload() | {"private_note": "hidden"})
+
+
+@pytest.mark.parametrize("field", ["name", "education", "career_goal"])
+def test_blank_required_strings_are_rejected(field: str) -> None:
+    with pytest.raises(ValidationError):
+        UserProfileRequest.model_validate(valid_payload() | {field: "   "})
