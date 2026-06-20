@@ -34,5 +34,17 @@
     "market_relevance": {"level": "high", "reason": "AI-enabled products depend on dependable services, data access, observability, and API contracts."},
     "explanation": "This path may suit learners who value service reliability, data flows, and clean interfaces more than visual UI work.",
     "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  },
+  {
+    "id": "data_analyst", "title": "Data Analyst",
+    "description": "Cleans, explores, and communicates data to help teams answer practical business and product questions.",
+    "target_users": ["Students who enjoy finding patterns in structured data", "Early-career learners interested in dashboards and decision support"],
+    "required_skills": ["SQL", "SQL Analysis", "Data Cleaning", "Data Visualization", "Statistics Basics", "Pandas"],
+    "nice_to_have_skills": ["Python", "Product Thinking", "Communication", "Documentation"],
+    "recommended_for": ["data", "dashboards", "business insights", "measurement"],
+    "sample_projects": ["Analyze learner engagement and present a reproducible dashboard", "Clean a public dataset and explain three decision-relevant findings"],
+    "market_relevance": {"level": "high", "reason": "Teams across many sectors need people who can transform operational data into understandable evidence."},
+    "explanation": "This path can fit learners who combine curiosity about data with clear communication and practical decision making.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
   }
 ]
