@@ -8,5 +8,15 @@
   {"name": "Tailwind CSS", "category": "frontend", "level": "beginner", "description": "Tailwind CSS provides utility classes for consistent interface styling."},
   {"name": "Accessibility", "category": "frontend", "level": "intermediate", "description": "Accessibility makes digital products usable with diverse abilities and input methods."},
   {"name": "API Integration", "category": "frontend", "level": "intermediate", "description": "API integration connects user interfaces to backend services safely."},
-  {"name": "State Management", "category": "frontend", "level": "intermediate", "description": "State management organizes changing data and UI behavior predictably."}
+  {"name": "State Management", "category": "frontend", "level": "intermediate", "description": "State management organizes changing data and UI behavior predictably."},
+  {"name": "Python", "category": "backend", "level": "beginner", "description": "Python supports backend services, automation, data workflows, and AI integration."},
+  {"name": "FastAPI", "category": "backend", "level": "intermediate", "description": "FastAPI supports typed, documented, and efficient Python web APIs."},
+  {"name": "REST API Design", "category": "backend", "level": "intermediate", "description": "REST API design creates clear resource contracts and predictable service behavior."},
+  {"name": "SQL", "category": "backend", "level": "beginner", "description": "SQL retrieves and modifies structured relational data."},
+  {"name": "PostgreSQL", "category": "backend", "level": "intermediate", "description": "PostgreSQL provides reliable relational storage for production applications."},
+  {"name": "Authentication Basics", "category": "security", "level": "intermediate", "description": "Authentication basics cover identity verification and secure session concepts."},
+  {"name": "Background Jobs", "category": "backend", "level": "intermediate", "description": "Background jobs move long-running work outside synchronous request handling."},
+  {"name": "Error Handling", "category": "backend", "level": "beginner", "description": "Error handling produces safe failures and actionable diagnostics."},
+  {"name": "Queue Systems", "category": "backend", "level": "advanced", "description": "Queue systems coordinate asynchronous tasks and workload delivery."},
+  {"name": "Input Validation", "category": "security", "level": "beginner", "description": "Input validation rejects malformed or unsafe data at system boundaries."}
 ]
