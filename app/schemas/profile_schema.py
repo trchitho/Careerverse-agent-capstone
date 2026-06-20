@@ -123,3 +123,30 @@ class SkillGapResult(StrictSchema):
     missing_skills: list[str]
     priority_skills: list[str]
     readiness_score: float = Field(ge=0, le=100)
+
+    @field_validator("matched_skills", "missing_skills", "priority_skills", mode="before")
+    @classmethod
+    def normalize_skill_lists(cls, value: object, info: ValidationInfo) -> list[str]:
+        """Normalize skill lists and reject duplicate or blank entries."""
+        return normalize_unique_strings(value, info.field_name)
+
+    @model_validator(mode="after")
+    def validate_priority_subset(self) -> "SkillGapResult":
+        """Require priority skills to be selected from missing skills."""
+        missing = {skill.casefold() for skill in self.missing_skills}
+        priority = {skill.casefold() for skill in self.priority_skills}
+        if not priority.issubset(missing):
+            raise ValueError("priority_skills must be a subset of missing_skills")
+        return self
+
+
+class RoadmapWeek(StrictSchema):
+    """One structured week in a learning roadmap."""
+
+    week: int = Field(ge=1, le=8)
+    focus: str = Field(min_length=1, max_length=200)
+    learning_goals: list[str] = Field(min_length=1, max_length=6)
+    tasks: list[str] = Field(min_length=1, max_length=8)
+    deliverable: str = Field(min_length=1, max_length=300)
+    skills_practiced: list[str] = Field(default_factory=list, max_length=10)
+    checkpoint: str = Field(min_length=1, max_length=300)
