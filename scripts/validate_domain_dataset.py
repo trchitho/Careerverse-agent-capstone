@@ -100,3 +100,28 @@ def validate_skills(skills: Any) -> tuple[set[str], list[str]]:
         if skill["level"] not in SKILL_LEVELS:
             errors.append(f"skill {skill['name']} has invalid level")
     return set(names), errors
+
+
+def validate_careers(
+    careers: Any, skill_names: set[str]
+) -> tuple[set[str], set[str], list[str]]:
+    """Validate career records and skill references."""
+    errors: list[str] = []
+    if not isinstance(careers, list) or len(careers) < 80:
+        return set(), set(), ["careers.json must contain at least 80 records"]
+    ids = [career.get("id", "") for career in careers if isinstance(career, dict)]
+    titles = [career.get("title", "") for career in careers if isinstance(career, dict)]
+    if duplicates := duplicate_values(ids):
+        errors.append(f"duplicate career ids: {sorted(duplicates)}")
+    if duplicates := duplicate_values(titles):
+        errors.append(f"duplicate career titles: {sorted(duplicates)}")
+    for index, career in enumerate(careers):
+        if not isinstance(career, dict) or set(career) != CAREER_FIELDS:
+            errors.append(f"career {index} has invalid fields")
+            continue
+        if not re.fullmatch(r"[a-z0-9]+(?:_[a-z0-9]+)*", career["id"]):
+            errors.append(f"career {career['title']} has invalid id")
+        if career["family"] not in CAREER_FAMILIES:
+            errors.append(f"career {career['id']} has invalid family")
+        if career["level"] not in CAREER_LEVELS:
+            errors.append(f"career {career['id']} has invalid level")
