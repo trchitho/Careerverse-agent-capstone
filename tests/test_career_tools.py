@@ -207,3 +207,27 @@ def test_partial_career_data_and_safety_fallback(
 def test_missing_required_skills_and_tags_score_safely() -> None:
     assert calculate_skill_score(["Python"], None) == 0.0
     assert calculate_interest_score(["AI"], None) == 0.0
+
+
+def test_load_careers_rejects_invalid_root(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(career_tools, "_load_json", lambda _filename: {})
+    career_tools.load_careers.cache_clear()
+    try:
+        with pytest.raises(ValueError, match="root must be a JSON array"):
+            career_tools.load_careers()
+    finally:
+        career_tools.load_careers.cache_clear()
+
+
+def test_load_skills_rejects_missing_fields(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(career_tools, "_load_json", lambda _filename: [{"id": "python"}])
+    career_tools.load_skills.cache_clear()
+    try:
+        with pytest.raises(ValueError, match="missing fields"):
+            career_tools.load_skills()
+    finally:
+        career_tools.load_skills.cache_clear()
