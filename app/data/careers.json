@@ -58,5 +58,17 @@
     "market_relevance": {"level": "high", "reason": "Organizations need engineers who can move models from experiments into testable and maintainable services."},
     "explanation": "This path may fit learners who enjoy both model experimentation and the engineering needed to operate models responsibly.",
     "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
+  },
+  {
+    "id": "frontend_developer", "title": "Frontend Developer",
+    "description": "Creates accessible, responsive interfaces that help users understand and interact with digital products.",
+    "target_users": ["Students who enjoy visual problem solving", "Learners interested in browser-based product experiences"],
+    "required_skills": ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Accessibility"],
+    "nice_to_have_skills": ["Next.js", "Tailwind CSS", "API Integration", "State Management"],
+    "recommended_for": ["web interfaces", "user experience", "accessibility", "design systems"],
+    "sample_projects": ["Build an accessible career exploration dashboard", "Create a responsive learning tracker connected to a mock API"],
+    "market_relevance": {"level": "high", "reason": "Digital services continue to require usable, accessible interfaces across devices and user contexts."},
+    "explanation": "This path can suit learners who care about interaction details, visual feedback, accessibility, and direct user impact.",
+    "safety_note": "This recommendation is educational guidance only and does not guarantee employment outcomes."
   }
 ]
