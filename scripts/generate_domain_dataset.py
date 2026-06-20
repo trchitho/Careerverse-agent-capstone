@@ -249,3 +249,25 @@ ROLE_GROUPS = {
         ("Junior ERP Consultant", "entry", "entry-level enterprise solutions"),
     ],
 }
+
+FAMILY_SKILL_MIX = {
+    "Software Engineering": ("frontend", "backend", "testing", "architecture"),
+    "AI / ML / Agent": ("ai", "backend", "data", "testing"),
+    "Data": ("data", "database", "product", "documentation"),
+    "Cloud / DevOps": ("devops", "cloud", "architecture", "security"),
+    "Security": ("security", "devops", "testing", "architecture"),
+    "Product / Business": ("product", "soft-skill", "documentation", "data"),
+    "Education / Social Good": ("product", "frontend", "data", "soft-skill"),
+    "Tech Support / Operations": ("devops", "soft-skill", "backend", "documentation"),
+}
+
+FAMILY_TRAITS = {
+    "Software Engineering": ("systematic", "patient with debugging"),
+    "AI / ML / Agent": ("curious", "comfortable with experimentation"),
+    "Data": ("analytical", "careful with evidence"),
+    "Cloud / DevOps": ("reliability-minded", "calm during troubleshooting"),
+    "Security": ("risk-aware", "attentive to detail"),
+    "Product / Business": ("user-centered", "comfortable with ambiguity"),
+    "Education / Social Good": ("empathetic", "motivated by social impact"),
+    "Tech Support / Operations": ("service-oriented", "persistent with problems"),
+}
