@@ -127,6 +127,11 @@ def _canonicalize_skills(values: list[str] | None) -> dict[str, str]:
     return canonical
 
 
+def canonicalize_skill_names(values: list[str] | None) -> list[str]:
+    """Return stable canonical skill names using the dataset alias index."""
+    return list(_canonicalize_skills(values).values())
+
+
 def clamp_score(
     value: float, min_value: float = 0.0, max_value: float = 100.0
 ) -> float:

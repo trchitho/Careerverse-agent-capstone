@@ -1,6 +1,7 @@
 """Public deterministic career guidance tools."""
 
 from app.tools.career_tools import (
+    canonicalize_skill_names,
     calculate_goal_score,
     calculate_interest_score,
     calculate_missing_skills,
@@ -13,6 +14,7 @@ from app.tools.career_tools import (
 )
 
 __all__ = [
+    "canonicalize_skill_names",
     "calculate_goal_score",
     "calculate_interest_score",
     "calculate_missing_skills",
