@@ -66,6 +66,14 @@ def validate_careers(careers: Any, skill_names: set[str]) -> tuple[set[str], lis
             errors.append(f"career {index} id must use snake_case")
         if career["market_relevance"].get("level") not in MARKET_LEVELS:
             errors.append(f"career {career['id']} has an invalid market level")
+        if not 2 <= len(career["target_users"]) <= 5:
+            errors.append(f"career {career['id']} has invalid target_users")
+        if not 5 <= len(career["required_skills"]) <= 10:
+            errors.append(f"career {career['id']} has invalid required_skills")
+        if not 3 <= len(career["nice_to_have_skills"]) <= 8:
+            errors.append(f"career {career['id']} has invalid nice_to_have_skills")
+        if not 2 <= len(career["sample_projects"]) <= 4:
+            errors.append(f"career {career['id']} has invalid sample_projects")
         referenced = set(career["required_skills"] + career["nice_to_have_skills"])
         missing = sorted(referenced - skill_names)
         if missing:
@@ -73,7 +81,9 @@ def validate_careers(careers: Any, skill_names: set[str]) -> tuple[set[str], lis
     return set(ids), errors
 
 
-def validate_plan(career_id: str, name: str, plan: Any, weeks: int) -> list[str]:
+def validate_plan(
+    career_id: str, name: str, plan: Any, weeks: int, minimum_tasks: int
+) -> list[str]:
     """Validate week numbering, tasks, and deliverables in one plan."""
     if not isinstance(plan, list) or len(plan) != weeks:
         return [f"{career_id} {name} must contain {weeks} weeks"]
@@ -87,7 +97,7 @@ def validate_plan(career_id: str, name: str, plan: Any, weeks: int) -> list[str]
         if not isinstance(item, dict) or set(item) != {"week", "focus", "tasks", "deliverable"}:
             errors.append(f"{career_id} {name} has an invalid week record")
             continue
-        if not 2 <= len(item["tasks"]) <= 5:
+        if not minimum_tasks <= len(item["tasks"]) <= 5:
             errors.append(f"{career_id} {name} week {item['week']} has invalid task count")
     return errors
 
@@ -106,10 +116,10 @@ def validate_roadmaps(roadmaps: Any, career_ids: set[str]) -> list[str]:
         if roadmap["duration_options"] != ["30 days", "8 weeks"]:
             errors.append(f"roadmap {career_id} has invalid duration options")
         errors.extend(
-            validate_plan(career_id, "thirty_day_plan", roadmap["thirty_day_plan"], 4)
+            validate_plan(career_id, "thirty_day_plan", roadmap["thirty_day_plan"], 4, 3)
         )
         errors.extend(
-            validate_plan(career_id, "eight_week_plan", roadmap["eight_week_plan"], 8)
+            validate_plan(career_id, "eight_week_plan", roadmap["eight_week_plan"], 8, 2)
         )
     return errors
 
