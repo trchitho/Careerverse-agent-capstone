@@ -298,3 +298,36 @@ def roles_using_category(category: str) -> list[str]:
         if category in FAMILY_SKILL_MIX[family]:
             titles.append(title)
     return titles[:8]
+
+
+def build_skills() -> list[dict[str, Any]]:
+    """Build a 260-entry skill catalog from curated domain terms."""
+    skills = []
+    for category, names in SKILL_GROUPS.items():
+        for index, name in enumerate(names):
+            related = [
+                names[(index + offset) % len(names)]
+                for offset in (1, 2, 3)
+            ]
+            skills.append({
+                "id": slugify(name),
+                "name": name,
+                "category": category,
+                "level": SKILL_LEVELS[category],
+                "aliases": aliases_for(name),
+                "description": (
+                    f"{name} supports practical {category} work through "
+                    "repeatable, reviewable techniques."
+                ),
+                "used_in_roles": roles_using_category(category),
+                "related_skills": related,
+                "learning_resources_keywords": [
+                    f"{name.lower()} fundamentals",
+                    f"{name.lower()} practical project",
+                ],
+                "assessment_hint": (
+                    f"Ask the learner to explain and demonstrate {name} "
+                    "in a small, reviewable task."
+                ),
+            })
+    return skills
