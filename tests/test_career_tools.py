@@ -4,6 +4,7 @@ from copy import deepcopy
 
 import pytest
 
+import app.tools.career_tools as career_tools
 from app.schemas.profile_schema import UserProfileRequest
 from app.tools.career_tools import (
     calculate_goal_score,
@@ -182,3 +183,27 @@ def test_recommend_careers_does_not_mutate_inputs_or_dataset() -> None:
 
     assert profile == profile_before
     assert load_careers() == careers_before
+
+
+def test_partial_career_data_and_safety_fallback(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    careers = [
+        {
+            "id": "minimal_role",
+            "title": "Minimal Role",
+            "description": "A partial test career",
+        }
+    ]
+    monkeypatch.setattr(career_tools, "load_careers", lambda: careers)
+
+    result = recommend_careers({"career_goal": "minimal role"}, top_k=1)[0]
+
+    assert result["required_skills"] == []
+    assert result["recommended_for"] == []
+    assert result["safety_note"] == career_tools.DEFAULT_SAFETY_NOTE
+
+
+def test_missing_required_skills_and_tags_score_safely() -> None:
+    assert calculate_skill_score(["Python"], None) == 0.0
+    assert calculate_interest_score(["AI"], None) == 0.0
