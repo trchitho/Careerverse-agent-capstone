@@ -117,3 +117,34 @@ def test_recommend_careers_returns_top_three() -> None:
 
 def test_recommend_careers_top_k_five() -> None:
     assert len(recommend_careers(sample_profile(), top_k=5)) == 5
+
+
+@pytest.mark.parametrize("top_k", [0, 21, 100])
+def test_recommend_careers_top_k_bounds(top_k: int) -> None:
+    with pytest.raises(ValueError, match="top_k"):
+        recommend_careers(sample_profile(), top_k=top_k)
+
+
+def test_recommend_careers_is_deterministic() -> None:
+    first = recommend_careers(sample_profile(), top_k=10)
+    second = recommend_careers(sample_profile(), top_k=10)
+
+    assert first == second
+
+
+def test_recommendations_are_sorted_by_score() -> None:
+    results = recommend_careers(sample_profile(), top_k=20)
+    scores = [item["score"] for item in results]
+
+    assert scores == sorted(scores, reverse=True)
+
+
+def test_recommendation_contains_explainable_fields() -> None:
+    result = recommend_careers(sample_profile(), top_k=1)[0]
+
+    assert set(result["score_breakdown"]) == {
+        "interest_score", "skill_score", "goal_score", "weights"
+    }
+    assert result["matched_reasons"]
+    assert len(result["missing_skills_preview"]) <= 8
+    assert result["safety_note"]
