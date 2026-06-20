@@ -178,3 +178,29 @@ class RoadmapResult(StrictSchema):
     prerequisites: list[str] = Field(default_factory=list)
     thirty_day_plan: list[RoadmapWeek]
     eight_week_plan: list[RoadmapWeek]
+    recommended_mini_project: MiniProject
+    portfolio_output: PortfolioOutput
+    safety_note: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_plan_structure(self) -> "RoadmapResult":
+        """Require supported durations and exact sequential week plans."""
+        durations = {value.casefold() for value in self.duration_options}
+        if not {"30 days", "8 weeks"}.issubset(durations):
+            raise ValueError("duration_options must include 30 days and 8 weeks")
+        if [item.week for item in self.thirty_day_plan] != [1, 2, 3, 4]:
+            raise ValueError("thirty_day_plan must contain weeks 1 through 4")
+        if [item.week for item in self.eight_week_plan] != list(range(1, 9)):
+            raise ValueError("eight_week_plan must contain weeks 1 through 8")
+        return self
+
+
+class AgentRecommendationResponse(StrictSchema):
+    """Future recommendation API response contract."""
+
+    user_summary: UserProfileSummary
+    top_recommendations: list[CareerRecommendation] = Field(min_length=1, max_length=10)
+    skill_gap: SkillGapResult
+    personalized_roadmap: RoadmapResult
+    safety_notice: str = Field(min_length=1)
+    course_concepts_demonstrated: list[str] = Field(min_length=1)
