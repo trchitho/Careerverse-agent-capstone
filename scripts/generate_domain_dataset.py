@@ -132,3 +132,21 @@ SKILL_GROUPS = {
         "Integration Patterns", "Technical Tradeoff Analysis", "Layered Architecture",
         "Hexagonal Architecture Basics", "Capacity Planning Basics",
     ],
+    "documentation": [
+        "Documentation", "Technical Writing", "OpenAPI", "README Authoring",
+        "API Reference Writing", "Architecture Diagrams", "Tutorial Writing",
+        "Release Notes", "Runbook Writing", "Knowledge Base Design",
+        "Code Comments", "Documentation Testing", "Information Architecture",
+        "Content Review", "Developer Documentation", "User Guide Writing",
+        "Change Communication", "Diagramming", "Example Design",
+        "Documentation Maintenance",
+    ],
+}
+
+SKILL_LEVELS = {
+    "frontend": "intermediate", "backend": "intermediate", "ai": "advanced",
+    "data": "intermediate", "cloud": "intermediate", "security": "intermediate",
+    "testing": "intermediate", "devops": "intermediate", "product": "beginner",
+    "soft-skill": "beginner", "database": "intermediate",
+    "architecture": "advanced", "documentation": "beginner",
+}
