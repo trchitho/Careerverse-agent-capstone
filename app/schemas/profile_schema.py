@@ -204,3 +204,11 @@ class AgentRecommendationResponse(StrictSchema):
     personalized_roadmap: RoadmapResult
     safety_notice: str = Field(min_length=1)
     course_concepts_demonstrated: list[str] = Field(min_length=1)
+
+
+class ProfileValidationResponse(StrictSchema):
+    """Response returned after profile input is normalized successfully."""
+
+    status: Literal["valid"] = "valid"
+    normalized_profile: UserProfileSummary
+    warnings: list[str] = Field(default_factory=list)
