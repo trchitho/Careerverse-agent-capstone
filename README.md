@@ -50,6 +50,26 @@ GET /metadata
 
 Interactive API documentation is available at `/docs` while the server is running.
 
+## Input Validation
+
+The API uses Pydantic v2 schemas to validate and normalize user profile input.
+
+Current validation endpoint:
+
+```text
+POST /profiles/validate
+```
+
+It checks:
+
+- required profile fields
+- non-empty interests and skills
+- duplicate normalization
+- supported language values
+- supported learning styles and experience levels
+- basic prompt-injection patterns
+- safe public-demo input constraints
+
 ## Domain Data
 
 This project uses production-minded local JSON datasets for a reproducible Kaggle Capstone demo:
