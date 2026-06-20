@@ -112,3 +112,29 @@ def validate_roadmaps(roadmaps: Any, career_ids: set[str]) -> list[str]:
             validate_plan(career_id, "eight_week_plan", roadmap["eight_week_plan"], 8)
         )
     return errors
+
+
+def validate_domain_data() -> list[str]:
+    """Run all domain data validation checks."""
+    skills = load_json("skills.json")
+    careers = load_json("careers.json")
+    roadmaps = load_json("roadmaps.json")
+    skill_names, skill_errors = validate_skills(skills)
+    career_ids, career_errors = validate_careers(careers, skill_names)
+    return skill_errors + career_errors + validate_roadmaps(roadmaps, career_ids)
+
+
+def main() -> int:
+    """Print a validation summary and return a process exit code."""
+    errors = validate_domain_data()
+    if errors:
+        print("DOMAIN DATA VALIDATION: FAIL")
+        for error in errors:
+            print(f"- {error}")
+        return 1
+    print("DOMAIN DATA VALIDATION: PASS")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
