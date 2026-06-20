@@ -30,3 +30,31 @@ def test_whitespace_is_stripped() -> None:
 
     assert profile.name == "Tho"
     assert profile.education == "IT student"
+
+
+def test_duplicate_interests_are_normalized() -> None:
+    payload = valid_payload() | {"interests": [" AI ", "ai", "Web   Development"]}
+
+    profile = UserProfileRequest.model_validate(payload)
+
+    assert profile.interests == ["AI", "Web Development"]
+
+
+def test_duplicate_skills_are_normalized() -> None:
+    payload = valid_payload() | {"skills": ["Python", " python ", "React"]}
+
+    profile = UserProfileRequest.model_validate(payload)
+
+    assert profile.skills == ["Python", "React"]
+
+
+@pytest.mark.parametrize("field", ["interests", "skills"])
+def test_empty_profile_lists_are_rejected(field: str) -> None:
+    with pytest.raises(ValidationError):
+        UserProfileRequest.model_validate(valid_payload() | {field: []})
+
+
+@pytest.mark.parametrize("field", ["interests", "skills"])
+def test_blank_profile_list_items_are_rejected(field: str) -> None:
+    with pytest.raises(ValidationError):
+        UserProfileRequest.model_validate(valid_payload() | {field: ["   "]})
