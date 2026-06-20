@@ -70,6 +70,24 @@ It checks:
 - basic prompt-injection patterns
 - safe public-demo input constraints
 
+## Career Scoring Engine
+
+The project uses a deterministic, explainable scoring engine before adding full agent
+orchestration.
+
+The current score combines:
+
+- Interest match: 35%
+- Skill match: 45%
+- Career goal relevance: 20%
+
+The engine returns ranked recommendations, score breakdowns, matched reasons, matched skills,
+missing skills previews, and an educational safety note.
+
+```bash
+pytest tests/test_career_tools.py
+```
+
 ## Domain Data
 
 This project uses production-minded local JSON datasets for a reproducible Kaggle Capstone demo:
