@@ -104,5 +104,26 @@
     ],
     "recommended_mini_project": "Train, evaluate, and serve a student-course completion classifier using a public synthetic dataset.",
     "portfolio_output": "A repository with reproducible experiments, evaluation evidence, a model card, tested API, and demo video."
+  },
+  "frontend_developer": {
+    "career_title": "Frontend Developer", "duration_options": ["30 days", "8 weeks"],
+    "thirty_day_plan": [
+      {"week": 1, "focus": "Semantic and responsive foundations", "tasks": ["Build semantic page structure", "Create responsive layouts", "Practice accessible forms"], "deliverable": "A responsive static interface"},
+      {"week": 2, "focus": "React and TypeScript", "tasks": ["Build typed components", "Manage local state", "Create reusable patterns"], "deliverable": "A component-based application"},
+      {"week": 3, "focus": "API integration", "tasks": ["Fetch structured data", "Handle loading and errors", "Test user interactions"], "deliverable": "An interactive data-driven interface"},
+      {"week": 4, "focus": "Accessibility and polish", "tasks": ["Complete keyboard testing", "Improve focus and labels", "Document design choices"], "deliverable": "An accessible portfolio frontend"}
+    ],
+    "eight_week_plan": [
+      {"week": 1, "focus": "HTML semantics", "tasks": ["Structure content", "Build accessible forms"], "deliverable": "A semantic page set"},
+      {"week": 2, "focus": "CSS responsiveness", "tasks": ["Create layouts", "Test mobile breakpoints"], "deliverable": "A responsive visual system"},
+      {"week": 3, "focus": "JavaScript behavior", "tasks": ["Handle events", "Transform data"], "deliverable": "An interactive browser prototype"},
+      {"week": 4, "focus": "React components", "tasks": ["Create components", "Compose page views"], "deliverable": "A React application shell"},
+      {"week": 5, "focus": "TypeScript and state", "tasks": ["Define types", "Manage application state"], "deliverable": "A typed stateful workflow"},
+      {"week": 6, "focus": "API integration", "tasks": ["Consume an API", "Handle failures", "Show progress states"], "deliverable": "A resilient data-driven UI"},
+      {"week": 7, "focus": "Accessibility testing", "tasks": ["Test keyboard use", "Audit names and focus", "Fix contrast issues"], "deliverable": "An accessibility review report"},
+      {"week": 8, "focus": "Portfolio delivery", "tasks": ["Optimize presentation", "Write setup instructions", "Record a walkthrough"], "deliverable": "A published frontend case study"}
+    ],
+    "recommended_mini_project": "Build an accessible career exploration dashboard that consumes local JSON through a mock API.",
+    "portfolio_output": "A responsive deployed interface with typed components, accessibility evidence, README, and demo recording."
   }
 }
