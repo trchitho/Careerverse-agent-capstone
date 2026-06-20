@@ -18,5 +18,15 @@
   {"name": "Background Jobs", "category": "backend", "level": "intermediate", "description": "Background jobs move long-running work outside synchronous request handling."},
   {"name": "Error Handling", "category": "backend", "level": "beginner", "description": "Error handling produces safe failures and actionable diagnostics."},
   {"name": "Queue Systems", "category": "backend", "level": "advanced", "description": "Queue systems coordinate asynchronous tasks and workload delivery."},
-  {"name": "Input Validation", "category": "security", "level": "beginner", "description": "Input validation rejects malformed or unsafe data at system boundaries."}
+  {"name": "Input Validation", "category": "security", "level": "beginner", "description": "Input validation rejects malformed or unsafe data at system boundaries."},
+  {"name": "LLM API Integration", "category": "ai", "level": "intermediate", "description": "LLM API integration connects language models to applications through controlled interfaces."},
+  {"name": "Prompt Engineering", "category": "ai", "level": "intermediate", "description": "Prompt engineering structures model instructions for reliable task behavior."},
+  {"name": "Tool Calling", "category": "ai", "level": "intermediate", "description": "Tool calling lets models invoke approved functions with structured arguments."},
+  {"name": "Agent Orchestration", "category": "ai", "level": "advanced", "description": "Agent orchestration coordinates roles, tools, state, and handoffs in agent workflows."},
+  {"name": "MCP", "category": "ai", "level": "advanced", "description": "MCP defines interoperable access to tools, prompts, and contextual resources."},
+  {"name": "Agent Evaluation", "category": "testing", "level": "advanced", "description": "Agent evaluation measures task quality, safety, consistency, and failure modes."},
+  {"name": "Embeddings", "category": "ai", "level": "intermediate", "description": "Embeddings represent content numerically for semantic comparison and retrieval."},
+  {"name": "Vector Search", "category": "ai", "level": "advanced", "description": "Vector search retrieves semantically similar records from embedding indexes."},
+  {"name": "Prompt Injection Defense", "category": "security", "level": "advanced", "description": "Prompt injection defense limits untrusted instructions and protects system boundaries."},
+  {"name": "Security Review", "category": "security", "level": "intermediate", "description": "Security review identifies exposed secrets, unsafe flows, and public-demo risks."}
 ]
