@@ -68,3 +68,30 @@ def test_empty_required_skills_are_safe() -> None:
         "priority_skills": [],
         "readiness_score": 0.0,
     }
+
+
+def test_duplicate_user_skills_do_not_double_count() -> None:
+    result = SkillGapAgent().analyze(
+        ["Python", "python", "PYTHON"],
+        ["Python", "SQL"],
+    )
+
+    assert result["matched_skills"] == ["Python"]
+    assert result["readiness_score"] == 50.0
+
+
+def test_inputs_are_not_mutated() -> None:
+    user = ["Python"]
+    required = ["Python", "SQL"]
+    optional = ["Docker"]
+    before = deepcopy((user, required, optional))
+
+    SkillGapAgent().analyze(user, required, optional)
+
+    assert (user, required, optional) == before
+
+
+def test_readiness_score_stays_in_range() -> None:
+    result = SkillGapAgent().analyze(["Python"], ["Python", "SQL"])
+
+    assert 0 <= result["readiness_score"] <= 100
