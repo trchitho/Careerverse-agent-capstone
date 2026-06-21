@@ -52,3 +52,32 @@ def test_tracked_files_do_not_contain_obvious_credentials() -> None:
         "BEGIN " + "PRIVATE KEY",
     )
     excluded = {"tests/test_security_hygiene.py", "scripts/audit_prompt_0_to_7.py"}
+    findings: list[str] = []
+    for relative_path in git_files():
+        if relative_path in excluded or relative_path == ".env.example":
+            continue
+        path = ROOT / relative_path
+        if path.suffix.lower() not in {".py", ".json", ".md", ".toml", ".txt"}:
+            continue
+        try:
+            content = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        if any(marker in content for marker in credential_markers):
+            findings.append(relative_path)
+
+    assert findings == []
+
+
+def test_recommendation_contains_canonical_notice() -> None:
+    payload = {
+        "name": "Demo",
+        "education": "IT student",
+        "interests": ["AI"],
+        "skills": ["Python"],
+        "career_goal": "Build AI products",
+    }
+    response = TestClient(app).post("/recommend", json=payload)
+
+    assert response.status_code == 200
+    assert response.json()["safety_notice"] == get_safety_notice()
