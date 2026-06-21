@@ -12,6 +12,12 @@ from app.tools.career_tools import (
     normalize_text,
     recommend_careers,
 )
+from app.tools.safety_tools import (
+    detect_prompt_injection,
+    get_safety_notice,
+    redact_sensitive_text,
+    validate_profile_safety,
+)
 
 __all__ = [
     "canonicalize_skill_names",
@@ -24,4 +30,8 @@ __all__ = [
     "normalize_list",
     "normalize_text",
     "recommend_careers",
+    "detect_prompt_injection",
+    "get_safety_notice",
+    "redact_sensitive_text",
+    "validate_profile_safety",
 ]

@@ -217,3 +217,16 @@ def validate_profile_safety(profile: object) -> dict[str, Any]:
         issue["category"] != "sensitive_data" or highest_risk == "high"
         for issue in issues
     )
+    unique_issues = list(
+        {
+            (item["field"], item["category"], item["message"]): item
+            for item in issues
+        }.values()
+    )
+    return {
+        "is_safe": not blocking,
+        "risk_level": highest_risk,
+        "issues": unique_issues,
+        "redacted_profile": redacted_profile,
+        "safe_message": SAFE_PROFILE_MESSAGE if blocking else "",
+    }
