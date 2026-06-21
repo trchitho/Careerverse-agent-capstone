@@ -150,3 +150,30 @@ def _evaluate_invalid(case: EvaluationCase) -> EvaluationResult:
         passed = True
     else:
         passed = False
+    return EvaluationResult(
+        case_id=case.id,
+        case_type=case.type,
+        passed=passed,
+        message="invalid profile rejected" if passed else "invalid profile was accepted",
+    )
+
+
+def evaluate_case(
+    case: EvaluationCase,
+    agent: CareerAdvisorAgent | None = None,
+) -> EvaluationResult:
+    """Dispatch one validated case to its deterministic evaluator."""
+    advisor = agent or CareerAdvisorAgent()
+    try:
+        if case.expected.status == "success":
+            return _evaluate_success(case, advisor)
+        if case.expected.status == "blocked":
+            return _evaluate_security(case)
+        return _evaluate_invalid(case)
+    except (KeyError, TypeError, ValueError, ValidationError) as error:
+        return EvaluationResult(
+            case_id=case.id,
+            case_type=case.type,
+            passed=False,
+            message=f"{type(error).__name__}: {error}",
+        )
