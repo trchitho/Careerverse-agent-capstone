@@ -77,3 +77,25 @@ Status: PASS
 - `UserProfileSummary`, recommendation, skill gap, roadmap, and full response schemas exist.
 - `POST /profiles/validate` returned HTTP 200 for valid input and validation tests cover 422 paths.
 - Contract tests validate generated career, skill, and roadmap records.
+
+## Prompt 4 — Career Tools & Scoring Engine Audit
+
+Status: PASS
+
+- Cached career and skill loaders validate local JSON resources.
+- Text/list normalization, alias matching, interest, skill, and goal scoring are implemented.
+- Formula remains 35% interest, 45% skill, and 20% career-goal relevance.
+- Dict and Pydantic profiles, top-k bounds, deterministic ranking, and non-mutation are tested.
+- Recommendations include score breakdown, matched reasons/skills, missing skills, and safety note.
+- The audit repeated the same profile and received identical results.
+
+## Prompt 5 — Multi-Agent Workflow Audit
+
+Status: PASS
+
+- `SkillGapAgent` returns ordered matched, missing, priority skills, and bounded readiness.
+- `RoadmapAgent` returns stored roadmaps and a schema-valid fallback.
+- `CareerAdvisorAgent` orchestrates scoring, gap analysis, and roadmap retrieval.
+- Dict and Pydantic inputs produce `AgentRecommendationResponse`-valid output.
+- `POST /recommend` returned HTTP 200 for valid input and 422 for malformed input.
+- Existing health, metadata, and validation endpoints remain compatible.
