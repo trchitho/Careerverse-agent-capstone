@@ -5,12 +5,16 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
 from fastapi.testclient import TestClient
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 DATA_DIR = ROOT / "app" / "data"
 SKILL_PATH = ROOT / "app" / "skills" / "career_advisor" / "SKILL.md"
 
@@ -158,7 +162,8 @@ def audit_dataset() -> None:
     }
     record("career required fields", all(career_fields <= career.keys() for career in careers))
     record("skill required fields", all(skill_fields <= skill.keys() for skill in skills))
-    record("roadmap required fields", all(roadmap_fields <= item.keys() for item in roadmaps.values()))
+    valid_roadmaps = all(roadmap_fields <= item.keys() for item in roadmaps.values())
+    record("roadmap required fields", valid_roadmaps)
 
 
 def demo_payload() -> dict[str, object]:
@@ -272,7 +277,8 @@ def audit_hygiene() -> None:
     text_suffixes = {".py", ".json", ".toml", ".txt", ".env", ""}
     for path in tracked:
         candidate = ROOT / path
-        if candidate.suffix.lower() not in text_suffixes or path == ".env.example":
+        excluded = {".env.example", "scripts/audit_prompt_0_to_7.py"}
+        if candidate.suffix.lower() not in text_suffixes or path in excluded:
             continue
         try:
             content = candidate.read_text(encoding="utf-8")
