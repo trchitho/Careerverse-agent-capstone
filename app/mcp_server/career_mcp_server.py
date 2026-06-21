@@ -310,3 +310,28 @@ def search_careers_by_interest(
 ) -> dict[str, Any]:
     """Module wrapper for career search."""
     return server.search_careers_by_interest(interest, limit, offset)
+
+
+def get_required_skills(career_id: str) -> dict[str, Any]:
+    """Module wrapper for career skill resources."""
+    return server.get_required_skills(career_id)
+
+
+def get_roadmap_for_career(career_id: str) -> dict[str, Any]:
+    """Module wrapper for stored roadmap lookup."""
+    return server.get_roadmap_for_career(career_id)
+
+
+def get_skill_metadata(skill_name: str) -> dict[str, Any]:
+    """Module wrapper for skill metadata lookup."""
+    return server.get_skill_metadata(skill_name)
+
+
+def list_available_skills(
+    category: str | None = None,
+    level: str | None = None,
+    limit: int = 50,
+    offset: int = 0,
+) -> dict[str, Any]:
+    """Module wrapper for skill resource listing."""
+    return server.list_available_skills(category, level, limit, offset)
