@@ -262,3 +262,26 @@ class CareerMCPServer:
         response = _paginate([skill for _score, skill in matches], limit, offset)
         response["query"] = query.strip()
         return response
+
+    @staticmethod
+    def list_tool_catalog() -> list[dict[str, Any]]:
+        """Describe the local MCP-style tools for interoperable discovery."""
+        definitions = [
+            ("list_available_careers", "List career resources with filters."),
+            ("get_career_by_id", "Retrieve one full career resource."),
+            ("search_careers_by_interest", "Search careers by interest text."),
+            ("get_required_skills", "Retrieve career skill requirements."),
+            ("get_roadmap_for_career", "Retrieve a stored career roadmap."),
+            ("get_skill_metadata", "Retrieve one skill by id, name, or alias."),
+            ("list_available_skills", "List skill resources with filters."),
+            ("search_skills", "Search skill resources by text."),
+        ]
+        return [
+            {
+                "name": name,
+                "description": description,
+                "input_schema": "Typed function parameters documented by the API.",
+                "output_schema": "Machine-readable JSON resource response.",
+            }
+            for name, description in definitions
+        ]
