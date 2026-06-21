@@ -72,7 +72,7 @@ def metadata() -> dict[str, object]:
         "version": PROJECT_VERSION,
         "track": KAGGLE_TRACK,
         "environment": settings.environment,
-        "current_stage": "mcp_style_tool_server",
+        "current_stage": "security_safety_layer",
         "course_concepts_demonstrated": COURSE_CONCEPTS,
     }
 
