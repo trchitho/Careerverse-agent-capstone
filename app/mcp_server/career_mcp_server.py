@@ -232,3 +232,33 @@ class CareerMCPServer:
         elif query in search_text:
             score += 20.0
         return score
+
+    def search_skills(
+        self,
+        query: str,
+        category: str | None = None,
+        level: str | None = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        """Search skill resources with optional category and level filters."""
+        normalized = normalize_text(query)
+        if not normalized:
+            raise ValueError("query must not be blank")
+        scored = [
+            (self._skill_search_score(normalized, skill), skill)
+            for skill in load_skills()
+            if self._matches_filter(skill.get("category"), category)
+            and self._matches_filter(skill.get("level"), level)
+        ]
+        matches = [(score, skill) for score, skill in scored if score > 0]
+        matches.sort(
+            key=lambda item: (
+                -item[0],
+                normalize_text(str(item[1]["name"])),
+                normalize_text(str(item[1]["id"])),
+            )
+        )
+        response = _paginate([skill for _score, skill in matches], limit, offset)
+        response["query"] = query.strip()
+        return response
