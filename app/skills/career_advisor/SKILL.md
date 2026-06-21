@@ -187,3 +187,32 @@ Before returning a response, verify:
 - [ ] The educational safety notice is included.
 - [ ] No employment guarantee or diagnosis is made.
 - [ ] Output validates as `AgentRecommendationResponse`.
+
+## 14. Example Input
+
+Use a synthetic profile:
+
+```json
+{
+  "name": "Demo Learner",
+  "education": "Final-year IT student",
+  "interests": ["AI", "web development"],
+  "skills": ["Python", "React", "SQL"],
+  "career_goal": "Build practical AI-enabled web products",
+  "preferred_learning_style": "project_based",
+  "language": "en",
+  "experience_level": "university",
+  "time_budget_hours_per_week": 8
+}
+```
+
+## 15. Example Output
+
+The real API returns complete roadmap records. Keep documentation examples concise:
+
+```json
+{
+  "top_recommendations": [
+    {"career_id": "ai_full_stack_developer", "title": "AI Full-stack Developer", "score": 37.15},
+    {"career_id": "ai_product_engineer", "title": "AI Product Engineer", "score": 27.0}
+  ],
