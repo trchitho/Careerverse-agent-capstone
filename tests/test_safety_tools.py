@@ -56,3 +56,28 @@ def test_explicit_prompt_injection_is_detected(text: str) -> None:
 
     assert result["is_suspicious"] is True
     assert result["risk_level"] == "high"
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Become an API integration engineer",
+        "Tôi muốn trở thành kỹ sư AI và phát triển sản phẩm giáo dục",
+    ],
+)
+def test_normal_career_text_is_not_suspicious(text: str) -> None:
+    assert detect_prompt_injection(text)["is_suspicious"] is False
+
+
+def test_redaction_handles_email_and_password() -> None:
+    value = "Contact learner@example.com and password=unsafe-demo-value"
+    result = redact_sensitive_text(value)
+
+    assert "learner@example.com" not in result
+    assert "unsafe-demo-value" not in result
+    assert "[REDACTED_EMAIL]" in result
+    assert "[REDACTED_PASSWORD]" in result
+
+
+def test_redaction_preserves_normal_api_wording() -> None:
+    assert redact_sensitive_text("Learn API Integration") == "Learn API Integration"
