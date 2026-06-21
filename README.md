@@ -154,6 +154,36 @@ Careerverse-agent-capstone/
 
 ---
 
+## Docker Runtime
+
+Build the image:
+
+```bash
+docker build -t careerverse-agent-api .
+```
+
+Run the container:
+
+```bash
+docker run --rm -p 8000:8000 careerverse-agent-api
+```
+
+Run with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+Run Docker smoke check:
+
+```bash
+python scripts/docker_smoke_check.py
+```
+
+The default Docker runtime does not require external API keys. Do not commit `.env` files or real secrets.
+
+---
+
 ## API Usage
 The following endpoints are exposed on the FastAPI instance:
 - `GET /` - Root status check.
