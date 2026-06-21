@@ -160,3 +160,34 @@ class CareerMCPServer:
         if skill is None:
             raise ValueError(f"Skill not found: {skill_name}")
         return deepcopy(skill)
+
+    def get_required_skills(self, career_id: str) -> dict[str, Any]:
+        """Return career skill requirements enriched with metadata."""
+        career = self.get_career_by_id(career_id)
+        index = self._skill_lookup_index()
+
+        def enrich(names: list[str]) -> list[dict[str, Any]]:
+            return [
+                {
+                    "name": name,
+                    "metadata": deepcopy(index.get(normalize_text(name))),
+                }
+                for name in names
+            ]
+
+        return {
+            "career_id": career["id"],
+            "title": career["title"],
+            "required_skills": enrich(career.get("required_skills", [])),
+            "nice_to_have_skills": enrich(career.get("nice_to_have_skills", [])),
+        }
+
+    def get_roadmap_for_career(self, career_id: str) -> dict[str, Any]:
+        """Return a stored roadmap resource without generating a fallback."""
+        normalized = normalize_text(career_id)
+        if not normalized:
+            raise ValueError("career_id must not be blank")
+        for key, roadmap in self.roadmap_agent.load_roadmaps().items():
+            if normalize_text(key) == normalized:
+                return deepcopy(roadmap)
+        raise ValueError(f"Roadmap not found for career: {career_id}")
