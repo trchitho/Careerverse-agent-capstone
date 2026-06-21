@@ -1,6 +1,7 @@
 """API tests for the production multi-agent recommendation endpoint."""
 
 from fastapi.testclient import TestClient
+import pytest
 
 import app.main as main_module
 
@@ -50,3 +51,24 @@ def test_prompt_injection_is_blocked_by_profile_schema() -> None:
     )
 
     assert response.status_code == 422
+
+
+def test_controlled_agent_error_returns_safe_400(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def fail_safely(_profile: object, top_k: int = 3) -> dict[str, object]:
+        raise ValueError("Recommendation input could not be processed.")
+
+    monkeypatch.setattr(main_module.career_advisor, "run", fail_safely)
+    response = client.post("/recommend", json=valid_payload())
+
+    assert response.status_code == 400
+    assert response.json() == {
+        "detail": "Recommendation input could not be processed."
+    }
+
+
+def test_existing_endpoints_remain_available() -> None:
+    assert client.get("/").status_code == 200
+    assert client.get("/metadata").status_code == 200
+    assert client.post("/profiles/validate", json=valid_payload()).status_code == 200
