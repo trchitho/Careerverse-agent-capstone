@@ -18,6 +18,7 @@ from app.schemas import (
     UserProfileRequest,
     UserProfileSummary,
 )
+from app.tools.safety_tools import get_safety_notice, validate_profile_safety
 
 settings = get_settings()
 career_advisor = CareerAdvisorAgent()
@@ -62,10 +63,21 @@ def recommend(
     top_k: int = Query(default=3, ge=1, le=10),
 ) -> AgentRecommendationResponse:
     """Run the deterministic multi-agent career guidance workflow."""
+    safety_result = validate_profile_safety(profile)
+    if not safety_result["is_safe"]:
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "error": "unsafe_profile",
+                "message": safety_result["safe_message"],
+                "risk_level": safety_result["risk_level"],
+            },
+        )
     try:
-        payload = career_advisor.run(profile, top_k=top_k)
+        payload = career_advisor.run(safety_result["redacted_profile"], top_k=top_k)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
+    payload["safety_notice"] = get_safety_notice()
     return AgentRecommendationResponse.model_validate(payload)
 
 
