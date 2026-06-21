@@ -81,3 +81,19 @@ def test_recommendation_contains_canonical_notice() -> None:
 
     assert response.status_code == 200
     assert response.json()["safety_notice"] == get_safety_notice()
+
+
+def test_employment_guarantee_mentions_are_safety_context_only() -> None:
+    unsafe_lines: list[str] = []
+    for relative_path in git_files():
+        path = ROOT / relative_path
+        if path.suffix.lower() != ".md":
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            normalized = line.casefold()
+            if "guarantee employment" not in normalized:
+                continue
+            if not any(negation in normalized for negation in ("do not", "does not", "no ")):
+                unsafe_lines.append(f"{relative_path}: {line}")
+
+    assert unsafe_lines == []
