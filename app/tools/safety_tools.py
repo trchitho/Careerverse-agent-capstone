@@ -54,3 +54,35 @@ RISK_ORDER = {"none": 0, "low": 1, "medium": 2, "high": 3}
 def get_safety_notice() -> str:
     """Return the canonical educational guidance disclaimer."""
     return SAFETY_NOTICE
+
+
+def _normalize_text(text: str | None) -> str:
+    """Normalize text for deterministic phrase detection."""
+    return re.sub(r"\s+", " ", text or "").strip().casefold()
+
+
+def detect_prompt_injection(text: str | None) -> dict[str, Any]:
+    """Detect explicit attempts to override instructions or extract secrets."""
+    normalized = _normalize_text(text)
+    matches = [
+        (pattern, category, risk)
+        for pattern, category, risk in PROMPT_INJECTION_RULES
+        if pattern in normalized
+    ]
+    if not matches:
+        return {
+            "is_suspicious": False,
+            "risk_level": "none",
+            "matched_patterns": [],
+            "categories": [],
+            "safe_message": "",
+        }
+
+    risk_level = max((item[2] for item in matches), key=RISK_ORDER.__getitem__)
+    return {
+        "is_suspicious": True,
+        "risk_level": risk_level,
+        "matched_patterns": list(dict.fromkeys(item[0] for item in matches)),
+        "categories": list(dict.fromkeys(item[1] for item in matches)),
+        "safe_message": SAFE_REQUEST_MESSAGE,
+    }
