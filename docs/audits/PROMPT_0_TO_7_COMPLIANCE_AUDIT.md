@@ -154,3 +154,31 @@ Status: PASS
 - Audit started on `main` synchronized with `origin/main`.
 - Changes were committed incrementally; generated caches remain ignored and untracked.
 - Remote `origin` is configured for the expected public repository.
+
+## Gaps Found
+
+The first audit run found only audit-tool implementation gaps:
+
+1. Direct script execution did not place the repository root on `sys.path`.
+2. The secret scanner matched its own test-pattern literals.
+3. One audit-script line exceeded the configured Ruff line length.
+
+No Prompt 0–7 product, dataset, schema, scoring, agent, MCP, or API defect was found.
+
+## Fixes Applied
+
+- Added repository-root import bootstrap to both audit scripts.
+- Excluded the audit scanner source from scanning its own pattern definitions.
+- Split the long expression to satisfy Ruff.
+- Added deterministic dataset claim, tracked artifact, secret, and README checks.
+
+## Remaining Risks Before Prompt 8
+
+- Prompt 3 intentionally implements only a basic denylist for obvious prompt injection.
+- Prompt 8 should centralize broader input safety policy and structured safety decisions.
+- Prompt 8 should review abuse cases, logging/redaction policy, and consistent safe error handling.
+- These are planned security-layer enhancements, not failures of the Prompt 0–7 scope.
+
+## Final Verdict
+
+PASS
