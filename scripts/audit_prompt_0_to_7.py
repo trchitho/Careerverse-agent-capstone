@@ -26,3 +26,30 @@ def record(name: str, passed: bool, detail: str = "") -> None:
     print(f"{'PASS' if passed else 'FAIL'}: {name}{suffix}")
     if not passed:
         errors.append(f"{name}{suffix}")
+
+
+REQUIRED_FILES = [
+    "AGENTS.md",
+    "README.md",
+    ".env.example",
+    ".gitignore",
+    "requirements.txt",
+    "pyproject.toml",
+    "app/main.py",
+    "app/core/config.py",
+    "app/core/constants.py",
+    "app/data/careers.json",
+    "app/data/skills.json",
+    "app/data/roadmaps.json",
+    "app/schemas/profile_schema.py",
+    "app/schemas/domain_schema.py",
+    "app/tools/career_tools.py",
+    "app/agents/career_advisor_agent.py",
+    "app/agents/skill_gap_agent.py",
+    "app/agents/roadmap_agent.py",
+    "app/mcp_server/career_mcp_server.py",
+    "app/skills/career_advisor/SKILL.md",
+    "app/skills/code_quality/SKILL.md",
+    "app/skills/security_review/SKILL.md",
+    "app/skills/kaggle_submission/SKILL.md",
+]
