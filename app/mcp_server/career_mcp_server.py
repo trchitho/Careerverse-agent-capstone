@@ -335,3 +335,19 @@ def list_available_skills(
 ) -> dict[str, Any]:
     """Module wrapper for skill resource listing."""
     return server.list_available_skills(category, level, limit, offset)
+
+
+def search_skills(
+    query: str,
+    category: str | None = None,
+    level: str | None = None,
+    limit: int = 20,
+    offset: int = 0,
+) -> dict[str, Any]:
+    """Module wrapper for skill search."""
+    return server.search_skills(query, category, level, limit, offset)
+
+
+def list_tool_catalog() -> list[dict[str, Any]]:
+    """Module wrapper for MCP-style tool discovery."""
+    return server.list_tool_catalog()
