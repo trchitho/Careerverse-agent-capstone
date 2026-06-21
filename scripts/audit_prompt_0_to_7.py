@@ -108,3 +108,27 @@ def audit_files() -> None:
     skill_text = SKILL_PATH.read_text(encoding="utf-8")
     missing_markers = [marker for marker in SKILL_MARKERS if marker not in skill_text]
     record("career advisor skill contract", not missing_markers, ", ".join(missing_markers))
+
+
+def audit_dataset() -> None:
+    """Verify dataset scale, uniqueness, and roadmap mapping."""
+    careers = load_json("app/data/careers.json")
+    skills = load_json("app/data/skills.json")
+    roadmaps = load_json("app/data/roadmaps.json")
+
+    record("career count", isinstance(careers, list) and len(careers) >= 80, str(len(careers)))
+    record("skill count", isinstance(skills, list) and len(skills) >= 250, str(len(skills)))
+    record(
+        "roadmap count",
+        isinstance(roadmaps, dict) and len(roadmaps) == len(careers),
+        str(len(roadmaps)),
+    )
+
+    career_ids = [career.get("id") for career in careers]
+    career_titles = [career.get("title") for career in careers]
+    skill_ids = [skill.get("id") for skill in skills]
+    skill_names = [skill.get("name") for skill in skills]
+    record("unique career ids", len(career_ids) == len(set(career_ids)))
+    record("unique career titles", len(career_titles) == len(set(career_titles)))
+    record("unique skill ids", len(skill_ids) == len(set(skill_ids)))
+    record("unique skill names", len(skill_names) == len(set(skill_names)))
