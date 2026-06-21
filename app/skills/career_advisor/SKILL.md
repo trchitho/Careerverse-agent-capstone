@@ -24,3 +24,30 @@ Use this skill when the user provides or requests:
 - skill gap analysis or priority skills;
 - a 30-day or 8-week learning roadmap;
 - portfolio project suggestions based on a target career.
+
+## 3. When Not to Use
+
+Do not use this skill to:
+
+- diagnose psychological, psychiatric, or clinical conditions;
+- guarantee that a major, role, salary, or career decision is correct;
+- provide legal, financial, or medical advice;
+- request unnecessary sensitive or private personal data;
+- process a real CV containing private data without informed user consent;
+- replace a mentor, teacher, counselor, or qualified career advisor.
+
+## 4. Required Inputs
+
+Require these fields before running the complete recommendation workflow:
+
+```json
+{
+  "name": "Demo User",
+  "education": "Final-year IT student",
+  "interests": ["AI", "web development"],
+  "skills": ["Python", "React", "SQL"],
+  "career_goal": "Become an AI full-stack developer"
+}
+```
+
+Use synthetic demo users in public examples. Ask only for missing, non-sensitive information.
