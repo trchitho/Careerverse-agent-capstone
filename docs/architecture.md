@@ -112,10 +112,11 @@ An offline regression test runner (`app/evals/evaluate_agent.py`) that loads a t
 ---
 
 ## 12. Data Layer
-The data layer consists of three high-fidelity local JSON datasets:
+The data layer decouples storage via protocol repository interfaces (defined in `interfaces.py`). By default, data operations fall back to three local JSON datasets:
 - [careers.json](file:///E:/OneDrive/Desktop/careerverse-agent-capstone/Careerverse-agent-capstone/app/data/careers.json): 80 tech profile definitions.
 - [skills.json](file:///E:/OneDrive/Desktop/careerverse-agent-capstone/Careerverse-agent-capstone/app/data/skills.json): 260 detailed skill tags and aliases.
 - [roadmaps.json](file:///E:/OneDrive/Desktop/careerverse-agent-capstone/Careerverse-agent-capstone/app/data/roadmaps.json): 80 pre-mapped learning paths.
+Ephemeral recommendation snapshots are managed by an in-memory session repository.
 
 ---
 
@@ -123,6 +124,7 @@ The data layer consists of three high-fidelity local JSON datasets:
 Built on FastAPI, the server runs completely asynchronously. It features a central router hierarchy:
 - **Legacy Layer**: Direct endpoints bound to root (e.g., `/recommend`, `/metadata`, `/tools`, `/mcp/*`) to maintain full backward compatibility with older clients.
 - **Versioned Layer (`/api/v1`)**: Stabilized routes organized in [app/api/v1/](file:///e:/OneDrive/Desktop/careerverse-agent-capstone/Careerverse-agent-capstone/app/api/v1) for new integrations.
+- **Saved Recommendations Endpoints**: Exposes versioned endpoints `/api/v1/recommendations/save` and `/api/v1/recommendations/saved/{session_id}` to store and list recommendation summaries.
 - **Unified Error Contract**: Intercepts application-level errors (like `UnsafeProfileError`, `ResourceNotFoundError`) and validation errors (`RequestValidationError`) on versioned endpoints, formatting them under a standardized `ErrorResponse` model (Pydantic schemas) to avoid exposing framework stack traces or raw malicious inputs.
 
 ---
