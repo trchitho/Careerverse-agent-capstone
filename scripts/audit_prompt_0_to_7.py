@@ -82,3 +82,29 @@ SKILL_MARKERS = [
     "MCP-style",
     "does not guarantee employment outcomes",
 ]
+
+
+def load_json(relative_path: str) -> Any:
+    """Load one UTF-8 JSON document from the repository."""
+    with (ROOT / relative_path).open(encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def audit_files() -> None:
+    """Verify files required by prompts 0 through 7."""
+    missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
+    record("required files", not missing, ", ".join(missing))
+
+    agents_text = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    agents_markers = [
+        "10–30 lines",
+        "Never commit",
+        "python -m compileall app",
+        "Implemented features and future work",
+    ]
+    absent = [marker for marker in agents_markers if marker not in agents_text]
+    record("AGENTS.md project rules", not absent, ", ".join(absent))
+
+    skill_text = SKILL_PATH.read_text(encoding="utf-8")
+    missing_markers = [marker for marker in SKILL_MARKERS if marker not in skill_text]
+    record("career advisor skill contract", not missing_markers, ", ".join(missing_markers))
