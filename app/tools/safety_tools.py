@@ -110,3 +110,32 @@ def redact_sensitive_text(text: str | None) -> str:
 def _has_sensitive_text(text: str) -> bool:
     """Return whether redaction would alter the supplied text."""
     return redact_sensitive_text(text) != text
+
+
+def _profile_mapping(profile: object) -> dict[str, Any]:
+    """Return a defensive profile copy from a mapping or Pydantic model."""
+    if hasattr(profile, "model_dump"):
+        payload = profile.model_dump()
+    elif isinstance(profile, dict):
+        payload = deepcopy(profile)
+    else:
+        raise ValueError("Profile must be a dictionary or Pydantic model.")
+    return payload
+
+
+def _scan_values(value: object) -> list[str]:
+    """Flatten supported scalar and list profile values into strings."""
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, list):
+        return [item for item in value if isinstance(item, str)]
+    return []
+
+
+def _redact_value(value: object) -> object:
+    """Return a redacted copy of a supported profile field value."""
+    if isinstance(value, str):
+        return redact_sensitive_text(value)
+    if isinstance(value, list):
+        return [redact_sensitive_text(item) if isinstance(item, str) else item for item in value]
+    return value
