@@ -13,6 +13,10 @@ class Settings(BaseSettings):
     environment: str = "development"
     model_name: str = "gemini-2.5-flash"
     google_api_key: str | None = None
+    data_source: str = "json"
+    database_url: str = ""
+    enable_llm_explanations: bool = False
+    saved_recommendation_store: str = "memory"
 
     model_config = SettingsConfigDict(
         env_file=".env",
