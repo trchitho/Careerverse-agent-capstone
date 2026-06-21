@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,7 +34,10 @@ def test_readme_specific_requirements():
     content = readme_path.read_text(encoding="utf-8")
 
     # Safety notice
-    safety_notice = "This system provides educational career guidance only. It does not guarantee employment outcomes or replace professional counseling."
+    safety_notice = (
+        "This system provides educational career guidance only. It does not "
+        "guarantee employment outcomes or replace professional counseling."
+    )
     assert safety_notice.lower() in content.lower(), "Missing safety notice in README"
 
     # Setup command

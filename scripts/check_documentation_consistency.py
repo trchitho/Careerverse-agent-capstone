@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import os
 import re
 import sys
 from pathlib import Path
@@ -74,7 +73,13 @@ def main() -> int:
     writeup_path = ROOT / "docs" / "writeup.md"
     checklist_path = ROOT / "docs" / "submission_checklist.md"
 
-    files_to_check = [readme_path, arch_path, demo_script_path, writeup_path]
+    files_to_check = [
+        readme_path,
+        arch_path,
+        demo_script_path,
+        writeup_path,
+        checklist_path
+    ]
     for f in files_to_check:
         if not check_file_exists(f):
             failures += 1
@@ -106,7 +111,10 @@ def main() -> int:
     word_cnt = count_words(writeup_content)
     print(f"  Word count: {word_cnt} words")
     if word_cnt > 2500:
-        print(f"FAIL: docs/writeup.md has {word_cnt} words, which exceeds the 2500 word limit.")
+        print(
+            f"FAIL: docs/writeup.md has {word_cnt} words, "
+            f"which exceeds the 2500 word limit."
+        )
         failures += 1
     else:
         print("  PASS: Word count within limits")
@@ -126,7 +134,10 @@ def main() -> int:
     print("\nChecking required README content elements:")
     
     # Safety notice checking
-    safety_notice_str = "This system provides educational career guidance only. It does not guarantee employment outcomes or replace professional counseling."
+    safety_notice_str = (
+        "This system provides educational career guidance only. It does not "
+        "guarantee employment outcomes or replace professional counseling."
+    )
     if safety_notice_str.lower() not in readme_content.lower():
         print("FAIL: Safety notice is missing or incorrect in README.")
         failures += 1
@@ -142,7 +153,10 @@ def main() -> int:
 
     # Evaluation command checking
     if "python -m app.evals.evaluate_agent" not in readme_content:
-        print("FAIL: Local evaluation command ('python -m app.evals.evaluate_agent') not found in README.")
+        print(
+            "FAIL: Local evaluation command "
+            "('python -m app.evals.evaluate_agent') not found in README."
+        )
         failures += 1
     else:
         print("  PASS: Evaluation command found")
