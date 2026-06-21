@@ -1,8 +1,6 @@
 """Roadmap retrieval and safe fallback agent."""
 
-import json
 from copy import deepcopy
-from functools import lru_cache
 from pathlib import Path
 from typing import Any
 

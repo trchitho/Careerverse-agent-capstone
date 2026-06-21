@@ -15,7 +15,6 @@ def build_local_explanation(
     """Generate a deterministic, local educational fit explanation."""
     name = profile.get("name") or "Student"
     interests = profile.get("interests") or []
-    skills = profile.get("skills") or []
     title = recommendation.get("title") or "Selected Career"
 
     matched_interests = [
@@ -36,7 +35,7 @@ def build_local_explanation(
         )
     else:
         explanation_parts.append(
-            f"It matches your overall target profile and goal."
+            "It matches your overall target profile and goal."
         )
 
     if matched_skills:

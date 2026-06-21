@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from app.models.saved_recommendation import SavedRecommendation
@@ -35,7 +35,7 @@ def create_saved_recommendation(
     summary = " ".join(reasons) if reasons else "No summary available."
 
     item_id = str(uuid.uuid4())
-    created_at = datetime.now(timezone.utc).isoformat()
+    created_at = datetime.now(UTC).isoformat()
 
     saved_item = SavedRecommendation(
         id=item_id,
