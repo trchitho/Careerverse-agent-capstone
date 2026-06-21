@@ -74,3 +74,31 @@ def mcp_skill(skill_name: str) -> dict[str, object]:
         return mcp_server.get_skill_metadata(skill_name)
     except ValueError as error:
         raise ResourceNotFoundError(str(error)) from error
+
+
+@router.get("/mcp/search/careers")
+def mcp_search_careers(
+    q: str = Query(min_length=1),
+    limit: int = Query(default=10, ge=1, le=50),
+    offset: int = Query(default=0, ge=0),
+) -> dict[str, object]:
+    """Search career resources by interest text."""
+    try:
+        return mcp_server.search_careers_by_interest(q, limit, offset)
+    except ValueError as error:
+        raise ResourceNotFoundError(str(error)) from error
+
+
+@router.get("/mcp/search/skills")
+def mcp_search_skills(
+    q: str = Query(min_length=1),
+    category: str | None = Query(default=None, min_length=1),
+    level: str | None = Query(default=None, min_length=1),
+    limit: int = Query(default=20, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
+) -> dict[str, object]:
+    """Search skill resources by text."""
+    try:
+        return mcp_server.search_skills(q, category, level, limit, offset)
+    except ValueError as error:
+        raise ResourceNotFoundError(str(error)) from error
