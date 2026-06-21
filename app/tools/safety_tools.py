@@ -190,3 +190,30 @@ def validate_profile_safety(profile: object) -> dict[str, Any]:
                     (highest_risk, injection["risk_level"]),
                     key=RISK_ORDER.__getitem__,
                 )
+                for category in injection["categories"]:
+                    issues.append(
+                        _issue(
+                            field,
+                            category,
+                            "Unsafe instruction-override content detected.",
+                        )
+                    )
+
+            sensitive_risk = _sensitive_risk(text)
+            if sensitive_risk != "none":
+                highest_risk = max(
+                    (highest_risk, sensitive_risk),
+                    key=RISK_ORDER.__getitem__,
+                )
+                issues.append(
+                    _issue(
+                        field,
+                        "sensitive_data",
+                        "Sensitive data was removed from this field.",
+                    )
+                )
+
+    blocking = highest_risk in {"medium", "high"} and any(
+        issue["category"] != "sensitive_data" or highest_risk == "high"
+        for issue in issues
+    )
