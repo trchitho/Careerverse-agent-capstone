@@ -31,3 +31,24 @@ def test_career_listing_endpoint_and_bounds() -> None:
     assert response.status_code == 200
     assert response.json()["count"] == 5
     assert client.get("/mcp/careers?limit=0").status_code == 422
+
+
+def test_career_detail_skills_and_roadmap_endpoints() -> None:
+    career_id = client.get("/mcp/careers?limit=1").json()["items"][0]["career_id"]
+
+    detail = client.get(f"/mcp/careers/{career_id}")
+    skills = client.get(f"/mcp/careers/{career_id}/skills")
+    roadmap = client.get(f"/mcp/careers/{career_id}/roadmap")
+
+    assert detail.status_code == 200
+    assert skills.status_code == 200
+    assert roadmap.status_code == 200
+    assert detail.json()["id"] == career_id
+    assert skills.json()["required_skills"]
+    assert roadmap.json()["career_id"] == career_id
+
+
+def test_unknown_career_resources_return_404() -> None:
+    assert client.get("/mcp/careers/not_real_id").status_code == 404
+    assert client.get("/mcp/careers/not_real_id/skills").status_code == 404
+    assert client.get("/mcp/careers/not_real_id/roadmap").status_code == 404
