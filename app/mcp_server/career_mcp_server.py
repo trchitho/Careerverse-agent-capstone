@@ -285,3 +285,28 @@ class CareerMCPServer:
             }
             for name, description in definitions
         ]
+
+
+server = CareerMCPServer()
+
+
+def list_available_careers(
+    family: str | None = None,
+    level: str | None = None,
+    limit: int = 20,
+    offset: int = 0,
+) -> dict[str, Any]:
+    """Module wrapper for career resource listing."""
+    return server.list_available_careers(family, level, limit, offset)
+
+
+def get_career_by_id(career_id: str) -> dict[str, Any]:
+    """Module wrapper for career lookup."""
+    return server.get_career_by_id(career_id)
+
+
+def search_careers_by_interest(
+    interest: str, limit: int = 10, offset: int = 0
+) -> dict[str, Any]:
+    """Module wrapper for career search."""
+    return server.search_careers_by_interest(interest, limit, offset)
