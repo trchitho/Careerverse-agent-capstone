@@ -54,3 +54,23 @@ def mcp_career_roadmap(career_id: str) -> dict[str, object]:
         return mcp_server.get_roadmap_for_career(career_id)
     except ValueError as error:
         raise ResourceNotFoundError(str(error)) from error
+
+
+@router.get("/mcp/skills")
+def mcp_skills(
+    category: str | None = Query(default=None, min_length=1),
+    level: str | None = Query(default=None, min_length=1),
+    limit: int = Query(default=50, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
+) -> dict[str, object]:
+    """List paginated skill resources."""
+    return mcp_server.list_available_skills(category, level, limit, offset)
+
+
+@router.get("/mcp/skills/{skill_name}")
+def mcp_skill(skill_name: str) -> dict[str, object]:
+    """Return one skill resource or a safe 404."""
+    try:
+        return mcp_server.get_skill_metadata(skill_name)
+    except ValueError as error:
+        raise ResourceNotFoundError(str(error)) from error
