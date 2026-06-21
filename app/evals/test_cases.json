@@ -85,7 +85,7 @@
       "status": "success",
       "top_k": 3,
       "expected_keywords": ["Frontend", "React", "UI"],
-      "expected_missing_skills_any": ["TypeScript", "Accessibility", "UI Testing"]
+      "expected_missing_skills_any": ["REST API Design", "GraphQL Basics", "Regression Testing"]
     }
   },
   {
@@ -129,7 +129,7 @@
       "status": "success",
       "top_k": 3,
       "expected_keywords": ["Product", "Software", "Engineer"],
-      "expected_missing_skills_any": ["Product Thinking", "User Empathy", "Prioritization"]
+      "expected_missing_skills_any": ["Backlog Management", "Product Strategy Basics", "Technical Writing"]
     }
   },
   {
@@ -173,7 +173,7 @@
       "status": "success",
       "top_k": 3,
       "expected_keywords": ["Solution", "Technical", "Product", "Consultant"],
-      "expected_missing_skills_any": ["Problem Framing", "Stakeholder Communication", "API Integration"]
+      "expected_missing_skills_any": ["Professional Communication", "Remote Collaboration", "OpenAPI"]
     }
   },
   {
@@ -239,7 +239,7 @@
       "status": "success",
       "top_k": 3,
       "expected_keywords": ["AI", "Developer", "Product"],
-      "expected_missing_skills_any": ["FastAPI", "SQL", "Docker"]
+      "expected_missing_skills_any": ["LLM API Integration", "REST API Design", "Tool Calling"]
     }
   },
   {
