@@ -129,3 +129,37 @@ def test_list_and_search_skills(
     assert listing["count"] == 5
     assert search["items"]
     assert any(item["name"] == "Python" for item in search["items"])
+
+
+@pytest.mark.parametrize(
+    ("limit", "offset"),
+    [(0, 0), (101, 0), (10, -1)],
+)
+def test_invalid_pagination_is_rejected(
+    server: CareerMCPServer,
+    limit: int,
+    offset: int,
+) -> None:
+    with pytest.raises(ValueError):
+        server.list_available_careers(limit=limit, offset=offset)
+
+
+def test_tool_catalog_includes_all_main_tools(
+    server: CareerMCPServer,
+) -> None:
+    names = {tool["name"] for tool in server.list_tool_catalog()}
+
+    assert len(names) == 8
+    assert "list_available_careers" in names
+    assert "get_roadmap_for_career" in names
+    assert "search_skills" in names
+
+
+def test_server_does_not_mutate_loaded_data(
+    server: CareerMCPServer,
+) -> None:
+    career = server.get_career_by_id("frontend_developer")
+    before = deepcopy(server.get_career_by_id("frontend_developer"))
+    career["required_skills"].append("Changed")
+
+    assert server.get_career_by_id("frontend_developer") == before
