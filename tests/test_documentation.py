@@ -14,6 +14,7 @@ def test_check_documentation_files_exist():
         ROOT / "docs" / "demo_script.md",
         ROOT / "docs" / "writeup.md",
         ROOT / "docs" / "submission_checklist.md",
+        ROOT / "docs" / "runtime.md",
     ]
     for f in files:
         assert f.exists(), f"File {f.name} does not exist"
