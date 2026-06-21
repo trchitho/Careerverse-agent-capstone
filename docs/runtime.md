@@ -23,3 +23,27 @@ To run the application locally outside of containers:
    ```bash
    uvicorn app.main:app --host 0.0.0.0 --port 8000
    ```
+
+## Docker Runtime
+To build the Docker image:
+```bash
+docker build -t careerverse-agent-api .
+```
+
+To run the container standalone:
+```bash
+docker run --rm -p 8000:8000 careerverse-agent-api
+```
+
+## Docker Compose Runtime
+To spin up the service in Docker Compose:
+```bash
+docker compose up --build
+```
+
+## Environment Variables
+The application reads settings from environment variables. Do not commit .env files or real secrets.
+- `ENVIRONMENT`: Env stage (`production`, `development`).
+- `MODEL_NAME`: Underlying engine name.
+- `ENABLE_LLM_EXPLANATIONS`: Boolean flag.
+- `GOOGLE_API_KEY`: Optional key placeholder.
