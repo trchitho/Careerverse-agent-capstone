@@ -11,6 +11,7 @@ from app.core.constants import (
     PROJECT_NAME,
     PROJECT_VERSION,
 )
+from app.mcp_server import CareerMCPServer
 from app.schemas import (
     AgentRecommendationResponse,
     ProfileValidationResponse,
@@ -20,6 +21,7 @@ from app.schemas import (
 
 settings = get_settings()
 career_advisor = CareerAdvisorAgent()
+mcp_server = CareerMCPServer()
 app = FastAPI(
     title=settings.app_name,
     description=PROJECT_DESCRIPTION,
@@ -42,7 +44,7 @@ def metadata() -> dict[str, object]:
         "version": PROJECT_VERSION,
         "track": KAGGLE_TRACK,
         "environment": settings.environment,
-        "current_stage": "multi_agent_recommendation",
+        "current_stage": "mcp_style_tool_server",
         "course_concepts_demonstrated": COURSE_CONCEPTS,
     }
 
@@ -65,3 +67,21 @@ def recommend(
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     return AgentRecommendationResponse.model_validate(payload)
+
+
+@app.get("/tools")
+def tool_catalog() -> dict[str, object]:
+    """Return discoverable MCP-style local tool definitions."""
+    tools = mcp_server.list_tool_catalog()
+    return {"tools": tools, "count": len(tools)}
+
+
+@app.get("/mcp/careers")
+def mcp_careers(
+    family: str | None = None,
+    level: str | None = None,
+    limit: int = Query(default=20, ge=1, le=100),
+    offset: int = Query(default=0, ge=0),
+) -> dict[str, object]:
+    """List paginated career resources."""
+    return mcp_server.list_available_careers(family, level, limit, offset)
