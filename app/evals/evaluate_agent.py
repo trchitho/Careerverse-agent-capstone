@@ -66,4 +66,25 @@ def _validate_response_contract(response: dict[str, object], top_k: int) -> list
         failures.append("recommendation score outside 0-100")
     if not 0 <= validated.skill_gap.readiness_score <= 100:
         failures.append("readiness score outside 0-100")
+    if len(validated.personalized_roadmap.thirty_day_plan) != 4:
+        failures.append("30-day roadmap does not contain four weeks")
+    if len(validated.personalized_roadmap.eight_week_plan) != 8:
+        failures.append("8-week roadmap does not contain eight weeks")
+    if validated.safety_notice != get_safety_notice():
+        failures.append("canonical safety notice is missing")
     return failures
+
+
+def _evaluate_success(case: EvaluationCase, agent: CareerAdvisorAgent) -> EvaluationResult:
+    """Evaluate one normal or edge workflow case."""
+    profile = UserProfileRequest.model_validate(case.input_profile)
+    safety = validate_profile_safety(profile)
+    if not safety["is_safe"]:
+        return EvaluationResult(
+            case_id=case.id,
+            case_type=case.type,
+            passed=False,
+            message="safe profile was blocked",
+        )
+    response = agent.run(safety["redacted_profile"], top_k=case.expected.top_k)
+    failures = _validate_response_contract(response, case.expected.top_k)
