@@ -1,5 +1,6 @@
 """API regression tests for the recommendation safety boundary."""
 
+import pytest
 from fastapi.testclient import TestClient
 from httpx import Response
 
@@ -78,3 +79,27 @@ def test_email_is_redacted_before_agent_response() -> None:
     assert response.status_code == 200
     assert "learner@example.com" not in response.text
     assert "[REDACTED_EMAIL]" in response.json()["user_summary"]["career_goal"]
+
+
+def test_blocked_profile_does_not_call_agent(monkeypatch: pytest.MonkeyPatch) -> None:
+    called = False
+
+    def unexpected_call(_profile: object, top_k: int = 3) -> dict[str, object]:
+        nonlocal called
+        called = True
+        return {}
+
+    monkeypatch.setattr(main_module.career_advisor, "run", unexpected_call)
+    response = client.post(
+        "/recommend",
+        json=valid_payload() | {"interests": ["AI", "bypass security"]},
+    )
+
+    assert response.status_code == 400
+    assert called is False
+
+
+def test_existing_validation_and_mcp_routes_still_work() -> None:
+    assert client.post("/profiles/validate", json=valid_payload()).status_code == 200
+    assert client.get("/mcp/careers?limit=1").status_code == 200
+    assert client.get("/mcp/skills?limit=1").status_code == 200
