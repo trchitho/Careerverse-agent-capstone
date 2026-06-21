@@ -34,3 +34,32 @@ def _paginate(items: list[dict[str, Any]], limit: int, offset: int) -> dict[str,
         "limit": limit,
         "offset": offset,
     }
+
+
+class CareerMCPServer:
+    """Expose local career knowledge as machine-readable tool resources."""
+
+    def __init__(self, roadmap_agent: RoadmapAgent | None = None) -> None:
+        self.roadmap_agent = roadmap_agent or RoadmapAgent()
+
+    @staticmethod
+    def _career_summary(career: dict[str, Any]) -> dict[str, Any]:
+        """Return the lightweight career listing representation."""
+        return {
+            "career_id": career["id"],
+            "title": career["title"],
+            "family": career.get("family"),
+            "level": career.get("level"),
+            "description": career["description"],
+            "market_relevance": deepcopy(career.get("market_relevance")),
+        }
+
+    @staticmethod
+    def _matches_filter(value: object, expected: str | None) -> bool:
+        """Apply an optional case-insensitive exact filter."""
+        if expected is None:
+            return True
+        normalized = normalize_text(expected)
+        if not normalized:
+            raise ValueError("filter values must not be blank")
+        return normalize_text(str(value or "")) == normalized
