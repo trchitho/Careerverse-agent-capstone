@@ -78,8 +78,8 @@ def tool_catalog() -> dict[str, object]:
 
 @app.get("/mcp/careers")
 def mcp_careers(
-    family: str | None = None,
-    level: str | None = None,
+    family: str | None = Query(default=None, min_length=1),
+    level: str | None = Query(default=None, min_length=1),
     limit: int = Query(default=20, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
 ) -> dict[str, object]:
@@ -116,8 +116,8 @@ def mcp_career_roadmap(career_id: str) -> dict[str, object]:
 
 @app.get("/mcp/skills")
 def mcp_skills(
-    category: str | None = None,
-    level: str | None = None,
+    category: str | None = Query(default=None, min_length=1),
+    level: str | None = Query(default=None, min_length=1),
     limit: int = Query(default=50, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
 ) -> dict[str, object]:
@@ -150,8 +150,8 @@ def mcp_search_careers(
 @app.get("/mcp/search/skills")
 def mcp_search_skills(
     q: str = Query(min_length=1),
-    category: str | None = None,
-    level: str | None = None,
+    category: str | None = Query(default=None, min_length=1),
+    level: str | None = Query(default=None, min_length=1),
     limit: int = Query(default=20, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
 ) -> dict[str, object]:
