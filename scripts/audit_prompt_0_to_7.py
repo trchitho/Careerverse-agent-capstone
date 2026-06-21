@@ -132,3 +132,30 @@ def audit_dataset() -> None:
     record("unique career titles", len(career_titles) == len(set(career_titles)))
     record("unique skill ids", len(skill_ids) == len(set(skill_ids)))
     record("unique skill names", len(skill_names) == len(set(skill_names)))
+
+    roadmap_ids = set(roadmaps)
+    career_id_set = set(career_ids)
+    record("career roadmap mapping", roadmap_ids == career_id_set)
+
+    career_fields = {
+        "id",
+        "title",
+        "description",
+        "required_skills",
+        "recommended_for",
+        "market_relevance",
+        "safety_note",
+    }
+    skill_fields = {"id", "name", "category", "level", "description"}
+    roadmap_fields = {
+        "career_id",
+        "career_title",
+        "thirty_day_plan",
+        "eight_week_plan",
+        "recommended_mini_project",
+        "portfolio_output",
+        "safety_note",
+    }
+    record("career required fields", all(career_fields <= career.keys() for career in careers))
+    record("skill required fields", all(skill_fields <= skill.keys() for skill in skills))
+    record("roadmap required fields", all(roadmap_fields <= item.keys() for item in roadmaps.values()))
