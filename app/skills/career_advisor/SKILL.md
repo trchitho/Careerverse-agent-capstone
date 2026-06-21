@@ -216,3 +216,27 @@ The real API returns complete roadmap records. Keep documentation examples conci
     {"career_id": "ai_full_stack_developer", "title": "AI Full-stack Developer", "score": 37.15},
     {"career_id": "ai_product_engineer", "title": "AI Product Engineer", "score": 27.0}
   ],
+  "skill_gap": {
+    "matched_skills": ["Python"],
+    "missing_skills": ["Feature Engineering", "NLP Fundamentals"],
+    "priority_skills": ["Feature Engineering", "NLP Fundamentals"],
+    "readiness_score": 12.5
+  },
+  "personalized_roadmap": {
+    "career_id": "ai_full_stack_developer",
+    "career_title": "AI Full-stack Developer",
+    "thirty_day_plan": [{"week": 1, "focus": "Foundations: AI-enabled web products"}],
+    "eight_week_plan": [{"week": 1, "focus": "Role orientation: AI-enabled web products"}]
+  },
+  "safety_notice": "This system provides educational career guidance only. It does not guarantee employment outcomes or replace professional counseling.",
+  "course_concepts_demonstrated": [
+    "Multi-agent system",
+    "Deterministic scoring engine",
+    "MCP-style tool integration ready",
+    "Agent Skills"
+  ]
+}
+```
+
+Treat scores as deterministic outputs for the supplied profile and current dataset, not as
+probabilities or guarantees.
