@@ -87,6 +87,22 @@ def main() -> int:
             404,
         ),
         (
+            "POST /api/v1/recommendations/save",
+            lambda: client.post(
+                "/api/v1/recommendations/save",
+                json={
+                    "session_id": "smoke-session-123",
+                    "recommendation_response": client.post("/api/v1/recommend", json=PROFILE).json()
+                }
+            ),
+            200,
+        ),
+        (
+            "GET /api/v1/recommendations/saved/smoke-session-123",
+            lambda: client.get("/api/v1/recommendations/saved/smoke-session-123"),
+            200,
+        ),
+        (
             "POST /api/v1/recommend with prompt injection",
             lambda: client.post("/api/v1/recommend", json=INJECTION_PROFILE),
             400,
