@@ -74,6 +74,8 @@ Validate profiles with `UserProfileRequest` before running tools:
 - enforce maximum interest and skill counts;
 - reject unsupported language, learning style, and experience values;
 - reject explicit prompt-injection patterns already covered by the schema;
+- call `validate_profile_safety()` before API recommendation orchestration;
+- pass its redacted profile forward and stop on an unsafe result;
 - reject unexpected fields rather than silently accepting them;
 - never request or accept API keys, passwords, tokens, or other secrets.
 
@@ -96,7 +98,7 @@ Keep the workflow deterministic and offline. Do not introduce model-generated sc
 ## 8. Detailed Workflow
 
 1. Validate the profile with `UserProfileRequest`.
-2. Normalize interests and skills through the schema and matching utilities.
+2. Call `validate_profile_safety()` and use only its redacted profile.
 3. Retrieve the local career and skill datasets.
 4. Call `recommend_careers()` to score candidates using interests, skills, and career goal.
 5. Select the requested top recommendations in deterministic order.
@@ -111,6 +113,7 @@ Keep the workflow deterministic and offline. Do not introduce model-generated sc
 Use the implemented interfaces according to responsibility:
 
 - `UserProfileRequest`: validate and normalize public profile input.
+- `validate_profile_safety()`: block injection and redact sensitive profile text before agents run.
 - `recommend_careers()`: rank careers with the deterministic 35/45/20 scoring formula.
 - `CareerAdvisorAgent.run()`: orchestrate the complete workflow and validate the response.
 - `SkillGapAgent.analyze()`: calculate matched, missing, and priority skills.
