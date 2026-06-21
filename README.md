@@ -242,6 +242,21 @@ Students submit their profiles as JSON to `POST /recommend`:
 
 ---
 
+## Input Validation
+Input validation constraints are implemented inside `app/schemas/profile_schema.py` using Pydantic v2. This validates and normalizes student profiles before any scoring is carried out.
+
+---
+
+## Career Scoring Engine
+The deterministic career matching score is calculated via the scoring engine based on interest matching, skill matching, and career goal keyword checks.
+
+---
+
+## Multi-Agent Workflow
+The recommendation pipeline splits tasks sequentially among specialized agents, coordinated by the `CareerAdvisorAgent`.
+
+---
+
 ## Local Evaluation
 To execute the aggregate offline validation suite, run:
 ```bash
@@ -266,6 +281,11 @@ pytest
 
 ---
 
+## Development
+To check typing, compliance constraints, and tests locally, run compile, lint, and pytest validations.
+
+---
+
 ## Security and Responsible AI
 The system adopts defensive security validation to protect public demonstrations:
 - **Prompt Injection Detection**: Inputs matching override instructions are flagged, returning an HTTP 400 Bad Request error.
@@ -286,6 +306,11 @@ You can verify dataset health via:
 ```bash
 python scripts/validate_domain_dataset.py
 ```
+
+---
+
+## Domain Data
+High-fidelity local templates representing 80 careers, 260 skills, and 80 roadmaps are stored in the `app/data/` folder.
 
 ---
 
