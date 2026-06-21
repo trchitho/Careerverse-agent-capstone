@@ -33,3 +33,26 @@ def test_404_not_found_contract() -> None:
     assert "error" in data or "detail" in data
     assert "traceback" not in str(data).lower()
     assert "stack" not in str(data).lower()
+
+
+def test_unsafe_profile_contract() -> None:
+    """Verify that unsafe profiles return structured 400 without echoing input."""
+    res = client.post("/api/v1/recommend", json=INJECTION_PROFILE)
+    assert res.status_code == 400
+    data = res.json()
+    assert "UnsafeProfileError" in str(data) or "unsafe_profile" in str(data)
+    assert "ignore previous instructions" not in str(data).lower()
+    assert "hacked" not in str(data).lower()
+
+
+def test_validation_error_contract() -> None:
+    """Verify that invalid top_k value returns 422 validation error."""
+    res = client.post("/api/v1/recommend?top_k=0", json=PROFILE)
+    assert res.status_code == 422
+
+
+def test_legacy_safety_remains() -> None:
+    """Verify that legacy recommend endpoint handles safety identical to before."""
+    res = client.post("/recommend", json=INJECTION_PROFILE)
+    assert res.status_code == 400
+    assert "unsafe_profile" in res.json()["detail"]["error"]
