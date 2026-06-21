@@ -357,3 +357,68 @@ curl -X GET "http://127.0.0.1:8000/api/v1/mcp/careers/not_real_id"
 }
 ```
 
+---
+
+## 12. Save Recommendation (v1)
+Saves a recommendation snapshot for a given session ID.
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/v1/recommendations/save \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "demo-session-001",
+    "recommendation_response": {
+      "top_recommendations": [
+        {
+          "career_id": "ai_fullstack_developer",
+          "title": "AI Full-Stack Developer",
+          "score": 0.85,
+          "matched_reasons": ["Has Python and AI interest"]
+        }
+      ],
+      "safety_notice": "Disclaimer statement"
+    }
+  }'
+```
+
+**Response (HTTP 200)**:
+```json
+{
+  "id": "e3057e63-c735-46f9-bb8f-fb4e4604e38c",
+  "session_id": "demo-session-001",
+  "created_at": "2026-06-21T16:00:00Z",
+  "title": "Saved recommendation for AI Full-Stack Developer",
+  "career_id": "ai_fullstack_developer",
+  "career_title": "AI Full-Stack Developer",
+  "score": 0.85,
+  "summary": "Has Python and AI interest",
+  "safety_notice": "Disclaimer statement"
+}
+```
+
+---
+
+## 13. List Saved Recommendations (v1)
+Lists all recommendations saved under a specific session ID.
+
+```bash
+curl -X GET http://127.0.0.1:8000/api/v1/recommendations/saved/demo-session-001
+```
+
+**Response (HTTP 200)**:
+```json
+[
+  {
+    "id": "e3057e63-c735-46f9-bb8f-fb4e4604e38c",
+    "session_id": "demo-session-001",
+    "created_at": "2026-06-21T16:00:00Z",
+    "title": "Saved recommendation for AI Full-Stack Developer",
+    "career_id": "ai_fullstack_developer",
+    "career_title": "AI Full-Stack Developer",
+    "score": 0.85,
+    "summary": "Has Python and AI interest",
+    "safety_notice": "Disclaimer statement"
+  }
+]
+```
+
