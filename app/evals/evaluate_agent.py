@@ -88,3 +88,30 @@ def _evaluate_success(case: EvaluationCase, agent: CareerAdvisorAgent) -> Evalua
         )
     response = agent.run(safety["redacted_profile"], top_k=case.expected.top_k)
     failures = _validate_response_contract(response, case.expected.top_k)
+    searchable = _recommendation_text(response)
+    if case.expected.expected_keywords and not any(
+        keyword.casefold() in searchable for keyword in case.expected.expected_keywords
+    ):
+        failures.append("no expected career keyword appeared")
+
+    missing = {
+        skill.casefold()
+        for skill in (
+            response["skill_gap"]["missing_skills"]
+            + response["skill_gap"]["priority_skills"]
+        )
+    }
+    expected_missing = {
+        skill.casefold() for skill in case.expected.expected_missing_skills_any
+    }
+    if expected_missing and missing.isdisjoint(expected_missing):
+        failures.append("expected missing-skill signal was absent")
+
+    return EvaluationResult(
+        case_id=case.id,
+        case_type=case.type,
+        passed=not failures,
+        message="response contract and expected signals valid"
+        if not failures
+        else "; ".join(failures),
+    )
