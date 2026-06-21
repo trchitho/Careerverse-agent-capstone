@@ -173,6 +173,25 @@ ruff check .
 pytest
 ```
 
+## Local Evaluation
+
+The project includes a deterministic offline evaluation pipeline for the complete agent workflow.
+
+```bash
+python -m app.evals.evaluate_agent
+```
+
+The evaluator covers role-oriented profiles, skill gap and roadmap contracts, safety notices,
+prompt injection blocking, duplicate normalization, Vietnamese input, and invalid profiles.
+
+Run the complete regression suite with:
+
+```bash
+pytest
+```
+
+No external API, network connection, database, or API key is required.
+
 ## Security and Responsible AI
 
 The backend includes a deterministic safety layer for public-demo usage. It checks:
