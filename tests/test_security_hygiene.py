@@ -55,6 +55,7 @@ def test_tracked_files_do_not_contain_obvious_credentials() -> None:
     excluded = {
         "app/tools/safety_tools.py",
         "scripts/audit_prompt_0_to_7.py",
+        "tests/test_safety_tools.py",
         "tests/test_security_hygiene.py",
     }
     findings: list[str] = []
