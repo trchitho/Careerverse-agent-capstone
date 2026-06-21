@@ -115,3 +115,38 @@ def _evaluate_success(case: EvaluationCase, agent: CareerAdvisorAgent) -> Evalua
         if not failures
         else "; ".join(failures),
     )
+
+
+def _evaluate_security(case: EvaluationCase) -> EvaluationResult:
+    """Evaluate one unsafe profile without invoking the advisor agent."""
+    safety = validate_profile_safety(case.input_profile)
+    serialized = json.dumps(
+        {"message": safety["safe_message"], "issues": safety["issues"]},
+        ensure_ascii=False,
+    ).casefold()
+    echoed = [
+        text for text in case.expected.must_not_echo if text.casefold() in serialized
+    ]
+    passed = (
+        not safety["is_safe"]
+        and safety["risk_level"] == case.expected.expected_risk
+        and not echoed
+    )
+    return EvaluationResult(
+        case_id=case.id,
+        case_type=case.type,
+        passed=passed,
+        message="unsafe profile blocked without echo"
+        if passed
+        else "security expectation failed",
+    )
+
+
+def _evaluate_invalid(case: EvaluationCase) -> EvaluationResult:
+    """Confirm invalid input is rejected by the public request schema."""
+    try:
+        UserProfileRequest.model_validate(case.input_profile)
+    except ValidationError:
+        passed = True
+    else:
+        passed = False
