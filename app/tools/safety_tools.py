@@ -139,3 +139,25 @@ def _redact_value(value: object) -> object:
     if isinstance(value, list):
         return [redact_sensitive_text(item) if isinstance(item, str) else item for item in value]
     return value
+
+
+def _sensitive_risk(text: str) -> str:
+    """Classify sensitive content as blocking high risk or redaction-only low risk."""
+    severe_patterns = (
+        PRIVATE_KEY_PATTERN,
+        GOOGLE_KEY_PATTERN,
+        GITHUB_TOKEN_PATTERN,
+        OPENAI_TOKEN_PATTERN,
+        ASSIGNED_PASSWORD_PATTERN,
+        ASSIGNED_TOKEN_PATTERN,
+    )
+    if any(pattern.search(text) for pattern in severe_patterns):
+        return "high"
+    if EMAIL_PATTERN.search(text) or LONG_ID_PATTERN.search(text):
+        return "low"
+    return "none"
+
+
+def _issue(field: str, category: str, message: str) -> dict[str, str]:
+    """Build a public issue object without including source text."""
+    return {"field": field, "category": category, "message": message}
