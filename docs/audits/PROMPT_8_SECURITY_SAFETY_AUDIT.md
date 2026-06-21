@@ -67,3 +67,20 @@ python <skill-creator>/scripts/quick_validate.py app/skills/career_advisor
 - Pytest: 159 passed, 0 failed.
 - Compatibility domain validator: PASS.
 - Career Advisor Skill validation: PASS.
+
+## Remaining Risks
+
+- Pattern-based detection is intentionally conservative and is not a semantic moderation model.
+- Unicode confusables, fragmented adversarial phrases, and novel injection wording may evade a
+  fixed phrase list.
+- Redaction is limited to supported public-demo formats and is not a full data-loss-prevention
+  system.
+- Production deployment would still require trusted proxy controls, rate limiting, structured
+  redacted logging, monitoring, and incident response.
+- Prompt 9 should measure false positives, false negatives, and safety regression cases locally.
+
+These risks are documented limitations rather than failures of the offline Prompt 8 scope.
+
+## Final Verdict
+
+PASS
