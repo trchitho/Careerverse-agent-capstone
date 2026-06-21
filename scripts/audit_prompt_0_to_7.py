@@ -301,3 +301,34 @@ def audit_hygiene() -> None:
     ]
     missing = [marker for marker in readme_markers if marker not in readme]
     record("README coverage", not missing, ", ".join(missing))
+
+
+def main() -> int:
+    """Run all compliance audit sections and return a process exit code."""
+    sections = [
+        ("files and rules", audit_files),
+        ("domain dataset", audit_dataset),
+        ("imports and tools", audit_imports_and_tools),
+        ("API compatibility", audit_api),
+        ("security and Git hygiene", audit_hygiene),
+    ]
+    for title, audit in sections:
+        print(f"\n=== {title.upper()} ===")
+        try:
+            audit()
+        except (ImportError, OSError, TypeError, ValueError, json.JSONDecodeError) as error:
+            record(title, False, str(error))
+
+    passed = sum(result for _, result in checks)
+    print(f"\nChecks passed: {passed}/{len(checks)}")
+    print(f"Warnings: {len(warnings)}")
+    print(f"Errors: {len(errors)}")
+    verdict = "PASS" if not errors and not warnings else "PASS_WITH_MINOR_NOTES"
+    if errors:
+        verdict = "FAIL"
+    print(f"FINAL VERDICT: {verdict}")
+    return 1 if errors else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
