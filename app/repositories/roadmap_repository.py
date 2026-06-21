@@ -35,7 +35,8 @@ class JsonRoadmapRepository:
 
     def list_roadmaps(self) -> dict[str, Any]:
         """List all roadmaps in the JSON dataset."""
-        return self._load()
+        import copy
+        return copy.deepcopy(self._load())
 
     def get_roadmap_by_career_id(self, career_id: str) -> dict[str, Any]:
         """Retrieve roadmap by career ID. Raise ResourceNotFoundError if missing."""

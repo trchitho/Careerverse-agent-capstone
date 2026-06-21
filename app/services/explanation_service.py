@@ -74,7 +74,7 @@ def explain_recommendation(
             "Fit analysis unavailable due to profile input validation warning."
         )
 
-    if settings.ENABLE_LLM_EXPLANATIONS and settings.GOOGLE_API_KEY:
+    if settings.enable_llm_explanations and settings.google_api_key:
         # Simulate LLM response block
         llm_text = f"[LLM Explanation Engine] {local_text}"
         return {
