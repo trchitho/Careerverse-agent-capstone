@@ -240,3 +240,30 @@ The real API returns complete roadmap records. Keep documentation examples conci
 
 Treat scores as deterministic outputs for the supplied profile and current dataset, not as
 probabilities or guarantees.
+
+## 16. Testing and Evaluation Notes
+
+Use the existing offline test surfaces:
+
+- `tests/test_profile_schema.py`: profile normalization and validation;
+- `tests/test_career_tools.py`: deterministic scoring and ranking;
+- `tests/test_skill_gap_agent.py`: matching, readiness, and priorities;
+- `tests/test_roadmap_agent.py`: stored and fallback roadmap behavior;
+- `tests/test_career_advisor_agent.py`: complete agent orchestration;
+- `tests/test_recommend_api.py`: public recommendation endpoint;
+- `tests/test_mcp_server.py`: MCP-style tool functions;
+- `tests/test_mcp_api.py`: MCP-style HTTP resources.
+
+Run dataset validation, compile, Ruff, and pytest before treating changes as complete.
+
+## 17. Implementation Boundaries
+
+Do not claim these as implemented:
+
+- real Gemini or other hosted model generation;
+- a production database, Neo4j, or pgvector integration;
+- a real CV parser or private resume-processing pipeline;
+- live labor-market crawling or salary prediction;
+- clinical diagnosis or guaranteed job matching.
+
+Keep the current implementation deterministic, local, explainable, and offline-first.
