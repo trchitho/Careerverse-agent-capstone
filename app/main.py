@@ -22,6 +22,8 @@ from app.schemas import (
     UserProfileSummary,
 )
 from app.tools.safety_tools import get_safety_notice, validate_profile_safety
+from app.api.router import api_router
+from app.core.exceptions import AppError
 
 settings = get_settings()
 career_advisor = CareerAdvisorAgent()
@@ -31,6 +33,8 @@ app = FastAPI(
     description=PROJECT_DESCRIPTION,
     version=settings.app_version,
 )
+
+app.include_router(api_router)
 
 
 @app.exception_handler(RequestValidationError)
