@@ -26,3 +26,29 @@ def test_local_environment_is_not_tracked() -> None:
     assert ".env" not in git_files()
     example = (ROOT / ".env.example").read_text(encoding="utf-8")
     assert "GOOGLE_API_KEY=\n" in example.replace("\r\n", "\n")
+
+
+def test_cache_and_build_artifacts_are_not_tracked() -> None:
+    forbidden = (
+        "__pycache__",
+        ".pytest_cache",
+        ".ruff_cache",
+        "node_modules",
+        "/dist/",
+        "/build/",
+    )
+    tracked = [path.replace("\\", "/") for path in git_files()]
+
+    assert not any(path.endswith(".pyc") for path in tracked)
+    assert not any(marker in f"/{path}/" for path in tracked for marker in forbidden)
+
+
+def test_tracked_files_do_not_contain_obvious_credentials() -> None:
+    credential_markers = (
+        "s" + "k-",
+        "AI" + "za",
+        "gh" + "p_",
+        "github_" + "pat_",
+        "BEGIN " + "PRIVATE KEY",
+    )
+    excluded = {"tests/test_security_hygiene.py", "scripts/audit_prompt_0_to_7.py"}
