@@ -9,7 +9,7 @@ from typing import Any
 
 from app.core.exceptions import ResourceNotFoundError
 
-DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 REQUIRED_SKILL_FIELDS = {"id", "name", "category", "level"}
 
 
@@ -42,7 +42,8 @@ class JsonSkillRepository:
 
     def list_skills(self) -> list[dict[str, Any]]:
         """List all skills in the JSON dataset."""
-        return self._load()
+        from app.tools.career_tools import load_skills
+        return load_skills()
 
     def get_skill_by_name(self, skill_name: str) -> dict[str, Any]:
         """Retrieve skill metadata by name, ID or alias. Raise ResourceNotFoundError if missing."""

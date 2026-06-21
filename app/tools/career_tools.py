@@ -7,6 +7,9 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from app.repositories.career_repository import JsonCareerRepository
+from app.repositories.skill_repository import JsonSkillRepository
+
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 DEFAULT_SAFETY_NOTE = (
     "This recommendation is educational guidance only and does not guarantee "
@@ -17,6 +20,9 @@ REQUIRED_CAREER_FIELDS = {
     "id", "title", "description", "required_skills", "recommended_for"
 }
 REQUIRED_SKILL_FIELDS = {"id", "name", "category", "level"}
+
+_career_repo = JsonCareerRepository()
+_skill_repo = JsonSkillRepository()
 
 
 def _load_json(filename: str) -> object:

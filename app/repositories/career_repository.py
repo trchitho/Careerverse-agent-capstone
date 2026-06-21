@@ -9,7 +9,7 @@ from typing import Any
 
 from app.core.exceptions import ResourceNotFoundError
 
-DATA_DIR = Path(__file__).resolve().parents[2] / "data"
+DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 REQUIRED_CAREER_FIELDS = {
     "id",
     "title",
@@ -48,7 +48,8 @@ class JsonCareerRepository:
 
     def list_careers(self) -> list[dict[str, Any]]:
         """List all careers in the JSON dataset."""
-        return self._load()
+        from app.tools.career_tools import load_careers
+        return load_careers()
 
     def get_career_by_id(self, career_id: str) -> dict[str, Any]:
         """Retrieve a career by its ID. Raise ResourceNotFoundError if missing."""
