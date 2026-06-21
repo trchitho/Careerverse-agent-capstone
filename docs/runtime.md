@@ -47,3 +47,25 @@ The application reads settings from environment variables. Do not commit .env fi
 - `MODEL_NAME`: Underlying engine name.
 - `ENABLE_LLM_EXPLANATIONS`: Boolean flag.
 - `GOOGLE_API_KEY`: Optional key placeholder.
+
+## Health Checks
+The FastAPI app contains a health check endpoint at `GET /` which returns the service health status. The Docker container executes health check checks using urllib.
+
+## Readiness Checks
+Readiness checks can query `GET /metadata` and `GET /tools` to verify availability of loaded skills and dataset capabilities.
+
+## Dataset Availability
+The system does not connect to external databases by default. High-fidelity career guidance data (careers, skills, roadmaps) is loaded locally from JSON datasets during service startup.
+
+## Safety Runtime Rules
+All input profiles are validated by the Zero-Trust safety layer. Prompt injections are automatically blocked (HTTP 400), and sensitive tokens are scrubbed. Recommendation payloads include educational safety disclaimers.
+
+## Common Commands
+- `pytest` to run tests.
+- `python scripts/docker_smoke_check.py` to run Docker test build.
+
+## Troubleshooting
+If a container fails to start, verify port 8000 is not in use or check docker-compose environment configurations.
+
+## Production Notes
+This application is an offline Capstone MVP. Production deployments would require adding OAuth2 authentication, rate limiting, and persistent databases.
