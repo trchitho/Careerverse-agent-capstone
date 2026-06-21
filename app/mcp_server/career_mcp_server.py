@@ -127,3 +127,36 @@ class CareerMCPServer:
             for career in load_careers()
         ]
         matches = [(score, career) for score, career in scored if score > 0]
+        matches.sort(
+            key=lambda item: (
+                -item[0],
+                normalize_text(str(item[1]["title"])),
+                normalize_text(str(item[1]["id"])),
+            )
+        )
+        items = [self._career_summary(career) for _score, career in matches]
+        response = _paginate(items, limit, offset)
+        response["query"] = interest.strip()
+        return response
+
+    @staticmethod
+    def _skill_lookup_index() -> dict[str, dict[str, Any]]:
+        """Build normalized id, name, and alias lookups."""
+        index: dict[str, dict[str, Any]] = {}
+        for skill in load_skills():
+            candidates = [skill.get("id"), skill.get("name"), *skill.get("aliases", [])]
+            for candidate in candidates:
+                normalized = normalize_text(str(candidate or ""))
+                if normalized:
+                    index.setdefault(normalized, skill)
+        return index
+
+    def get_skill_metadata(self, skill_name: str) -> dict[str, Any]:
+        """Return one skill resource by id, name, or alias."""
+        normalized = normalize_text(skill_name)
+        if not normalized:
+            raise ValueError("skill_name must not be blank")
+        skill = self._skill_lookup_index().get(normalized)
+        if skill is None:
+            raise ValueError(f"Skill not found: {skill_name}")
+        return deepcopy(skill)
