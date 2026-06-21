@@ -74,13 +74,15 @@ def main() -> int:
     demo_script_path = ROOT / "docs" / "demo_script.md"
     writeup_path = ROOT / "docs" / "writeup.md"
     checklist_path = ROOT / "docs" / "submission_checklist.md"
+    runtime_path = ROOT / "docs" / "runtime.md"
 
     files_to_check = [
         readme_path,
         arch_path,
         demo_script_path,
         writeup_path,
-        checklist_path
+        checklist_path,
+        runtime_path
     ]
     for f in files_to_check:
         if not check_file_exists(f):
@@ -94,6 +96,7 @@ def main() -> int:
     readme_content = readme_path.read_text(encoding="utf-8")
     arch_content = arch_path.read_text(encoding="utf-8")
     writeup_content = writeup_path.read_text(encoding="utf-8")
+    runtime_content = runtime_path.read_text(encoding="utf-8")
     
     # 2. Check README headings
     print("\nChecking README.md headings:")
