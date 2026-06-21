@@ -177,3 +177,31 @@ def evaluate_case(
             passed=False,
             message=f"{type(error).__name__}: {error}",
         )
+
+
+def run_evaluation(cases: list[EvaluationCase] | None = None) -> tuple[
+    list[EvaluationResult], EvaluationSummary
+]:
+    """Run all cases and return deterministic results with aggregate score."""
+    selected = cases or load_cases()
+    agent = CareerAdvisorAgent()
+    results = [evaluate_case(case, agent) for case in selected]
+    passed = sum(result.passed for result in results)
+    failed = len(results) - passed
+    score = round((passed / len(results) * 100) if results else 0.0, 2)
+    summary = EvaluationSummary(
+        total=len(results),
+        passed=passed,
+        failed=failed,
+        skipped=0,
+        score=score,
+    )
+    return results, summary
+
+
+def main() -> int:
+    """Run the local evaluator, print results, and return its process status."""
+    results, summary = run_evaluation()
+    for result in results:
+        label = "PASS" if result.passed else "FAIL"
+        print(f"[{label}] {result.case_id} — {result.message}")
