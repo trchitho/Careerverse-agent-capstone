@@ -191,3 +191,44 @@ class CareerMCPServer:
             if normalize_text(key) == normalized:
                 return deepcopy(roadmap)
         raise ValueError(f"Roadmap not found for career: {career_id}")
+
+    def list_available_skills(
+        self,
+        category: str | None = None,
+        level: str | None = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        """List skill resources with optional exact filters."""
+        filtered = [
+            deepcopy(skill)
+            for skill in load_skills()
+            if self._matches_filter(skill.get("category"), category)
+            and self._matches_filter(skill.get("level"), level)
+        ]
+        filtered.sort(
+            key=lambda skill: (
+                normalize_text(str(skill["name"])),
+                normalize_text(str(skill["id"])),
+            )
+        )
+        return _paginate(filtered, limit, offset)
+
+    @staticmethod
+    def _skill_search_score(query: str, skill: dict[str, Any]) -> float:
+        """Calculate deterministic skill search relevance."""
+        query_tokens = tokenize_text(query)
+        fields = [
+            skill.get("id", ""),
+            skill.get("name", ""),
+            skill.get("description", ""),
+            *skill.get("aliases", []),
+            *skill.get("related_skills", []),
+        ]
+        search_text = normalize_text(" ".join(str(field) for field in fields))
+        score = len(query_tokens & tokenize_text(search_text)) * 10.0
+        if query == normalize_text(str(skill.get("name", ""))):
+            score += 100.0
+        elif query in search_text:
+            score += 20.0
+        return score
