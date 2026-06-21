@@ -120,7 +120,10 @@ The data layer consists of three high-fidelity local JSON datasets:
 ---
 
 ## 13. API Layer
-Built on FastAPI, the server runs completely asynchronously, utilizing Pydantic v2 schemas to validate types, sanitize arrays, and format standard JSON errors (HTTP 400/422).
+Built on FastAPI, the server runs completely asynchronously. It features a central router hierarchy:
+- **Legacy Layer**: Direct endpoints bound to root (e.g., `/recommend`, `/metadata`, `/tools`, `/mcp/*`) to maintain full backward compatibility with older clients.
+- **Versioned Layer (`/api/v1`)**: Stabilized routes organized in [app/api/v1/](file:///e:/OneDrive/Desktop/careerverse-agent-capstone/Careerverse-agent-capstone/app/api/v1) for new integrations.
+- **Unified Error Contract**: Intercepts application-level errors (like `UnsafeProfileError`, `ResourceNotFoundError`) and validation errors (`RequestValidationError`) on versioned endpoints, formatting them under a standardized `ErrorResponse` model (Pydantic schemas) to avoid exposing framework stack traces or raw malicious inputs.
 
 ---
 
