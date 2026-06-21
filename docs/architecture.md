@@ -14,3 +14,10 @@ templates through deterministic local tools without external APIs.
 
 The Career Advisor Skill documents how to execute the workflow safely and consistently. It
 provides a reusable instruction layer for future agent implementations, evaluations, and demos.
+
+## Safety Layer
+
+Before recommendation orchestration, the API validates normalized profile text through a
+deterministic safety layer. Explicit instruction overrides and severe secret exposure are blocked
+without echoing source text. Lower-risk personal identifiers are redacted before the agent runs,
+and every successful recommendation includes the canonical educational safety notice.
