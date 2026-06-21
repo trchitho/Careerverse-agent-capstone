@@ -9,6 +9,7 @@ from app.schemas.profile_schema import (
     UserProfileRequest,
     UserProfileSummary,
 )
+from app.schemas.error_schema import ErrorResponse
 
 __all__ = [
     "AgentRecommendationResponse",
@@ -18,4 +19,5 @@ __all__ = [
     "SkillGapResult",
     "UserProfileRequest",
     "UserProfileSummary",
+    "ErrorResponse",
 ]
