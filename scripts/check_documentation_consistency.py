@@ -51,6 +51,10 @@ FORBIDDEN_PATTERNS = [
     (r"cloud deployment is live", "Claims cloud deployment is live"),
     (r"legacy endpoints? (have been )?removed", "Claims legacy endpoints removed"),
     (r"full production auth", "Claims full production auth"),
+    (r"PostgreSQL is implemented", "Claims PostgreSQL is implemented"),
+    (r"full auth is implemented", "Claims full auth is implemented"),
+    (r"sensitive personal data is stored", "Claims sensitive personal data is stored"),
+    (r"sensitive user data is stored", "Claims sensitive user data is stored"),
 ]
 
 def check_file_exists(path: Path) -> bool:
@@ -77,8 +81,9 @@ def main() -> int:
     writeup_path = ROOT / "docs" / "writeup.md"
     checklist_path = ROOT / "docs" / "submission_checklist.md"
     runtime_path = ROOT / "docs" / "runtime.md"
-    api_versioning_path = ROOT / "docs" / "api_versioning.md"
-    api_examples_path = ROOT / "docs" / "api_examples.md"
+    persistence_plan_path = ROOT / "docs" / "persistence_plan.md"
+    explanation_service_path = ROOT / "docs" / "explanation_service.md"
+    session_storage_path = ROOT / "docs" / "session_storage.md"
 
     files_to_check = [
         readme_path,
@@ -89,6 +94,9 @@ def main() -> int:
         runtime_path,
         api_versioning_path,
         api_examples_path,
+        persistence_plan_path,
+        explanation_service_path,
+        session_storage_path,
     ]
     for f in files_to_check:
         if not check_file_exists(f):
@@ -105,6 +113,9 @@ def main() -> int:
     runtime_content = runtime_path.read_text(encoding="utf-8")
     api_versioning_content = api_versioning_path.read_text(encoding="utf-8")
     api_examples_content = api_examples_path.read_text(encoding="utf-8")
+    persistence_plan_content = persistence_plan_path.read_text(encoding="utf-8")
+    explanation_service_content = explanation_service_path.read_text(encoding="utf-8")
+    session_storage_content = session_storage_path.read_text(encoding="utf-8")
     
     # 2. Check README headings
     print("\nChecking README.md headings:")
@@ -139,7 +150,10 @@ def main() -> int:
         arch_content + "\n" +
         writeup_content + "\n" +
         api_versioning_content + "\n" +
-        api_examples_content
+        api_examples_content + "\n" +
+        persistence_plan_content + "\n" +
+        explanation_service_content + "\n" +
+        session_storage_content
     )
     for pattern, message in FORBIDDEN_PATTERNS:
         match = re.search(pattern, all_docs_content, re.IGNORECASE)
@@ -235,6 +249,21 @@ def main() -> int:
         failures += 1
     else:
         print("  PASS: Future work clearly demarcated")
+
+    # 6b. Repository and Persistence consistency checks
+    print("\nChecking persistence, explanation, and saved recommendations assertions:")
+    if "data access and persistence readiness" not in readme_content.lower():
+        print("FAIL: README does not mention repository layer / persistence readiness.")
+        failures += 1
+    if "optional explanation service" not in readme_content.lower():
+        print("FAIL: README does not mention optional explanation service.")
+        failures += 1
+    if "llm-based explanations are optional and disabled" not in readme_content.lower() and "disabled by default" not in readme_content.lower():
+        print("FAIL: README does not state external LLM is disabled by default.")
+        failures += 1
+    if "does not implement full authentication" not in readme_content.lower():
+        print("FAIL: README does not state no production authentication.")
+        failures += 1
 
     # 7. Check for obvious credentials in docs
     print("\nChecking for obvious credentials in documentation:")
