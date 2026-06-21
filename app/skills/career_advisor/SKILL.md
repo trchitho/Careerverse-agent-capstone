@@ -105,3 +105,25 @@ Keep the workflow deterministic and offline. Do not introduce model-generated sc
 8. Add priority missing skills to roadmap prerequisites without mutating cached data.
 9. Add the educational safety notice and course concepts.
 10. Validate and return structured JSON through `AgentRecommendationResponse`.
+
+## 9. Tool Usage
+
+Use the implemented interfaces according to responsibility:
+
+- `UserProfileRequest`: validate and normalize public profile input.
+- `recommend_careers()`: rank careers with the deterministic 35/45/20 scoring formula.
+- `CareerAdvisorAgent.run()`: orchestrate the complete workflow and validate the response.
+- `SkillGapAgent.analyze()`: calculate matched, missing, and priority skills.
+- `RoadmapAgent.get_roadmap()`: retrieve or safely fall back to a schema-valid roadmap.
+
+Use MCP-style local tools for targeted resource discovery:
+
+- `list_available_careers()` to browse filtered career summaries;
+- `get_career_by_id()` to inspect a complete career resource;
+- `search_careers_by_interest()` to search career text deterministically;
+- `get_required_skills()` to retrieve enriched skill requirements;
+- `get_roadmap_for_career()` to retrieve stored roadmap data;
+- `get_skill_metadata()` to resolve a skill by id, name, or alias.
+
+Call local Python functions directly for offline workflows. Use HTTP MCP-style endpoints only
+when demonstrating interoperable tool access.
