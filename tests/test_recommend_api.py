@@ -1,7 +1,7 @@
 """API tests for the production multi-agent recommendation endpoint."""
 
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
 import app.main as main_module
 
