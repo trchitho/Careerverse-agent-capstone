@@ -173,12 +173,27 @@ ruff check .
 pytest
 ```
 
-## Security
+## Security and Responsible AI
 
-Do not commit `.env`, API keys, passwords, tokens, build output, or local cache files.
+The backend includes a deterministic safety layer for public-demo usage. It checks:
 
-CareerVerse Agent provides educational guidance only and does not guarantee employment
-outcomes or replace professional counseling.
+- prompt injection and instruction override attempts
+- secret extraction and security bypass attempts
+- accidental sensitive data in profile free text
+- the educational safety notice in recommendation responses
+
+Main safety functions:
+
+```text
+detect_prompt_injection()
+validate_profile_safety()
+redact_sensitive_text()
+get_safety_notice()
+```
+
+Do not commit `.env`, credentials, build output, or local cache files. The system provides
+educational career guidance only. It does not guarantee employment outcomes or replace
+professional counseling.
 
 ## Kaggle Capstone Concepts
 
