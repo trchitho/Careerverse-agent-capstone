@@ -168,23 +168,23 @@ def main() -> int:
     else:
         print("  PASS: Future work clearly demarcated")
 
-    # 7. Check for obvious secrets in docs
-    print("\nChecking for obvious secrets in documentation:")
+    # 7. Check for obvious credentials in docs
+    print("\nChecking for obvious credentials in documentation:")
     cred_patterns = [
         r"api[-_]?key\s*=\s*['\"][a-zA-Z0-9]{20,}['\"]",
         r"pass" + r"word\s*=\s*['\"][a-zA-Z0-9_]{8,}['\"]",
         r"db_pass" + r"word",
     ]
-    has_secret = False
+    leak_detected = False
     for sp in cred_patterns:
         if re.search(sp, all_docs_content, re.IGNORECASE):
-            has_secret = True
+            leak_detected = True
             break
-    if has_secret:
-        print("FAIL: Potential hardcoded secret or credential found in docs.")
+    if leak_detected:
+        print("FAIL: Potential hardcoded credential found in docs.")
         failures += 1
     else:
-        print("  PASS: No secrets found in docs")
+        print("  PASS: No credentials found in docs")
 
     print("\n=== CONSISTENCY AUDIT SUMMARY ===")
     if failures > 0:
