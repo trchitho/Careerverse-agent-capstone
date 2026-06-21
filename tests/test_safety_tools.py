@@ -4,13 +4,13 @@ from copy import deepcopy
 
 import pytest
 
+from app.schemas.profile_schema import UserProfileRequest
 from app.tools.safety_tools import (
     detect_prompt_injection,
     get_safety_notice,
     redact_sensitive_text,
     validate_profile_safety,
 )
-from app.schemas.profile_schema import UserProfileRequest
 
 EXPECTED_NOTICE = (
     "This system provides educational career guidance only. "
