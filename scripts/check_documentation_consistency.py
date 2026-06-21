@@ -49,6 +49,8 @@ FORBIDDEN_PATTERNS = [
     (r"authentication is implemented", "Claims authentication is implemented"),
     (r"live deployment is implemented", "Claims live deployment is implemented"),
     (r"cloud deployment is live", "Claims cloud deployment is live"),
+    (r"legacy endpoints? (have been )?removed", "Claims legacy endpoints removed"),
+    (r"full production auth", "Claims full production auth"),
 ]
 
 def check_file_exists(path: Path) -> bool:
@@ -75,6 +77,8 @@ def main() -> int:
     writeup_path = ROOT / "docs" / "writeup.md"
     checklist_path = ROOT / "docs" / "submission_checklist.md"
     runtime_path = ROOT / "docs" / "runtime.md"
+    api_versioning_path = ROOT / "docs" / "api_versioning.md"
+    api_examples_path = ROOT / "docs" / "api_examples.md"
 
     files_to_check = [
         readme_path,
@@ -82,7 +86,9 @@ def main() -> int:
         demo_script_path,
         writeup_path,
         checklist_path,
-        runtime_path
+        runtime_path,
+        api_versioning_path,
+        api_examples_path,
     ]
     for f in files_to_check:
         if not check_file_exists(f):
@@ -97,6 +103,8 @@ def main() -> int:
     arch_content = arch_path.read_text(encoding="utf-8")
     writeup_content = writeup_path.read_text(encoding="utf-8")
     runtime_content = runtime_path.read_text(encoding="utf-8")
+    api_versioning_content = api_versioning_path.read_text(encoding="utf-8")
+    api_examples_content = api_examples_path.read_text(encoding="utf-8")
     
     # 2. Check README headings
     print("\nChecking README.md headings:")
@@ -126,7 +134,13 @@ def main() -> int:
 
     # 4. Check for forbidden claims of unimplemented features in README & Writeup
     print("\nChecking for forbidden feature claims:")
-    all_docs_content = readme_content + "\n" + arch_content + "\n" + writeup_content
+    all_docs_content = (
+        readme_content + "\n" +
+        arch_content + "\n" +
+        writeup_content + "\n" +
+        api_versioning_content + "\n" +
+        api_examples_content
+    )
     for pattern, message in FORBIDDEN_PATTERNS:
         match = re.search(pattern, all_docs_content, re.IGNORECASE)
         if match:
@@ -179,6 +193,26 @@ def main() -> int:
     if "python scripts/docker_smoke_check.py" not in readme_content:
         print("FAIL: 'python scripts/docker_smoke_check.py' command not found in README.")
         failures += 1
+
+    # API Versioning checks
+    print("\nChecking API versioning content elements:")
+    if "API Versioning".lower() not in readme_content.lower():
+        print("FAIL: 'API Versioning' section not found in README.")
+        failures += 1
+    else:
+        print("  PASS: README contains 'API Versioning'")
+
+    if "/api/v1/recommend" not in readme_content:
+        print("FAIL: '/api/v1/recommend' not found in README.")
+        failures += 1
+    else:
+        print("  PASS: README contains '/api/v1/recommend'")
+
+    if "/api/v1" not in api_examples_content:
+        print("FAIL: '/api/v1' examples not found in docs/api_examples.md.")
+        failures += 1
+    else:
+        print("  PASS: docs/api_examples.md contains '/api/v1'")
 
     # runtime.md verification checks
     print("\nChecking docs/runtime.md content elements:")
