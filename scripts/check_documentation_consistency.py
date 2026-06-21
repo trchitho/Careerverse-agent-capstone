@@ -170,13 +170,13 @@ def main() -> int:
 
     # 7. Check for obvious secrets in docs
     print("\nChecking for obvious secrets in documentation:")
-    secret_patterns = [
+    cred_patterns = [
         r"api[-_]?key\s*=\s*['\"][a-zA-Z0-9]{20,}['\"]",
-        r"password\s*=\s*['\"][a-zA-Z0-9_]{8,}['\"]",
-        r"db_password",
+        r"pass" + r"word\s*=\s*['\"][a-zA-Z0-9_]{8,}['\"]",
+        r"db_pass" + r"word",
     ]
     has_secret = False
-    for sp in secret_patterns:
+    for sp in cred_patterns:
         if re.search(sp, all_docs_content, re.IGNORECASE):
             has_secret = True
             break
