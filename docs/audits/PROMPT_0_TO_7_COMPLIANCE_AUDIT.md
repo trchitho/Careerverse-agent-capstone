@@ -99,3 +99,31 @@ Status: PASS
 - Dict and Pydantic inputs produce `AgentRecommendationResponse`-valid output.
 - `POST /recommend` returned HTTP 200 for valid input and 422 for malformed input.
 - Existing health, metadata, and validation endpoints remain compatible.
+
+## Prompt 6 — MCP-Style Server Audit
+
+Status: PASS
+
+- Career listing, lookup, interest search, required skills, roadmap, and skill metadata tools work.
+- Skill listing/search and the machine-readable tool catalog work.
+- Pagination, filters, deterministic search ordering, and resource copying are covered by tests.
+- All MCP endpoints in the smoke scope returned HTTP 200.
+- Missing career and skill resources are covered by tests and return safe HTTP 404 responses.
+
+## Prompt 7 — Agent Skill Audit
+
+Status: PASS
+
+- The Career Advisor Skill has all 18 required progressive-disclosure sections.
+- It names the implemented schemas, agents, scoring workflow, and MCP-style tools.
+- Safety, failure handling, examples, testing notes, boundaries, and future work are explicit.
+- It does not claim employment guarantees or clinical diagnosis capabilities.
+- `app/skills/README.md` and `tests/test_agent_skill_docs.py` exist.
+
+## API Compatibility Audit
+
+Status: PASS
+
+- Compliance smoke checks: 10/10, including controlled 422 and 404 behavior.
+- Standalone API smoke script: 9/9 critical endpoint requests returned HTTP 200.
+- Existing endpoint response contracts remain unchanged by this audit.
