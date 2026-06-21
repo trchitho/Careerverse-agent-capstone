@@ -122,6 +122,27 @@ GET /mcp/search/skills?q=Python
 This is a local MCP-style prototype for the Kaggle Capstone. It requires no external APIs,
 secrets, or production database.
 
+## Agent Skills
+
+This project documents agent behavior through reusable skill files.
+
+Main skill:
+
+```text
+app/skills/career_advisor/SKILL.md
+```
+
+The Career Advisor Skill defines usage conditions, inputs, validation, multi-agent workflow,
+MCP-style tools, output contracts, safety rules, failure handling, and examples.
+
+Supporting skills:
+
+```text
+app/skills/code_quality/SKILL.md
+app/skills/security_review/SKILL.md
+app/skills/kaggle_submission/SKILL.md
+```
+
 ```bash
 pytest tests/test_career_tools.py
 ```
