@@ -85,3 +85,30 @@ def mcp_careers(
 ) -> dict[str, object]:
     """List paginated career resources."""
     return mcp_server.list_available_careers(family, level, limit, offset)
+
+
+@app.get("/mcp/careers/{career_id}")
+def mcp_career(career_id: str) -> dict[str, object]:
+    """Return one career resource or a safe 404."""
+    try:
+        return mcp_server.get_career_by_id(career_id)
+    except ValueError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/mcp/careers/{career_id}/skills")
+def mcp_career_skills(career_id: str) -> dict[str, object]:
+    """Return required and optional career skill resources."""
+    try:
+        return mcp_server.get_required_skills(career_id)
+    except ValueError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+
+@app.get("/mcp/careers/{career_id}/roadmap")
+def mcp_career_roadmap(career_id: str) -> dict[str, object]:
+    """Return one stored roadmap resource."""
+    try:
+        return mcp_server.get_roadmap_for_career(career_id)
+    except ValueError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
