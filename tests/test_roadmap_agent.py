@@ -64,3 +64,14 @@ def test_fallback_includes_priority_skills_safely() -> None:
 def test_blank_career_id_is_rejected() -> None:
     with pytest.raises(ValueError, match="career_id"):
         RoadmapAgent().get_roadmap("   ")
+
+
+def test_cached_roadmap_data_is_not_mutated() -> None:
+    agent = RoadmapAgent()
+    career_id = next(iter(agent.load_roadmaps()))
+    before = deepcopy(agent.load_roadmaps()[career_id])
+
+    personalized = agent.get_roadmap(career_id, missing_skills=["Docker"])
+    personalized["prerequisites"].append("Changed locally")
+
+    assert agent.load_roadmaps()[career_id] == before
