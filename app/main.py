@@ -37,6 +37,23 @@ app = FastAPI(
 app.include_router(api_router)
 
 
+@app.exception_handler(AppError)
+async def app_error_handler(request: Request, exc: AppError) -> JSONResponse:
+    """Format custom application errors into ErrorResponse."""
+    details = None
+    if hasattr(exc, "risk_level"):
+        details = {"risk_level": exc.risk_level}
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": exc.__class__.__name__,
+            "message": exc.message,
+            "status_code": exc.status_code,
+            "details": details,
+        },
+    )
+
+
 @app.exception_handler(RequestValidationError)
 async def safe_request_validation_error(
     request: Request,
@@ -47,17 +64,31 @@ async def safe_request_validation_error(
         "disallowed instruction pattern" in str(item.get("msg", ""))
         for item in error.errors()
     )
-    if request.url.path == "/recommend" and injection_error:
-        return JSONResponse(
-            status_code=400,
-            content={
-                "detail": {
-                    "error": "unsafe_profile",
+    if request.url.path in {"/recommend", "/api/v1/recommend"} and injection_error:
+        if request.url.path == "/recommend":
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "detail": {
+                        "error": "unsafe_profile",
+                        "message": "The profile contains unsafe content and cannot be processed.",
+                        "risk_level": "high",
+                    }
+                },
+            )
+        else:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": "UnsafeProfileError",
                     "message": "The profile contains unsafe content and cannot be processed.",
-                    "risk_level": "high",
-                }
-            },
-        )
+                    "status_code": 400,
+                    "details": {
+                        "error": "unsafe_profile",
+                        "risk_level": "high",
+                    }
+                },
+            )
     return await request_validation_exception_handler(request, error)
 
 
