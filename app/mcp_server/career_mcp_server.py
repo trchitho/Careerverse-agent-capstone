@@ -95,3 +95,35 @@ class CareerMCPServer:
             if normalize_text(str(career["id"])) == normalized:
                 return deepcopy(career)
         raise ValueError(f"Career not found: {career_id}")
+
+    @staticmethod
+    def _career_search_score(query: str, career: dict[str, Any]) -> float:
+        """Calculate deterministic token and phrase relevance."""
+        query_normalized = normalize_text(query)
+        query_tokens = tokenize_text(query)
+        search_text = build_search_text(career)
+        search_tokens = tokenize_text(search_text)
+        score = len(query_tokens & search_tokens) * 10.0
+        if query_normalized == normalize_text(str(career.get("title", ""))):
+            score += 100.0
+        elif query_normalized in normalize_text(str(career.get("title", ""))):
+            score += 50.0
+        if query_normalized in search_text:
+            score += 20.0
+        return score
+
+    def search_careers_by_interest(
+        self,
+        interest: str,
+        limit: int = 10,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        """Search career resources by interest and contextual career text."""
+        query = normalize_text(interest)
+        if not query:
+            raise ValueError("interest must not be blank")
+        scored = [
+            (self._career_search_score(query, career), career)
+            for career in load_careers()
+        ]
+        matches = [(score, career) for score, career in scored if score > 0]
