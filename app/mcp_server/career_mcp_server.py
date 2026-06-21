@@ -63,3 +63,35 @@ class CareerMCPServer:
         if not normalized:
             raise ValueError("filter values must not be blank")
         return normalize_text(str(value or "")) == normalized
+
+    def list_available_careers(
+        self,
+        family: str | None = None,
+        level: str | None = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        """List lightweight career resources with optional filters."""
+        filtered = [
+            self._career_summary(career)
+            for career in load_careers()
+            if self._matches_filter(career.get("family"), family)
+            and self._matches_filter(career.get("level"), level)
+        ]
+        filtered.sort(
+            key=lambda item: (
+                normalize_text(str(item["title"])),
+                normalize_text(str(item["career_id"])),
+            )
+        )
+        return _paginate(filtered, limit, offset)
+
+    def get_career_by_id(self, career_id: str) -> dict[str, Any]:
+        """Return one full career resource by normalized identifier."""
+        normalized = normalize_text(career_id)
+        if not normalized:
+            raise ValueError("career_id must not be blank")
+        for career in load_careers():
+            if normalize_text(str(career["id"])) == normalized:
+                return deepcopy(career)
+        raise ValueError(f"Career not found: {career_id}")
