@@ -46,6 +46,8 @@ bootstrap and must never be committed.
 ```text
 GET /
 GET /metadata
+POST /profiles/validate
+POST /recommend
 ```
 
 Interactive API documentation is available at `/docs` while the server is running.
@@ -83,6 +85,23 @@ The current score combines:
 
 The engine returns ranked recommendations, score breakdowns, matched reasons, matched skills,
 missing skills previews, and an educational safety note.
+
+## Multi-Agent Workflow
+
+The backend includes a deterministic multi-agent workflow:
+
+1. `CareerAdvisorAgent` orchestrates the recommendation flow.
+2. `SkillGapAgent` compares user skills with target career requirements.
+3. `RoadmapAgent` retrieves a matching 30-day and 8-week roadmap.
+
+Main endpoint:
+
+```text
+POST /recommend
+```
+
+The response includes top recommendations, score breakdowns, skill gap analysis, a personalized
+roadmap, and an educational safety notice.
 
 ```bash
 pytest tests/test_career_tools.py
