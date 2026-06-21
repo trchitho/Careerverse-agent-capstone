@@ -48,3 +48,24 @@ def run_cmd(cmd: list[str]) -> bool:
     except subprocess.CalledProcessError as e:
         print(f"Command failed: {e}", file=sys.stderr)
         return False
+
+
+def test_get_endpoints() -> bool:
+    """Verify standard GET endpoints return HTTP 200."""
+    endpoints = [
+        ("GET /", ""),
+        ("GET /metadata", "/metadata"),
+        ("GET /tools", "/tools"),
+    ]
+    for label, path in endpoints:
+        try:
+            req = urllib.request.Request(f"{URL}{path}")
+            with urllib.request.urlopen(req) as resp:
+                if resp.status != 200:
+                    print(f"FAIL: {label} returned status {resp.status}")
+                    return False
+                print(f"PASS: {label}")
+        except Exception as e:
+            print(f"FAIL: {label} raised exception: {e}")
+            return False
+    return True
