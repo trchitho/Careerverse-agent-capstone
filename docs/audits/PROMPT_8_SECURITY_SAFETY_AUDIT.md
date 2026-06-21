@@ -43,3 +43,27 @@ passwords/tokens, private keys, supported provider token formats, and long numer
 - `tests/test_security_hygiene.py`
 
 Existing recommendation and metadata tests were updated for the new safety boundary and stage.
+
+## Validation Commands
+
+```text
+python scripts/validate_domain_dataset.py
+python scripts/audit_prompt_0_to_7.py
+python scripts/smoke_test_api.py
+python -m compileall app
+ruff check .
+pytest -q
+python -m app.evals.validate_domain_data
+python <skill-creator>/scripts/quick_validate.py app/skills/career_advisor
+```
+
+## Results
+
+- Prompt 0–7 compliance audit: PASS, 35/35 checks.
+- Domain dataset validation: PASS, 80 careers, 260 skills, 80 roadmaps.
+- API smoke test: PASS, 9/9 endpoints.
+- Python compile: PASS.
+- Ruff: PASS.
+- Pytest: 159 passed, 0 failed.
+- Compatibility domain validator: PASS.
+- Career Advisor Skill validation: PASS.
