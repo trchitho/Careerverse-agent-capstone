@@ -53,3 +53,23 @@ def test_evaluation_includes_security_and_invalid_results() -> None:
 
     assert "security" in result_types
     assert "invalid" in result_types
+
+
+def test_module_command_succeeds_without_api_key() -> None:
+    environment = os.environ.copy()
+    environment.pop("GOOGLE_API_KEY", None)
+    result = subprocess.run(
+        [sys.executable, "-m", "app.evals.evaluate_agent"],
+        cwd=ROOT,
+        env=environment,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+
+    assert result.returncode == 0
+    assert "Evaluation Summary" in result.stdout
+    assert "Failed: 0" in result.stdout
+    assert "Score: 100.00%" in result.stdout
