@@ -50,4 +50,4 @@ def test_existing_metadata_endpoint_reports_stage() -> None:
 
     assert response.status_code == 200
     assert response.json()["project"] == "CareerVerse Agent"
-    assert response.json()["current_stage"] == "mcp_style_tool_server"
+    assert response.json()["current_stage"] == "security_safety_layer"
