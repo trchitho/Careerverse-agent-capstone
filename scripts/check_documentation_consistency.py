@@ -166,6 +166,35 @@ def main() -> int:
     else:
         print("  PASS: Evaluation command found")
 
+    # Docker Runtime check in README
+    if "Docker Runtime".lower() not in readme_content.lower():
+        print("FAIL: 'Docker Runtime' section not found in README.")
+        failures += 1
+    if "docker build" not in readme_content:
+        print("FAIL: 'docker build' command not found in README.")
+        failures += 1
+    if "docker compose up --build" not in readme_content:
+        print("FAIL: 'docker compose up --build' command not found in README.")
+        failures += 1
+    if "python scripts/docker_smoke_check.py" not in readme_content:
+        print("FAIL: 'python scripts/docker_smoke_check.py' command not found in README.")
+        failures += 1
+
+    # runtime.md verification checks
+    print("\nChecking docs/runtime.md content elements:")
+    required_runtime_elements = [
+        ("Docker Runtime", "Docker Runtime section missing in runtime.md"),
+        ("Environment Variables", "Environment Variables section missing in runtime.md"),
+        ("Health Checks", "Health Checks section missing in runtime.md"),
+        ("Do not commit .env", "Do not commit .env safety advice missing in runtime.md"),
+    ]
+    for element, error_msg in required_runtime_elements:
+        if element.lower() not in runtime_content.lower():
+            print(f"FAIL: {error_msg}")
+            failures += 1
+        else:
+            print(f"  PASS: runtime.md contains '{element}'")
+
     # 6. Check if docs mention "implemented vs future work"
     if "future work" not in readme_content.lower() or "future work" not in writeup_content.lower():
         print("FAIL: 'Future Work' section missing or not clearly documented.")
