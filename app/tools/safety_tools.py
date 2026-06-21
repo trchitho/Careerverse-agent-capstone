@@ -86,3 +86,27 @@ def detect_prompt_injection(text: str | None) -> dict[str, Any]:
         "categories": list(dict.fromkeys(item[1] for item in matches)),
         "safe_message": SAFE_REQUEST_MESSAGE,
     }
+
+
+def redact_sensitive_text(text: str | None) -> str:
+    """Redact supported sensitive-data patterns without logging source values."""
+    redacted = text or ""
+    redacted = PRIVATE_KEY_PATTERN.sub("[REDACTED_PRIVATE_KEY]", redacted)
+    redacted = EMAIL_PATTERN.sub("[REDACTED_EMAIL]", redacted)
+    redacted = GOOGLE_KEY_PATTERN.sub("[REDACTED_SECRET]", redacted)
+    redacted = GITHUB_TOKEN_PATTERN.sub("[REDACTED_TOKEN]", redacted)
+    redacted = OPENAI_TOKEN_PATTERN.sub("[REDACTED_TOKEN]", redacted)
+    redacted = ASSIGNED_PASSWORD_PATTERN.sub(
+        lambda match: f"{match.group(1)}=[REDACTED_PASSWORD]",
+        redacted,
+    )
+    redacted = ASSIGNED_TOKEN_PATTERN.sub(
+        lambda match: f"{match.group(1)}=[REDACTED_SECRET]",
+        redacted,
+    )
+    return LONG_ID_PATTERN.sub("[REDACTED_ID]", redacted)
+
+
+def _has_sensitive_text(text: str) -> bool:
+    """Return whether redaction would alter the supplied text."""
+    return redact_sensitive_text(text) != text
