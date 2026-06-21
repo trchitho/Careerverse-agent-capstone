@@ -165,6 +165,16 @@ def audit_dataset() -> None:
     valid_roadmaps = all(roadmap_fields <= item.keys() for item in roadmaps.values())
     record("roadmap required fields", valid_roadmaps)
 
+    serialized_data = json.dumps([careers, skills, roadmaps], ensure_ascii=False).lower()
+    unsafe_claims = [
+        "guaranteed employment",
+        "guaranteed job",
+        "guaranteed salary",
+        "100% accurate",
+    ]
+    found_claims = [claim for claim in unsafe_claims if claim in serialized_data]
+    record("dataset responsible claims", not found_claims, ", ".join(found_claims))
+
 
 def demo_payload() -> dict[str, object]:
     """Return the synthetic profile used by audit smoke checks."""
@@ -270,7 +280,8 @@ def audit_hygiene() -> None:
 
     secret_pattern = re.compile(
         r"(GOOGLE_API_KEY=AIza|sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]+|"
-        r"github_pat_[A-Za-z0-9_]+|BEGIN PRIVATE KEY)",
+        r"github_pat_[A-Za-z0-9_]+|password\s*=\s*\S+|token\s*=\s*\S+|"
+        r"secret\s*=\s*\S+|BEGIN PRIVATE KEY)",
         re.IGNORECASE,
     )
     risky_files: list[str] = []
