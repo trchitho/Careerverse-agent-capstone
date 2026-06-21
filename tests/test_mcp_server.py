@@ -69,3 +69,34 @@ def test_search_careers_rejects_blank_query(
 ) -> None:
     with pytest.raises(ValueError, match="interest"):
         server.search_careers_by_interest("   ")
+
+
+def test_get_required_skills_includes_metadata(
+    server: CareerMCPServer,
+) -> None:
+    career_id = server.list_available_careers(limit=1)["items"][0]["career_id"]
+
+    response = server.get_required_skills(career_id)
+
+    assert response["required_skills"]
+    assert response["nice_to_have_skills"]
+    assert response["required_skills"][0]["metadata"] is not None
+
+
+def test_get_roadmap_for_career_returns_stored_resource(
+    server: CareerMCPServer,
+) -> None:
+    career_id = server.list_available_careers(limit=1)["items"][0]["career_id"]
+
+    roadmap = server.get_roadmap_for_career(career_id)
+
+    assert roadmap["career_id"] == career_id
+    assert len(roadmap["thirty_day_plan"]) == 4
+    assert len(roadmap["eight_week_plan"]) == 8
+
+
+def test_get_roadmap_rejects_unknown_career(
+    server: CareerMCPServer,
+) -> None:
+    with pytest.raises(ValueError, match="Roadmap not found"):
+        server.get_roadmap_for_career("not_real_id")
