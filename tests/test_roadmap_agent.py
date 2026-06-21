@@ -2,6 +2,8 @@
 
 from copy import deepcopy
 
+import pytest
+
 from app.agents import RoadmapAgent
 from app.schemas.profile_schema import RoadmapResult
 
@@ -32,3 +34,33 @@ def test_missing_skills_are_added_to_prerequisites() -> None:
     roadmap = agent.get_roadmap(career_id, missing_skills=["Docker", "FastAPI"])
 
     assert roadmap["prerequisites"][:2] == ["Docker", "FastAPI"]
+
+
+def test_unknown_career_returns_schema_valid_fallback() -> None:
+    roadmap = RoadmapAgent().get_roadmap(
+        "future_role",
+        "Future Role",
+        ["Python", "Documentation"],
+    )
+
+    assert roadmap["career_id"] == "future_role"
+    assert roadmap["career_title"] == "Future Role"
+    assert len(roadmap["thirty_day_plan"]) == 4
+    assert len(roadmap["eight_week_plan"]) == 8
+    assert roadmap["safety_note"]
+    RoadmapResult.model_validate(roadmap)
+
+
+def test_fallback_includes_priority_skills_safely() -> None:
+    roadmap = RoadmapAgent().get_roadmap(
+        "new_role",
+        missing_skills=["Python", "FastAPI"],
+    )
+
+    assert roadmap["prerequisites"][:2] == ["Python", "FastAPI"]
+    assert "Python" in roadmap["thirty_day_plan"][0]["skills_practiced"]
+
+
+def test_blank_career_id_is_rejected() -> None:
+    with pytest.raises(ValueError, match="career_id"):
+        RoadmapAgent().get_roadmap("   ")
