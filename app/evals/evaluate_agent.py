@@ -204,7 +204,7 @@ def main() -> int:
     results, summary = run_evaluation()
     for result in results:
         label = "PASS" if result.passed else "FAIL"
-        print(f"[{label}] {result.case_id} — {result.message}")
+        print(f"[{label}] {result.case_id} - {result.message}")
     print("\nEvaluation Summary")
     print(f"Total: {summary.total}")
     print(f"Passed: {summary.passed}")
