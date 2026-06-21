@@ -26,3 +26,30 @@ def main() -> int:
         ("GET /", lambda: client.get("/")),
         ("GET /metadata", lambda: client.get("/metadata")),
         ("POST /profiles/validate", lambda: client.post("/profiles/validate", json=PROFILE)),
+        ("POST /recommend", lambda: client.post("/recommend", json=PROFILE)),
+        ("GET /tools", lambda: client.get("/tools")),
+        ("GET /mcp/careers", lambda: client.get("/mcp/careers?limit=5")),
+        ("GET /mcp/skills", lambda: client.get("/mcp/skills?limit=5")),
+        ("GET /mcp/search/careers", lambda: client.get("/mcp/search/careers?q=AI")),
+        ("GET /mcp/search/skills", lambda: client.get("/mcp/search/skills?q=Python")),
+    ]
+
+    failures: list[str] = []
+    for name, request in cases:
+        response = request()
+        passed = response.status_code == 200
+        print(f"{'PASS' if passed else 'FAIL'}: {name} [{response.status_code}]")
+        if not passed:
+            failures.append(f"{name}: HTTP {response.status_code}")
+
+    print(f"\nAPI smoke tests: {len(cases) - len(failures)}/{len(cases)} passed")
+    if failures:
+        print("Failures:")
+        for failure in failures:
+            print(f"- {failure}")
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
