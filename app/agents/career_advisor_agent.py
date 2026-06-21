@@ -12,11 +12,8 @@ from app.schemas.profile_schema import (
     UserProfileSummary,
 )
 from app.tools.career_tools import recommend_careers
+from app.tools.safety_tools import get_safety_notice
 
-SAFETY_NOTICE = (
-    "This system provides educational career guidance only. It does not "
-    "guarantee employment outcomes or replace professional counseling."
-)
 COURSE_CONCEPTS = [
     "Multi-agent system",
     "Deterministic scoring engine",
@@ -79,7 +76,7 @@ class CareerAdvisorAgent:
             "top_recommendations": recommendations,
             "skill_gap": skill_gap,
             "personalized_roadmap": roadmap,
-            "safety_notice": SAFETY_NOTICE,
+            "safety_notice": get_safety_notice(),
             "course_concepts_demonstrated": COURSE_CONCEPTS,
         }
         return AgentRecommendationResponse.model_validate(payload).model_dump()
