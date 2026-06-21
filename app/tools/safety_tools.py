@@ -30,3 +30,27 @@ PROMPT_INJECTION_RULES = (
     ("disable guardrails", "security_bypass", "high"),
     ("jailbreak", "jailbreak", "high"),
 )
+
+PRIVATE_KEY_PATTERN = re.compile(
+    r"-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----",
+    re.IGNORECASE | re.DOTALL,
+)
+EMAIL_PATTERN = re.compile(r"(?<![\w.+-])[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}")
+GOOGLE_KEY_PATTERN = re.compile(r"\bAIza[0-9A-Za-z_-]{20,}\b")
+GITHUB_TOKEN_PATTERN = re.compile(r"\b(?:ghp_|github_pat_)[0-9A-Za-z_]{12,}\b")
+OPENAI_TOKEN_PATTERN = re.compile(r"\bsk-[0-9A-Za-z_-]{12,}\b")
+ASSIGNED_PASSWORD_PATTERN = re.compile(
+    r"(?i)\b(password|passwd|pwd)\s*[:=]\s*([^\s,;]+)"
+)
+ASSIGNED_TOKEN_PATTERN = re.compile(
+    r"(?i)\b(api[_ -]?key|access[_ -]?token|auth[_ -]?token|token|secret)"
+    r"\s*[:=]\s*([^\s,;]+)"
+)
+LONG_ID_PATTERN = re.compile(r"(?<!\d)\d{12,}(?!\d)")
+
+RISK_ORDER = {"none": 0, "low": 1, "medium": 2, "high": 3}
+
+
+def get_safety_notice() -> str:
+    """Return the canonical educational guidance disclaimer."""
+    return SAFETY_NOTICE
