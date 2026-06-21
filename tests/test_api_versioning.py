@@ -54,3 +54,26 @@ def test_versioned_profiles_and_recommendations() -> None:
 
     legacy_rec = client.post("/recommend", json=PROFILE).json()
     assert res_rec.json().keys() == legacy_rec.keys()
+
+
+def test_versioned_mcp_endpoints() -> None:
+    """Verify v1 MCP resource endpoints."""
+    res_tools = client.get("/api/v1/tools")
+    assert res_tools.status_code == 200
+    assert "tools" in res_tools.json()
+
+    res_careers = client.get("/api/v1/mcp/careers?limit=5")
+    assert res_careers.status_code == 200
+
+    res_skills = client.get("/api/v1/mcp/skills?limit=5")
+    assert res_skills.status_code == 200
+
+    res_search_c = client.get("/api/v1/mcp/search/careers?q=AI")
+    assert res_search_c.status_code == 200
+
+    res_search_s = client.get("/api/v1/mcp/search/skills?q=Python")
+    assert res_search_s.status_code == 200
+
+    res_safety = client.post("/api/v1/safety/validate-profile", json=PROFILE)
+    assert res_safety.status_code == 200
+    assert "is_safe" in res_safety.json()
