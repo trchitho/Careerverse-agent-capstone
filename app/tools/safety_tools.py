@@ -181,6 +181,8 @@ def validate_profile_safety(profile: object) -> dict[str, Any]:
     )
 
     for field in scan_fields:
+        if field not in payload:
+            continue
         value = payload.get(field)
         redacted_profile[field] = _redact_value(value)
         for text in _scan_values(value):
