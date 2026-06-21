@@ -47,6 +47,7 @@ class JsonSkillRepository:
     def list_skills(self) -> list[dict[str, Any]]:
         """List all skills in the JSON dataset."""
         import copy
+
         from app.tools.career_tools import load_skills
         return copy.deepcopy(load_skills())
 

@@ -260,7 +260,10 @@ def main() -> int:
     if "optional explanation service" not in readme_content.lower():
         print("FAIL: README does not mention optional explanation service.")
         failures += 1
-    if "llm-based explanations are optional and disabled" not in readme_content.lower() and "disabled by default" not in readme_content.lower():
+    if (
+        "llm-based explanations are optional and disabled" not in readme_content.lower()
+        and "disabled by default" not in readme_content.lower()
+    ):
         print("FAIL: README does not state external LLM is disabled by default.")
         failures += 1
     if "does not implement full authentication" not in readme_content.lower():

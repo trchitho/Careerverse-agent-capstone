@@ -53,6 +53,7 @@ class JsonCareerRepository:
     def list_careers(self) -> list[dict[str, Any]]:
         """List all careers in the JSON dataset."""
         import copy
+
         from app.tools.career_tools import load_careers
         return copy.deepcopy(load_careers())
 
