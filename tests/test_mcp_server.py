@@ -100,3 +100,32 @@ def test_get_roadmap_rejects_unknown_career(
 ) -> None:
     with pytest.raises(ValueError, match="Roadmap not found"):
         server.get_roadmap_for_career("not_real_id")
+
+
+def test_get_skill_metadata_by_name_id_and_alias(
+    server: CareerMCPServer,
+) -> None:
+    skill = server.list_available_skills(limit=1)["items"][0]
+
+    assert server.get_skill_metadata(skill["name"])["id"] == skill["id"]
+    assert server.get_skill_metadata(skill["id"])["name"] == skill["name"]
+    if skill.get("aliases"):
+        assert server.get_skill_metadata(skill["aliases"][0])["id"] == skill["id"]
+
+
+def test_get_skill_metadata_rejects_unknown_skill(
+    server: CareerMCPServer,
+) -> None:
+    with pytest.raises(ValueError, match="Skill not found"):
+        server.get_skill_metadata("not_real_skill")
+
+
+def test_list_and_search_skills(
+    server: CareerMCPServer,
+) -> None:
+    listing = server.list_available_skills(limit=5)
+    search = server.search_skills("Python", limit=5)
+
+    assert listing["count"] == 5
+    assert search["items"]
+    assert any(item["name"] == "Python" for item in search["items"])
