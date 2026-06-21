@@ -17,6 +17,9 @@ def test_check_documentation_files_exist():
         ROOT / "docs" / "runtime.md",
         ROOT / "docs" / "api_versioning.md",
         ROOT / "docs" / "api_examples.md",
+        ROOT / "docs" / "persistence_plan.md",
+        ROOT / "docs" / "explanation_service.md",
+        ROOT / "docs" / "session_storage.md",
     ]
     for f in files:
         assert f.exists(), f"File {f.name} does not exist"
