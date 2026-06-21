@@ -53,3 +53,28 @@ def test_skill_gap_and_roadmap_contracts_are_complete() -> None:
     assert 0 <= gap["readiness_score"] <= 100
     assert len(roadmap["thirty_day_plan"]) == 4
     assert len(roadmap["eight_week_plan"]) == 8
+
+
+def test_agent_is_deterministic_and_does_not_mutate_input() -> None:
+    profile = profile_payload()
+    original = deepcopy(profile)
+    agent = CareerAdvisorAgent()
+
+    assert agent.run(profile) == agent.run(profile)
+    assert profile == original
+
+
+def test_recommend_api_supports_top_k_and_validation() -> None:
+    response = client.post("/recommend?top_k=5", json=profile_payload())
+
+    assert response.status_code == 200
+    assert len(response.json()["top_recommendations"]) == 5
+    assert client.post("/recommend", json=profile_payload() | {"skills": []}).status_code == 422
+
+
+def test_existing_health_metadata_and_mcp_routes_work() -> None:
+    assert client.get("/").status_code == 200
+    assert client.get("/metadata").status_code == 200
+    assert client.get("/tools").status_code == 200
+    assert client.get("/mcp/careers?limit=2").status_code == 200
+    assert client.get("/mcp/skills?limit=2").status_code == 200
