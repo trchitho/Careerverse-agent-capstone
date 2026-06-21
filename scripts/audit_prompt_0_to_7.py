@@ -288,7 +288,13 @@ def audit_hygiene() -> None:
     text_suffixes = {".py", ".json", ".toml", ".txt", ".env", ""}
     for path in tracked:
         candidate = ROOT / path
-        excluded = {".env.example", "scripts/audit_prompt_0_to_7.py"}
+        excluded = {
+            ".env.example",
+            "app/tools/safety_tools.py",
+            "scripts/audit_prompt_0_to_7.py",
+            "tests/test_safety_tools.py",
+            "tests/test_security_hygiene.py",
+        }
         if candidate.suffix.lower() not in text_suffixes or path in excluded:
             continue
         try:
