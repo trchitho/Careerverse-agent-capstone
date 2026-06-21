@@ -81,3 +81,12 @@ def test_successful_recommendation_uses_exact_notice() -> None:
 def test_invalid_profile_is_rejected_before_workflow() -> None:
     with pytest.raises(ValidationError):
         UserProfileRequest.model_validate(safe_profile() | {"skills": []})
+
+
+def test_security_evaluation_case_exists() -> None:
+    path = ROOT / "app" / "evals" / "test_cases.json"
+    cases = json.loads(path.read_text(encoding="utf-8"))
+    security_cases = [case for case in cases if case["type"] == "security"]
+
+    assert security_cases
+    assert security_cases[0]["expected"]["status"] == "blocked"
