@@ -161,3 +161,32 @@ def _sensitive_risk(text: str) -> str:
 def _issue(field: str, category: str, message: str) -> dict[str, str]:
     """Build a public issue object without including source text."""
     return {"field": field, "category": category, "message": message}
+
+
+def validate_profile_safety(profile: object) -> dict[str, Any]:
+    """Validate profile text and return a redacted, non-mutating safety result."""
+    payload = _profile_mapping(profile)
+    redacted_profile = deepcopy(payload)
+    issues: list[dict[str, str]] = []
+    highest_risk = "none"
+    scan_fields = (
+        "name",
+        "education",
+        "interests",
+        "skills",
+        "career_goal",
+        "preferred_learning_style",
+        "language",
+        "experience_level",
+    )
+
+    for field in scan_fields:
+        value = payload.get(field)
+        redacted_profile[field] = _redact_value(value)
+        for text in _scan_values(value):
+            injection = detect_prompt_injection(text)
+            if injection["is_suspicious"]:
+                highest_risk = max(
+                    (highest_risk, injection["risk_level"]),
+                    key=RISK_ORDER.__getitem__,
+                )
