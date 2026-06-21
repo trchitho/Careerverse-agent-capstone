@@ -299,6 +299,21 @@ The recommendation pipeline splits tasks sequentially among specialized agents, 
 
 ---
 
+## Data Access and Persistence Readiness
+The MVP uses local JSON repositories by default. Repository interfaces prepare the codebase for future PostgreSQL or other storage backends, but no production database is required for local tests.
+
+---
+
+## Optional Explanation Service
+The explanation service works offline by default. LLM-based explanations are optional and disabled unless explicitly enabled by environment configuration.
+
+---
+
+## Saved Recommendations
+The project includes a demo-safe saved recommendation foundation. It does not implement full authentication or password-based user accounts. Saved recommendation storage is designed to avoid sensitive personal data.
+
+---
+
 ## Local Evaluation
 To execute the aggregate offline validation suite, run:
 ```bash
