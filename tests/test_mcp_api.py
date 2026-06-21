@@ -78,3 +78,10 @@ def test_career_and_skill_search_endpoints() -> None:
     assert skills.status_code == 200
     assert skills.json()["items"]
     assert client.get("/mcp/search/careers?q=").status_code == 422
+
+
+def test_existing_endpoints_remain_available() -> None:
+    assert client.get("/").status_code == 200
+    assert client.get("/metadata").status_code == 200
+    assert client.post("/profiles/validate", json=sample_profile()).status_code == 200
+    assert client.post("/recommend", json=sample_profile()).status_code == 200
