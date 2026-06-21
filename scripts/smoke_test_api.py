@@ -56,17 +56,41 @@ def main() -> int:
         # Versioned
         ("GET /api/v1/health", lambda: client.get("/api/v1/health"), 200),
         ("GET /api/v1/metadata", lambda: client.get("/api/v1/metadata"), 200),
-        ("POST /api/v1/profiles/validate", lambda: client.post("/api/v1/profiles/validate", json=PROFILE), 200),
+        (
+            "POST /api/v1/profiles/validate",
+            lambda: client.post("/api/v1/profiles/validate", json=PROFILE),
+            200,
+        ),
         ("POST /api/v1/recommend", lambda: client.post("/api/v1/recommend", json=PROFILE), 200),
         ("GET /api/v1/tools", lambda: client.get("/api/v1/tools"), 200),
         ("GET /api/v1/mcp/careers", lambda: client.get("/api/v1/mcp/careers?limit=5"), 200),
         ("GET /api/v1/mcp/skills", lambda: client.get("/api/v1/mcp/skills?limit=5"), 200),
-        ("GET /api/v1/mcp/search/careers", lambda: client.get("/api/v1/mcp/search/careers?q=AI"), 200),
-        ("GET /api/v1/mcp/search/skills", lambda: client.get("/api/v1/mcp/search/skills?q=Python"), 200),
-        ("POST /api/v1/safety/validate-profile", lambda: client.post("/api/v1/safety/validate-profile", json=PROFILE), 200),
+        (
+            "GET /api/v1/mcp/search/careers",
+            lambda: client.get("/api/v1/mcp/search/careers?q=AI"),
+            200,
+        ),
+        (
+            "GET /api/v1/mcp/search/skills",
+            lambda: client.get("/api/v1/mcp/search/skills?q=Python"),
+            200,
+        ),
+        (
+            "POST /api/v1/safety/validate-profile",
+            lambda: client.post("/api/v1/safety/validate-profile", json=PROFILE),
+            200,
+        ),
         # Error checks
-        ("GET /api/v1/mcp/careers/not_real_id", lambda: client.get("/api/v1/mcp/careers/not_real_id"), 404),
-        ("POST /api/v1/recommend with prompt injection", lambda: client.post("/api/v1/recommend", json=INJECTION_PROFILE), 400),
+        (
+            "GET /api/v1/mcp/careers/not_real_id",
+            lambda: client.get("/api/v1/mcp/careers/not_real_id"),
+            404,
+        ),
+        (
+            "POST /api/v1/recommend with prompt injection",
+            lambda: client.post("/api/v1/recommend", json=INJECTION_PROFILE),
+            400,
+        ),
     ]
 
     failures: list[str] = []

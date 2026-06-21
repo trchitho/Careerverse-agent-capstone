@@ -1,5 +1,6 @@
 """Public schema exports for CareerVerse Agent."""
 
+from app.schemas.error_schema import ErrorResponse
 from app.schemas.profile_schema import (
     AgentRecommendationResponse,
     CareerRecommendation,
@@ -9,7 +10,6 @@ from app.schemas.profile_schema import (
     UserProfileRequest,
     UserProfileSummary,
 )
-from app.schemas.error_schema import ErrorResponse
 
 __all__ = [
     "AgentRecommendationResponse",

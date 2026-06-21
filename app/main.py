@@ -6,6 +6,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from app.agents import CareerAdvisorAgent
+from app.api.router import api_router
 from app.core.config import get_settings
 from app.core.constants import (
     COURSE_CONCEPTS,
@@ -14,6 +15,7 @@ from app.core.constants import (
     PROJECT_NAME,
     PROJECT_VERSION,
 )
+from app.core.exceptions import AppError
 from app.mcp_server import CareerMCPServer
 from app.schemas import (
     AgentRecommendationResponse,
@@ -22,8 +24,6 @@ from app.schemas import (
     UserProfileSummary,
 )
 from app.tools.safety_tools import get_safety_notice, validate_profile_safety
-from app.api.router import api_router
-from app.core.exceptions import AppError
 
 settings = get_settings()
 career_advisor = CareerAdvisorAgent()
