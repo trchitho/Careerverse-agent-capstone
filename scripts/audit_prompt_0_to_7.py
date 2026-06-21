@@ -268,3 +268,36 @@ def audit_hygiene() -> None:
         r"github_pat_[A-Za-z0-9_]+|BEGIN PRIVATE KEY)",
         re.IGNORECASE,
     )
+    risky_files: list[str] = []
+    text_suffixes = {".py", ".json", ".toml", ".txt", ".env", ""}
+    for path in tracked:
+        candidate = ROOT / path
+        if candidate.suffix.lower() not in text_suffixes or path == ".env.example":
+            continue
+        try:
+            content = candidate.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        if secret_pattern.search(content):
+            risky_files.append(path)
+    record("tracked secret hygiene", not risky_files, ", ".join(risky_files))
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    readme_markers = [
+        "# CareerVerse Agent",
+        "## Track",
+        "## Problem",
+        "## Solution",
+        "## Setup",
+        "## API",
+        "## Domain Data",
+        "## Input Validation",
+        "## Career Scoring Engine",
+        "## Multi-Agent Workflow",
+        "## MCP-Style Tool Server",
+        "## Agent Skills",
+        "## Security",
+        "## Development",
+    ]
+    missing = [marker for marker in readme_markers if marker not in readme]
+    record("README coverage", not missing, ", ".join(missing))
