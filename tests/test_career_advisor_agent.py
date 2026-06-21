@@ -54,3 +54,23 @@ def test_advisor_is_deterministic_and_does_not_mutate_input() -> None:
 def test_invalid_profile_raises_safe_value_error() -> None:
     with pytest.raises(ValueError, match="Profile is invalid"):
         CareerAdvisorAgent().run({})
+
+
+def test_top_recommendation_drives_gap_and_roadmap() -> None:
+    response = CareerAdvisorAgent().run(valid_profile())
+    top = response["top_recommendations"][0]
+    gap = response["skill_gap"]
+    roadmap = response["personalized_roadmap"]
+
+    assert roadmap["career_id"] == top["career_id"]
+    assert set(gap["matched_skills"]).issubset(set(top["required_skills"]))
+    required_or_optional = {
+        *top["required_skills"],
+        *top["nice_to_have_skills"],
+    }
+    assert set(gap["missing_skills"]).issubset(required_or_optional)
+
+
+def test_invalid_top_k_is_reported_safely() -> None:
+    with pytest.raises(ValueError, match="top_k"):
+        CareerAdvisorAgent().run(valid_profile(), top_k=0)
