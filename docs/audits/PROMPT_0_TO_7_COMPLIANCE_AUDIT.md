@@ -54,3 +54,26 @@ Status: PASS
 - `.env.example` contains placeholders only; `.gitignore` covers secrets, caches, and builds.
 - `GET /` and `GET /metadata` returned HTTP 200 through TestClient.
 - Application imports and OpenAPI-compatible metadata are available.
+
+## Prompt 2 / 2.1 — Domain Dataset Audit
+
+Status: PASS
+
+- Careers: 80 records, 6,242 formatted lines.
+- Skills: 260 records, 8,027 formatted lines.
+- Roadmaps: 80 records, 21,122 formatted lines.
+- Total domain data: 35,391 lines.
+- Career ids/titles and skill ids/names are unique.
+- Every career has exactly one roadmap and no extra roadmap key exists.
+- Required object fields and responsible-claim constraints passed.
+- Both production and compatibility dataset validators passed.
+
+## Prompt 3 — Schemas & Input Validation Audit
+
+Status: PASS
+
+- Pydantic v2 profile and domain schemas exist with strict extra-field handling.
+- Profile normalization, deduplication, enum bounds, list bounds, and injection checks are tested.
+- `UserProfileSummary`, recommendation, skill gap, roadmap, and full response schemas exist.
+- `POST /profiles/validate` returned HTTP 200 for valid input and validation tests cover 422 paths.
+- Contract tests validate generated career, skill, and roadmap records.
