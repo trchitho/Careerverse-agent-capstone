@@ -34,3 +34,37 @@ def test_alias_match_if_dataset_has_alias() -> None:
 
     assert result["matched_skills"] == [canonical]
     assert result["readiness_score"] == 100.0
+
+
+def test_missing_and_priority_skills_preserve_order() -> None:
+    result = SkillGapAgent().analyze(
+        ["Python"],
+        ["Python", "FastAPI", "Docker", "SQL"],
+        max_priority_skills=2,
+    )
+
+    assert result["missing_skills"] == ["FastAPI", "Docker", "SQL"]
+    assert result["priority_skills"] == ["FastAPI", "Docker"]
+
+
+def test_nice_to_have_skills_fill_priority_slots() -> None:
+    result = SkillGapAgent().analyze(
+        ["Python"],
+        ["Python", "FastAPI"],
+        ["Docker", "Cloud Run"],
+        max_priority_skills=3,
+    )
+
+    assert result["missing_skills"] == ["FastAPI", "Docker", "Cloud Run"]
+    assert result["priority_skills"] == ["FastAPI", "Docker", "Cloud Run"]
+
+
+def test_empty_required_skills_are_safe() -> None:
+    result = SkillGapAgent().analyze(["Python"], [], ["Docker"])
+
+    assert result == {
+        "matched_skills": [],
+        "missing_skills": [],
+        "priority_skills": [],
+        "readiness_score": 0.0,
+    }
