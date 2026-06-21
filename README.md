@@ -103,6 +103,25 @@ POST /recommend
 The response includes top recommendations, score breakdowns, skill gap analysis, a personalized
 roadmap, and an educational safety notice.
 
+## MCP-Style Tool Server
+
+The project exposes local career, skill, and roadmap datasets through MCP-style tool endpoints.
+
+```text
+GET /tools
+GET /mcp/careers
+GET /mcp/careers/{career_id}
+GET /mcp/careers/{career_id}/skills
+GET /mcp/careers/{career_id}/roadmap
+GET /mcp/skills
+GET /mcp/skills/{skill_name}
+GET /mcp/search/careers?q=AI
+GET /mcp/search/skills?q=Python
+```
+
+This is a local MCP-style prototype for the Kaggle Capstone. It requires no external APIs,
+secrets, or production database.
+
 ```bash
 pytest tests/test_career_tools.py
 ```
