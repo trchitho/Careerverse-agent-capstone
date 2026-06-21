@@ -33,3 +33,39 @@ def test_career_listing_filters_by_family(
 
     assert response["items"]
     assert all(item["family"] == family for item in response["items"])
+
+
+def test_get_career_by_id_returns_full_resource(
+    server: CareerMCPServer,
+) -> None:
+    career_id = server.list_available_careers(limit=1)["items"][0]["career_id"]
+
+    career = server.get_career_by_id(career_id)
+
+    assert career["id"] == career_id
+    assert career["required_skills"]
+    assert career["recommended_for"]
+
+
+def test_get_career_by_id_rejects_unknown_resource(
+    server: CareerMCPServer,
+) -> None:
+    with pytest.raises(ValueError, match="Career not found"):
+        server.get_career_by_id("not_real_id")
+
+
+def test_search_careers_returns_ranked_matches(
+    server: CareerMCPServer,
+) -> None:
+    response = server.search_careers_by_interest("AI", limit=5)
+
+    assert response["query"] == "AI"
+    assert response["items"]
+    assert response["count"] <= 5
+
+
+def test_search_careers_rejects_blank_query(
+    server: CareerMCPServer,
+) -> None:
+    with pytest.raises(ValueError, match="interest"):
+        server.search_careers_by_interest("   ")
