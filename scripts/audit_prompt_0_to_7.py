@@ -239,3 +239,32 @@ def audit_api() -> None:
         client.post("/recommend", json={}).status_code == 422
         and client.get("/mcp/careers/not_real_id").status_code == 404,
     )
+
+
+def tracked_files() -> list[str]:
+    """Return repository paths tracked by Git."""
+    result = subprocess.run(
+        ["git", "ls-files"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return [line for line in result.stdout.splitlines() if line]
+
+
+def audit_hygiene() -> None:
+    """Check tracked secrets, caches, local environments, and build output."""
+    tracked = tracked_files()
+    artifact_pattern = re.compile(
+        r"(^|/)(\.env$|__pycache__|\.pytest_cache|\.ruff_cache|node_modules|dist|build)(/|$)"
+        r"|\.pyc$"
+    )
+    artifacts = [path for path in tracked if artifact_pattern.search(path.replace("\\", "/"))]
+    record("tracked artifact hygiene", not artifacts, ", ".join(artifacts))
+
+    secret_pattern = re.compile(
+        r"(GOOGLE_API_KEY=AIza|sk-[A-Za-z0-9]{16,}|ghp_[A-Za-z0-9]+|"
+        r"github_pat_[A-Za-z0-9_]+|BEGIN PRIVATE KEY)",
+        re.IGNORECASE,
+    )
