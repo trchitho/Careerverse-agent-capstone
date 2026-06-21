@@ -267,3 +267,17 @@ Do not claim these as implemented:
 - clinical diagnosis or guaranteed job matching.
 
 Keep the current implementation deterministic, local, explainable, and offline-first.
+
+## 18. Future Extensions
+
+Treat these as future work, not current capabilities:
+
+- add a Gemini explanation layer while preserving deterministic scores;
+- integrate an official MCP server SDK;
+- add vector retrieval for richer local knowledge search;
+- add consent-based CV parsing and privacy controls;
+- integrate validated labor-market data sources;
+- support mentor matching and human review;
+- provide a complete bilingual Vietnamese/English user experience.
+
+Implement extensions only when explicitly requested, tested, documented, and safe for public use.
