@@ -159,3 +159,33 @@ def audit_dataset() -> None:
     record("career required fields", all(career_fields <= career.keys() for career in careers))
     record("skill required fields", all(skill_fields <= skill.keys() for skill in skills))
     record("roadmap required fields", all(roadmap_fields <= item.keys() for item in roadmaps.values()))
+
+
+def demo_payload() -> dict[str, object]:
+    """Return the synthetic profile used by audit smoke checks."""
+    return {
+        "name": "Demo User",
+        "education": "Final-year IT student",
+        "interests": ["AI", "web development", "product building"],
+        "skills": ["Python", "React", "SQL"],
+        "career_goal": "Become an AI full-stack developer",
+        "preferred_learning_style": "project_based",
+        "language": "en",
+        "experience_level": "university",
+        "time_budget_hours_per_week": 8,
+    }
+
+
+def audit_imports_and_tools() -> None:
+    """Exercise core schemas, scoring, agents, and MCP tools."""
+    from app.agents.career_advisor_agent import CareerAdvisorAgent
+    from app.agents.roadmap_agent import RoadmapAgent
+    from app.agents.skill_gap_agent import SkillGapAgent
+    from app.mcp_server.career_mcp_server import list_available_careers
+    from app.schemas.profile_schema import AgentRecommendationResponse, UserProfileRequest
+    from app.tools.career_tools import recommend_careers
+
+    profile = UserProfileRequest.model_validate(demo_payload())
+    recommendations = recommend_careers(profile, top_k=3)
+    response = CareerAdvisorAgent().run(profile)
+    AgentRecommendationResponse.model_validate(response)
