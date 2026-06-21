@@ -130,3 +130,23 @@ def main() -> int:
                     break
         except Exception:
             time.sleep(1)
+
+    success = False
+    if not ready:
+        print("FAIL: API did not respond on port 18000 in time.")
+    else:
+        success = test_get_endpoints() and test_post_recommend()
+
+    print("Cleaning up container...")
+    subprocess.run(["docker", "stop", CONTAINER_NAME], capture_output=True)
+
+    if success:
+        print("\nDOCKER SMOKE CHECK: PASS")
+        return 0
+    else:
+        print("\nDOCKER SMOKE CHECK: FAIL")
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
