@@ -93,3 +93,40 @@ def test_post_recommend() -> bool:
         print(f"FAIL: POST /recommend raised exception: {e}")
         return False
     return True
+
+
+def main() -> int:
+    """Run full Docker build and endpoint validation cycle."""
+    if not check_docker():
+        print("FAIL: Docker environments are not set up or running.", file=sys.stderr)
+        return 1
+
+    subprocess.run(["docker", "stop", CONTAINER_NAME], capture_output=True)
+
+    print("Building Docker image...")
+    if not run_cmd(["docker", "build", "-t", IMAGE_NAME, "."]):
+        print("FAIL: Docker image build failed.")
+        return 1
+
+    print("Starting container...")
+    start_cmd = [
+        "docker", "run", "--rm", "-d",
+        "-p", f"{PORT}:8000",
+        "--name", CONTAINER_NAME,
+        IMAGE_NAME
+    ]
+    if not run_cmd(start_cmd):
+        print("FAIL: Docker container run failed.")
+        return 1
+
+    print("Waiting for API to start...")
+    ready = False
+    for _ in range(30):
+        try:
+            req = urllib.request.Request(URL)
+            with urllib.request.urlopen(req) as resp:
+                if resp.status == 200:
+                    ready = True
+                    break
+        except Exception:
+            time.sleep(1)
