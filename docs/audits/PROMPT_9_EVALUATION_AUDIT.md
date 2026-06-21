@@ -52,3 +52,27 @@ returns exit code 1 if any required case fails.
 
 The security case confirms a high-risk prompt injection is blocked without echoing malicious
 source text. Existing Prompt 8 safety tests remain active and passing.
+
+## Commands Run
+
+```text
+python scripts/validate_domain_dataset.py
+python scripts/audit_prompt_0_to_7.py
+python scripts/smoke_test_api.py
+python -m app.evals.evaluate_agent
+python -m compileall app
+ruff check .
+pytest -q
+python -m app.evals.validate_domain_data
+```
+
+## Results
+
+- Domain dataset validation: PASS, 80 careers, 260 skills, 80 roadmaps.
+- Prompt 0–7 audit: PASS, 35/35 checks.
+- API smoke test: PASS, 9/9 endpoints.
+- Local evaluation: PASS, 14/14 cases, score 100.00%.
+- Compile: PASS.
+- Ruff: PASS.
+- Pytest: 180 passed, 0 failed.
+- Compatibility domain validator: PASS.
