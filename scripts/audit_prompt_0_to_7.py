@@ -213,3 +213,29 @@ def audit_imports_and_tools() -> None:
     record("skill gap agent", 0 <= skill_gap["readiness_score"] <= 100)
     record("roadmap agent", len(roadmap["thirty_day_plan"]) == 4)
     record("MCP career listing", catalog["count"] == 5)
+
+
+def audit_api() -> None:
+    """Smoke test all critical public endpoints."""
+    from app.main import app
+
+    client = TestClient(app)
+    requests = [
+        ("GET /", client.get("/")),
+        ("GET /metadata", client.get("/metadata")),
+        ("POST /profiles/validate", client.post("/profiles/validate", json=demo_payload())),
+        ("POST /recommend", client.post("/recommend", json=demo_payload())),
+        ("GET /tools", client.get("/tools")),
+        ("GET /mcp/careers", client.get("/mcp/careers?limit=5")),
+        ("GET /mcp/skills", client.get("/mcp/skills?limit=5")),
+        ("GET /mcp/search/careers", client.get("/mcp/search/careers?q=AI")),
+        ("GET /mcp/search/skills", client.get("/mcp/search/skills?q=Python")),
+    ]
+    for name, response in requests:
+        record(name, response.status_code == 200, str(response.status_code))
+
+    record(
+        "controlled API validation",
+        client.post("/recommend", json={}).status_code == 422
+        and client.get("/mcp/careers/not_real_id").status_code == 404,
+    )
