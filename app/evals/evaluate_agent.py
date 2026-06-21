@@ -205,3 +205,14 @@ def main() -> int:
     for result in results:
         label = "PASS" if result.passed else "FAIL"
         print(f"[{label}] {result.case_id} — {result.message}")
+    print("\nEvaluation Summary")
+    print(f"Total: {summary.total}")
+    print(f"Passed: {summary.passed}")
+    print(f"Failed: {summary.failed}")
+    print(f"Skipped: {summary.skipped}")
+    print(f"Score: {summary.score:.2f}%")
+    return 0 if summary.failed == 0 else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
