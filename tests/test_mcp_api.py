@@ -52,3 +52,29 @@ def test_unknown_career_resources_return_404() -> None:
     assert client.get("/mcp/careers/not_real_id").status_code == 404
     assert client.get("/mcp/careers/not_real_id/skills").status_code == 404
     assert client.get("/mcp/careers/not_real_id/roadmap").status_code == 404
+
+
+def test_skill_listing_and_detail_endpoints() -> None:
+    listing = client.get("/mcp/skills?limit=5")
+
+    assert listing.status_code == 200
+    assert listing.json()["count"] == 5
+    skill = listing.json()["items"][0]
+    detail = client.get(f"/mcp/skills/{skill['id']}")
+    assert detail.status_code == 200
+    assert detail.json()["name"] == skill["name"]
+
+
+def test_unknown_skill_returns_404() -> None:
+    assert client.get("/mcp/skills/not_real_skill").status_code == 404
+
+
+def test_career_and_skill_search_endpoints() -> None:
+    careers = client.get("/mcp/search/careers?q=AI")
+    skills = client.get("/mcp/search/skills?q=Python")
+
+    assert careers.status_code == 200
+    assert careers.json()["items"]
+    assert skills.status_code == 200
+    assert skills.json()["items"]
+    assert client.get("/mcp/search/careers?q=").status_code == 422
