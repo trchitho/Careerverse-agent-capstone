@@ -81,3 +81,28 @@ def test_redaction_handles_email_and_password() -> None:
 
 def test_redaction_preserves_normal_api_wording() -> None:
     assert redact_sensitive_text("Learn API Integration") == "Learn API Integration"
+
+
+@pytest.mark.parametrize(
+    ("value", "marker"),
+    [
+        ("token=" + "a" * 24, "[REDACTED_SECRET]"),
+        ("ghp_" + "a" * 24, "[REDACTED_TOKEN]"),
+        ("sk-" + "a" * 24, "[REDACTED_TOKEN]"),
+        ("AIza" + "a" * 28, "[REDACTED_SECRET]"),
+        ("Student identifier 1234567890123456", "[REDACTED_ID]"),
+    ],
+)
+def test_redaction_handles_supported_secret_formats(value: str, marker: str) -> None:
+    result = redact_sensitive_text(value)
+
+    assert value not in result
+    assert marker in result
+
+
+def test_normal_profile_is_safe() -> None:
+    result = validate_profile_safety(normal_profile())
+
+    assert result["is_safe"] is True
+    assert result["risk_level"] == "none"
+    assert result["issues"] == []
