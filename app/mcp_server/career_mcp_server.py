@@ -267,23 +267,75 @@ class CareerMCPServer:
     def list_tool_catalog() -> list[dict[str, Any]]:
         """Describe the local MCP-style tools for interoperable discovery."""
         definitions = [
-            ("list_available_careers", "List career resources with filters."),
-            ("get_career_by_id", "Retrieve one full career resource."),
-            ("search_careers_by_interest", "Search careers by interest text."),
-            ("get_required_skills", "Retrieve career skill requirements."),
-            ("get_roadmap_for_career", "Retrieve a stored career roadmap."),
-            ("get_skill_metadata", "Retrieve one skill by id, name, or alias."),
-            ("list_available_skills", "List skill resources with filters."),
-            ("search_skills", "Search skill resources by text."),
+            (
+                "list_available_careers",
+                "List career resources with filters.",
+                {
+                    "family": "optional string",
+                    "level": "optional string",
+                    "limit": "integer 1-100",
+                    "offset": "integer >=0",
+                },
+            ),
+            (
+                "get_career_by_id",
+                "Retrieve one full career resource.",
+                {"career_id": "non-empty string"},
+            ),
+            (
+                "search_careers_by_interest",
+                "Search careers by interest text.",
+                {
+                    "interest": "non-empty string",
+                    "limit": "integer 1-100",
+                    "offset": "integer >=0",
+                },
+            ),
+            (
+                "get_required_skills",
+                "Retrieve career skill requirements.",
+                {"career_id": "non-empty string"},
+            ),
+            (
+                "get_roadmap_for_career",
+                "Retrieve a stored career roadmap.",
+                {"career_id": "non-empty string"},
+            ),
+            (
+                "get_skill_metadata",
+                "Retrieve one skill by id, name, or alias.",
+                {"skill_name": "non-empty string"},
+            ),
+            (
+                "list_available_skills",
+                "List skill resources with filters.",
+                {
+                    "category": "optional string",
+                    "level": "optional string",
+                    "limit": "integer 1-100",
+                    "offset": "integer >=0",
+                },
+            ),
+            (
+                "search_skills",
+                "Search skill resources by text.",
+                {
+                    "query": "non-empty string",
+                    "category": "optional string",
+                    "level": "optional string",
+                    "limit": "integer 1-100",
+                    "offset": "integer >=0",
+                },
+            ),
         ]
         return [
             {
                 "name": name,
                 "description": description,
-                "input_schema": "Typed function parameters documented by the API.",
+                "input_schema": input_schema,
                 "output_schema": "Machine-readable JSON resource response.",
             }
-            for name, description in definitions
+            for name, description, input_schema in definitions
         ]
 
 
