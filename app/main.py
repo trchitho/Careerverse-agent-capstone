@@ -1,6 +1,9 @@
 """FastAPI entrypoint for the CareerVerse Agent service."""
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 
 from app.agents import CareerAdvisorAgent
 from app.core.config import get_settings
@@ -28,6 +31,30 @@ app = FastAPI(
     description=PROJECT_DESCRIPTION,
     version=settings.app_version,
 )
+
+
+@app.exception_handler(RequestValidationError)
+async def safe_request_validation_error(
+    request: Request,
+    error: RequestValidationError,
+) -> JSONResponse:
+    """Map schema-detected injection on /recommend to a non-echoing safe error."""
+    injection_error = any(
+        "disallowed instruction pattern" in str(item.get("msg", ""))
+        for item in error.errors()
+    )
+    if request.url.path == "/recommend" and injection_error:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "detail": {
+                    "error": "unsafe_profile",
+                    "message": "The profile contains unsafe content and cannot be processed.",
+                    "risk_level": "high",
+                }
+            },
+        )
+    return await request_validation_exception_handler(request, error)
 
 
 @app.get("/")
