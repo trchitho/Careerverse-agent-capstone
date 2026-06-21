@@ -81,6 +81,8 @@ def main() -> int:
     writeup_path = ROOT / "docs" / "writeup.md"
     checklist_path = ROOT / "docs" / "submission_checklist.md"
     runtime_path = ROOT / "docs" / "runtime.md"
+    api_versioning_path = ROOT / "docs" / "api_versioning.md"
+    api_examples_path = ROOT / "docs" / "api_examples.md"
     persistence_plan_path = ROOT / "docs" / "persistence_plan.md"
     explanation_service_path = ROOT / "docs" / "explanation_service.md"
     session_storage_path = ROOT / "docs" / "session_storage.md"
