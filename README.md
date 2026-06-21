@@ -184,21 +184,33 @@ The default Docker runtime does not require external API keys. Do not commit `.e
 
 ---
 
+## API Versioning
+New clients should use versioned `/api/v1/...` endpoints. Legacy endpoints remain fully active and supported for backward compatibility during the MVP stage. For a detailed breakdown of the API layout, versioning policy, and standard error contract, refer to [api_versioning.md](file:///e:/OneDrive/Desktop/careerverse-agent-capstone/Careerverse-agent-capstone/docs/api_versioning.md).
+
 ## API Usage
 The following endpoints are exposed on the FastAPI instance:
+
+### Versioned Endpoints (v1)
+- `GET /api/v1/health` - Versioned service health check.
+- `GET /api/v1/metadata` - Versioned app metadata and capstone track info.
+- `POST /api/v1/profiles/validate` - Validates and normalizes user profile payloads.
+- `POST /api/v1/recommend` - Evaluates match scoring and runs versioned multi-agent workflow.
+- `GET /api/v1/tools` - Lists local MCP-style tools under v1.
+- `GET /api/v1/mcp/careers` - Lists all careers.
+- `GET /api/v1/mcp/skills` - Lists skill categories and items.
+- `GET /api/v1/mcp/search/careers?q=AI` - Search careers by keyword under v1.
+- `GET /api/v1/mcp/search/skills?q=Python` - Search skills by keyword under v1.
+- `POST /api/v1/safety/validate-profile` - Validates profile safety constraints.
+
+### Legacy Endpoints (Backward Compatibility)
 - `GET /` - Root status check.
-- `GET /metadata` - App version, track, and capability tags.
-- `POST /profiles/validate` - Enforces type safety, normalizes arrays, and checks safety filters.
-- `POST /recommend` - Evaluates match scoring and runs multi-agent workflow.
-- `GET /tools` - Lists local MCP-style tools.
-- `GET /mcp/careers` - Lists all careers.
-- `GET /mcp/careers/{career_id}` - Gets details of a career.
-- `GET /mcp/careers/{career_id}/skills` - Gets required skills for a career.
-- `GET /mcp/careers/{career_id}/roadmap` - Gets roadmap template for a career.
-- `GET /mcp/skills` - Lists skill categories and items.
-- `GET /mcp/skills/{skill_name}` - Gets details of a specific skill.
-- `GET /mcp/search/careers?q=AI` - Search careers by keyword.
-- `GET /mcp/search/skills?q=Python` - Search skills by keyword.
+- `GET /metadata` - App version and track info.
+- `POST /profiles/validate` - Legacy profile validation.
+- `POST /recommend` - Legacy recommendation scoring.
+- `GET /tools` - Legacy MCP tool listing.
+- `GET /mcp/careers` - Legacy listing of careers.
+- `GET /mcp/search/careers?q=AI` - Legacy keyword career search.
+- `GET /mcp/search/skills?q=Python` - Legacy keyword skill search.
 
 ---
 
