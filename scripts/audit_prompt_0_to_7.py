@@ -189,3 +189,27 @@ def audit_imports_and_tools() -> None:
     recommendations = recommend_careers(profile, top_k=3)
     response = CareerAdvisorAgent().run(profile)
     AgentRecommendationResponse.model_validate(response)
+
+    skill_gap = SkillGapAgent().analyze(["Python"], ["Python", "FastAPI"])
+    roadmap = RoadmapAgent().get_roadmap(recommendations[0]["career_id"])
+    catalog = list_available_careers(limit=5)
+
+    record("core imports", True)
+    record("deterministic recommendations", recommendations == recommend_careers(profile, top_k=3))
+    record("recommendation top_k", len(recommendations) == 3)
+    record(
+        "recommendation contract",
+        all(
+            key in recommendations[0]
+            for key in (
+                "score_breakdown",
+                "matched_reasons",
+                "matched_skills",
+                "missing_skills_preview",
+                "safety_note",
+            )
+        ),
+    )
+    record("skill gap agent", 0 <= skill_gap["readiness_score"] <= 100)
+    record("roadmap agent", len(roadmap["thirty_day_plan"]) == 4)
+    record("MCP career listing", catalog["count"] == 5)
