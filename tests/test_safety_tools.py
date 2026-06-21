@@ -10,6 +10,7 @@ from app.tools.safety_tools import (
     redact_sensitive_text,
     validate_profile_safety,
 )
+from app.schemas.profile_schema import UserProfileRequest
 
 EXPECTED_NOTICE = (
     "This system provides educational career guidance only. "
@@ -132,3 +133,17 @@ def test_profile_email_is_redacted_without_mutation() -> None:
     assert result["is_safe"] is True
     assert "[REDACTED_EMAIL]" in result["redacted_profile"]["career_goal"]
     assert profile == before
+
+
+def test_private_key_is_blocked_and_redacted() -> None:
+    private_key = "-----BEGIN PRIVATE KEY-----\nDEMO\n-----END PRIVATE KEY-----"
+    result = validate_profile_safety(normal_profile() | {"education": private_key})
+
+    assert result["is_safe"] is False
+    assert result["redacted_profile"]["education"] == "[REDACTED_PRIVATE_KEY]"
+
+
+def test_pydantic_profile_is_supported() -> None:
+    profile = UserProfileRequest.model_validate(normal_profile())
+
+    assert validate_profile_safety(profile)["is_safe"] is True
