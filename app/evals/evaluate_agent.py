@@ -37,3 +37,33 @@ def load_cases(path: Path = CASES_PATH) -> list[EvaluationCase]:
     if len(case_ids) != len(set(case_ids)):
         raise ValueError("Evaluation case ids must be unique.")
     return cases
+
+
+def _recommendation_text(response: dict[str, object]) -> str:
+    """Build searchable recommendation text for non-brittle keyword checks."""
+    recommendations = response["top_recommendations"]
+    parts: list[str] = []
+    for item in recommendations:
+        parts.extend(
+            [
+                str(item["title"]),
+                str(item["description"]),
+                " ".join(item["matched_reasons"]),
+            ]
+        )
+    return " ".join(parts).casefold()
+
+
+def _validate_response_contract(response: dict[str, object], top_k: int) -> list[str]:
+    """Return contract failures for a successful workflow response."""
+    failures: list[str] = []
+    if not REQUIRED_RESPONSE_FIELDS.issubset(response):
+        failures.append("required response fields are missing")
+    validated = AgentRecommendationResponse.model_validate(response)
+    if len(validated.top_recommendations) != top_k:
+        failures.append(f"expected {top_k} recommendations")
+    if any(not 0 <= item.score <= 100 for item in validated.top_recommendations):
+        failures.append("recommendation score outside 0-100")
+    if not 0 <= validated.skill_gap.readiness_score <= 100:
+        failures.append("readiness score outside 0-100")
+    return failures
