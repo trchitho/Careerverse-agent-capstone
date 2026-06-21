@@ -69,3 +69,27 @@ def test_get_endpoints() -> bool:
             print(f"FAIL: {label} raised exception: {e}")
             return False
     return True
+
+
+def test_post_recommend() -> bool:
+    """Verify POST /recommend returns HTTP 200 with top_recommendations."""
+    try:
+        data = json.dumps(DEMO_PROFILE).encode("utf-8")
+        req = urllib.request.Request(
+            f"{URL}/recommend",
+            data=data,
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(req) as resp:
+            if resp.status != 200:
+                print(f"FAIL: POST /recommend returned status {resp.status}")
+                return False
+            res_data = json.loads(resp.read().decode("utf-8"))
+            if "top_recommendations" not in res_data:
+                print("FAIL: POST /recommend response missing recommendations key")
+                return False
+            print("PASS: POST /recommend")
+    except Exception as e:
+        print(f"FAIL: POST /recommend raised exception: {e}")
+        return False
+    return True
