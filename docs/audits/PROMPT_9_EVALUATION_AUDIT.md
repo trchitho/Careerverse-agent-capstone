@@ -76,3 +76,17 @@ python -m app.evals.validate_domain_data
 - Ruff: PASS.
 - Pytest: 180 passed, 0 failed.
 - Compatibility domain validator: PASS.
+
+## Remaining Risks
+
+- Keyword expectations validate broad role relevance, not semantic career-advice quality.
+- The curated 14-case suite does not represent every learner background or language variation.
+- Dataset or scoring changes may require intentional expectation review rather than blind updates.
+- Prompt 10 should document evaluation limitations and separate measured behavior from future work.
+- Future evaluation can add larger regression sets, fairness slices, and tracked quality metrics.
+
+These are transparent limitations, not failures of the deterministic Prompt 9 scope.
+
+## Final Verdict
+
+PASS
