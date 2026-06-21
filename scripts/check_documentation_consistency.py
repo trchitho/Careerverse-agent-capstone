@@ -47,6 +47,8 @@ FORBIDDEN_PATTERNS = [
     (r"market crawler is implemented", "Claims market crawler is implemented"),
     (r"payment is implemented", "Claims payment is implemented"),
     (r"authentication is implemented", "Claims authentication is implemented"),
+    (r"live deployment is implemented", "Claims live deployment is implemented"),
+    (r"cloud deployment is live", "Claims cloud deployment is live"),
 ]
 
 def check_file_exists(path: Path) -> bool:
