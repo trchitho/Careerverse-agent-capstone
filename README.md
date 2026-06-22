@@ -318,6 +318,39 @@ The project includes a demo-safe saved recommendation foundation. It does not im
 
 ---
 
+## Web UI
+The repository includes a React + TypeScript web app under `web/` to interact with the career advisor agent.
+To run the dashboard locally:
+```bash
+cd web
+npm install
+npm run dev
+```
+By default, the client directs API queries to the local backend. Adjust the API target endpoint through the following Vite environment variable:
+```env
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
+The web dashboard lets users submit a career profile, view recommendations, inspect skill gaps, preview roadmaps, and submit safe feedback. It does not implement production authentication or registration flows.
+
+---
+
+## Observability
+The backend includes structured console/file logging and custom request tracing middleware:
+- **Request Tracking**: Every request is assigned a unique tracking code via `X-Request-ID` returned in header responses.
+- **Safe Structured Logging**: Logs trace method paths and latencies without writing raw request bodies or private user configurations.
+- **Health Checks**: Checks application liveness at `/api/v1/health/live` and dataset/system readiness at `/api/v1/health/ready`.
+- **Metrics Summary**: Exposes aggregated scores and LLM status codes.
+
+---
+
+## Feedback Analytics
+The feedback system solicits and stores anonymous recommendation ratings and comments locally:
+- **Redaction Filters**: Comments containing email strings or input override prompts are sanitized and redacted.
+- **Aggregated Summaries**: Basic ratings are grouped into summaries without storing raw user profiles.
+- **Ephemeral Store**: All records are held inside an InMemory repository. It is a local demo feedback storage, not a production analytics warehouse.
+
+---
+
 ## Local Evaluation
 To execute the aggregate offline validation suite, run:
 ```bash
