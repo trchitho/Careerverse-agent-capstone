@@ -90,6 +90,21 @@ def main() -> int:
     observability_path = ROOT / "docs" / "observability.md"
     feedback_analytics_path = ROOT / "docs" / "feedback_analytics.md"
 
+    # New files added in Prompts 18-20
+    ci_workflow_path = ROOT / ".github" / "workflows" / "ci.yml"
+    sec_workflow_path = ROOT / ".github" / "workflows" / "security.yml"
+    deployment_path = ROOT / "docs" / "deployment.md"
+    runbook_path = ROOT / "docs" / "operations_runbook.md"
+    pre_deploy_check_path = ROOT / "scripts" / "pre_deploy_check.py"
+    launch_checklist_path = ROOT / "docs" / "launch" / "market_launch_checklist.md"
+    one_pager_path = ROOT / "docs" / "launch" / "product_one_pager.md"
+    onboarding_path = ROOT / "docs" / "launch" / "user_onboarding.md"
+    faq_path = ROOT / "docs" / "launch" / "faq.md"
+    limitations_path = ROOT / "docs" / "launch" / "known_limitations.md"
+    privacy_path = ROOT / "docs" / "launch" / "privacy_note.md"
+    responsible_ai_path = ROOT / "docs" / "launch" / "responsible_ai_note.md"
+    prod_audit_path = ROOT / "docs" / "audits" / "PROMPT_11_TO_20_PRODUCTION_AUDIT.md"
+
     files_to_check = [
         readme_path,
         arch_path,
@@ -105,6 +120,19 @@ def main() -> int:
         frontend_path,
         observability_path,
         feedback_analytics_path,
+        ci_workflow_path,
+        sec_workflow_path,
+        deployment_path,
+        runbook_path,
+        pre_deploy_check_path,
+        launch_checklist_path,
+        one_pager_path,
+        onboarding_path,
+        faq_path,
+        limitations_path,
+        privacy_path,
+        responsible_ai_path,
+        prod_audit_path,
     ]
     for f in files_to_check:
         if not check_file_exists(f):
