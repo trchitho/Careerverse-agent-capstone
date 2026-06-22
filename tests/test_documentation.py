@@ -20,6 +20,9 @@ def test_check_documentation_files_exist():
         ROOT / "docs" / "persistence_plan.md",
         ROOT / "docs" / "explanation_service.md",
         ROOT / "docs" / "session_storage.md",
+        ROOT / "docs" / "frontend.md",
+        ROOT / "docs" / "observability.md",
+        ROOT / "docs" / "feedback_analytics.md",
     ]
     for f in files:
         assert f.exists(), f"File {f.name} does not exist"
