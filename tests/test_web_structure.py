@@ -1,4 +1,4 @@
-"""Unit tests asserting the correct structure and static safety configuration of the Web UI project."""
+"""Unit tests asserting Web UI structure and safety configuration."""
 
 from __future__ import annotations
 
@@ -47,7 +47,7 @@ def test_api_client_endpoints_and_env_variables() -> None:
 
 
 def test_feedback_widget_privacy_compliance() -> None:
-    """Verify the feedback interface does not solicit private contact fields (email, phone, address)."""
+    """Verify that feedback fields are privacy compliant."""
     widget_file = WEB_DIR / "src" / "components" / "FeedbackWidget.tsx"
     content = widget_file.read_text(encoding="utf-8")
 
@@ -67,7 +67,10 @@ def test_no_hardcoded_secrets_in_frontend() -> None:
         r"pass" + r"word\s*=\s*['\"][a-zA-Z0-9_]{8,}['\"]",
     ]
     for file_path in WEB_DIR.rglob("*"):
-        if file_path.is_file() and file_path.suffix in {".ts", ".tsx", ".html", ".css", ".md", ".json"}:
+        if (
+            file_path.is_file()
+            and file_path.suffix in {".ts", ".tsx", ".html", ".css", ".md", ".json"}
+        ):
             if "node_modules" in file_path.parts or "dist" in file_path.parts:
                 continue
             content = file_path.read_text(encoding="utf-8", errors="ignore")
