@@ -86,6 +86,9 @@ def main() -> int:
     persistence_plan_path = ROOT / "docs" / "persistence_plan.md"
     explanation_service_path = ROOT / "docs" / "explanation_service.md"
     session_storage_path = ROOT / "docs" / "session_storage.md"
+    frontend_path = ROOT / "docs" / "frontend.md"
+    observability_path = ROOT / "docs" / "observability.md"
+    feedback_analytics_path = ROOT / "docs" / "feedback_analytics.md"
 
     files_to_check = [
         readme_path,
@@ -99,6 +102,9 @@ def main() -> int:
         persistence_plan_path,
         explanation_service_path,
         session_storage_path,
+        frontend_path,
+        observability_path,
+        feedback_analytics_path,
     ]
     for f in files_to_check:
         if not check_file_exists(f):
