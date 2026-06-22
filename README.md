@@ -91,7 +91,8 @@ flowchart TD
 - **CV Parser**: Parsing PDF/Word resumes into Pydantic models.
 - **Market Trend Data**: Scraping live job ads to enrich demand forecasts.
 - **Mentor Matching**: Recommending mentors based on target career paths.
-- **Frontend UI**: Visual dashboard for student progress tracking.
+- **Production User Accounts & Auth**: Full authentication, login system, and multi-user persistent states.
+- **Enterprise Analytics Warehouse**: High-scale data warehouses for long-term analytics logs.
 - **Cloud Deployment**: Containerized hosting on GCP/AWS.
 
 ---
