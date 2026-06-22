@@ -71,6 +71,9 @@ flowchart TD
 ## Features
 
 ### Implemented Features (MVP)
+- **Web UI Dashboard**: Interactive React + TypeScript + Vite frontend client.
+- **Observability Layer**: Structured JSON-like logging, `X-Request-ID` request tracking middleware, liveness (`/health/live`), readiness (`/health/ready`) endpoints.
+- **Feedback & Metrics API**: Solicitation, sanitization, safety filtering, and metrics dashboard APIs.
 - **Career Recommendation**: Ranks matching careers with breakdowns for interest, skill, and goal similarities.
 - **Skill Gap Analysis**: Compares user skills to required profiles, calculating readiness scores.
 - **Personalized Roadmap**: Provides a 30-day daily task list and an 8-week structured project curriculum.
