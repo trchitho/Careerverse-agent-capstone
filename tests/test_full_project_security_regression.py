@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import re
+from pathlib import Path
+
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -66,6 +68,3 @@ def test_credential_leak_scanning_logic() -> None:
     content = example_path.read_text(encoding="utf-8")
     for pat in credential_patterns:
         assert not pat.search(content), f"Real key pattern detected in env example: {pat}"
-
-
-from pathlib import Path

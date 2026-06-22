@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+
 from app.evals.fr_nfr.fr_nfr_schema import RequirementCase
 from app.evals.fr_nfr.run_fr_nfr_verification import run_checks
 

@@ -4,15 +4,15 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 
-def write_json_report(summary: Dict[str, Any], path: Path) -> None:
+def write_json_report(summary: dict[str, Any], path: Path) -> None:
     """Write the verification summary as a JSON file."""
     path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
 
-def write_markdown_report(summary: Dict[str, Any], path: Path) -> None:
+def write_markdown_report(summary: dict[str, Any], path: Path) -> None:
     """Write the verification summary as a Markdown file."""
     title = "# FR/NFR Requirements Verification Summary Report\n\n"
     
@@ -69,7 +69,7 @@ def format_requirement_summary(req_id: str, passed: int, total: int) -> str:
     return f"Requirement {req_id}: {passed}/{total} passed"
 
 
-def format_failed_cases(failed_cases: List[Dict[str, Any]]) -> str:
+def format_failed_cases(failed_cases: list[dict[str, Any]]) -> str:
     """Format the list of failed cases into a readable log string."""
     lines = []
     for c in failed_cases:

@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 from pydantic import BaseModel, Field
 
 
@@ -15,16 +16,16 @@ class RequirementCase(BaseModel):
     description: str = Field(..., description="Detailed description")
     category: str = Field(..., description="Case category")
     priority: str = Field("P0", description="P0, P1, or P2")
-    preconditions: List[str] = Field(default_factory=list)
-    input_data: Dict[str, Any] = Field(default_factory=dict)
-    steps: List[str] = Field(default_factory=list)
+    preconditions: list[str] = Field(default_factory=list)
+    input_data: dict[str, Any] = Field(default_factory=dict)
+    steps: list[str] = Field(default_factory=list)
     expected: Any = Field(..., description="Expected outcome details")
     negative: bool = Field(False, description="Is negative failure assertion")
     automation_level: str = Field("automated", description="automated, semi-automated, or manual")
     verification_method: str = Field("api_call", description="api_call, unit_test, file_scan, etc.")
-    target_files: List[str] = Field(default_factory=list)
-    target_endpoints: List[str] = Field(default_factory=list)
-    tags: List[str] = Field(default_factory=list)
+    target_files: list[str] = Field(default_factory=list)
+    target_endpoints: list[str] = Field(default_factory=list)
+    tags: list[str] = Field(default_factory=list)
 
 
 class RequirementVerificationResult(BaseModel):
@@ -46,8 +47,8 @@ class RequirementVerificationSummary(BaseModel):
     passed_cases: int
     failed_cases: int
     pass_rate: float
-    requirements_with_less_than_50_cases: List[str]
-    failed_requirements: List[str]
-    security_findings: List[str]
-    documentation_findings: List[str]
+    requirements_with_less_than_50_cases: list[str]
+    failed_requirements: list[str]
+    security_findings: list[str]
+    documentation_findings: list[str]
     final_verdict: str = Field("PASS", description="PASS or FAIL")

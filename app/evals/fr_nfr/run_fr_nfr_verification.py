@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import json
 import re
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from app.evals.fr_nfr.fr_nfr_schema import (
     RequirementCase,
