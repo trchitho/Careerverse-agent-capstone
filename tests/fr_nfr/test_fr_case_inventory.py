@@ -20,8 +20,11 @@ def test_fr_cases_exist_and_are_valid() -> None:
     req_counts: dict[str, int] = {}
     
     for case in cases:
-        # Check required fields
-        for field in ("case_id", "requirement_id", "requirement_type", "title", "description", "category", "priority", "expected"):
+        required_fields = (
+            "case_id", "requirement_id", "requirement_type",
+            "title", "description", "category", "priority", "expected"
+        )
+        for field in required_fields:
             assert field in case, f"Missing required field {field} in case {case.get('case_id')}"
             
         case_id = case["case_id"]

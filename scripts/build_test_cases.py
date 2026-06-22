@@ -8,9 +8,19 @@ OUT_DIR = ROOT / "app" / "evals" / "fr_nfr"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 FR_IDS = [
-    ("FR-01", "Health and Metadata", ["app/api/v1/health.py", "app/main.py"], ["/", "/metadata", "/api/v1/health/live", "/api/v1/health/ready"]),
+    (
+        "FR-01",
+        "Health and Metadata",
+        ["app/api/v1/health.py", "app/main.py"],
+        ["/", "/metadata", "/api/v1/health/live", "/api/v1/health/ready"],
+    ),
     ("FR-02", "Profile Validation", ["app/schemas/profile_schema.py"], ["/profiles/validate"]),
-    ("FR-03", "Career Recommendation", ["app/api/v1/recommendations.py"], ["/recommend", "/api/v1/recommend"]),
+    (
+        "FR-03",
+        "Career Recommendation",
+        ["app/api/v1/recommendations.py"],
+        ["/recommend", "/api/v1/recommend"],
+    ),
     ("FR-04", "Scoring Engine", ["app/tools/career_tools.py"], []),
     ("FR-05", "Multi-Agent Orchestration", ["app/agents/career_advisor_agent.py"], []),
     ("FR-06", "Skill Gap Analysis", ["app/agents/skill_gap_agent.py"], []),
@@ -24,8 +34,18 @@ FR_IDS = [
     ("FR-14", "Error Contract & Safe Errors", ["app/main.py"], []),
     ("FR-15", "Repository JSON Data Access", ["app/repositories/career_repository.py"], []),
     ("FR-16", "Optional Explanation Fallback", ["app/services/explanation_service.py"], []),
-    ("FR-17", "Saved Recommendations Session", ["app/api/v1/recommendations.py"], ["/api/v1/recommendations/save"]),
-    ("FR-18", "Feedback Submission", ["app/api/v1/feedback.py"], ["/api/v1/feedback/recommendation"]),
+    (
+        "FR-17",
+        "Saved Recommendations Session",
+        ["app/api/v1/recommendations.py"],
+        ["/api/v1/recommendations/save"],
+    ),
+    (
+        "FR-18",
+        "Feedback Submission",
+        ["app/api/v1/feedback.py"],
+        ["/api/v1/feedback/recommendation"],
+    ),
     ("FR-19", "Metrics Summary", ["app/api/v1/metrics.py"], ["/api/v1/metrics/summary"]),
     ("FR-20", "Web UI Profile Submission", ["web/src/App.tsx"], []),
 ]
@@ -43,9 +63,19 @@ NFR_IDS = [
     ("NFR-10", "Observability", ["app/middleware/request_id.py"], "Observability"),
     ("NFR-11", "Compatibility", ["app/main.py"], "Compatibility"),
     ("NFR-12", "Portability / Docker", ["Dockerfile"], "Portability"),
-    ("NFR-13", "Documentation Quality", ["scripts/check_documentation_consistency.py"], "Documentation"),
+    (
+        "NFR-13",
+        "Documentation Quality",
+        ["scripts/check_documentation_consistency.py"],
+        "Documentation",
+    ),
     ("NFR-14", "CI/CD Quality Gates", [".github/workflows/ci.yml"], "Automation"),
-    ("NFR-15", "Deployment Readiness", ["docs/deployment.md"], "Operational Readiness"),
+    (
+        "NFR-15",
+        "Deployment Readiness",
+        ["docs/deployment.md"],
+        "Operational Readiness",
+    ),
 ]
 
 
@@ -77,10 +107,16 @@ def generate_fr_cases():
                 "requirement_id": req_id,
                 "requirement_type": "FR",
                 "title": f"Verify {name} - Variation {idx}",
-                "description": f"Verifies functionality behavior of requirement {req_id} under variation {idx}.",
+                "description": (
+                    f"Verifies functionality behavior of requirement {req_id} "
+                    f"under variation {idx}."
+                ),
                 "category": cat,
                 "priority": "P0" if idx <= 20 else "P1",
-                "preconditions": ["System is initialized", f"Dataset is healthy for variation {idx}"],
+                "preconditions": [
+                    "System is initialized",
+                    f"Dataset is healthy for variation {idx}",
+                ],
                 "input_data": {
                     "variation_id": idx,
                     "payload_type": "standard" if cat == "positive" else "boundary_edge",
@@ -140,10 +176,16 @@ def generate_nfr_cases():
                 "requirement_id": req_id,
                 "requirement_type": "NFR",
                 "title": f"Verify quality attribute {qa} - {name} - Variation {idx}",
-                "description": f"Verifies requirement {req_id} ({name}) constraints under test condition variation {idx}.",
+                "description": (
+                    f"Verifies requirement {req_id} ({name}) constraints "
+                    f"under test condition variation {idx}."
+                ),
                 "category": cat,
                 "priority": "P0" if idx <= 20 else "P1",
-                "preconditions": ["Security environment active", f"Checks initialized for variation {idx}"],
+                "preconditions": [
+                    "Security environment active",
+                    f"Checks initialized for variation {idx}",
+                ],
                 "input_data": {
                     "check_id": idx,
                     "metric_target": "compliance_flag",

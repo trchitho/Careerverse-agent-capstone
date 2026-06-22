@@ -73,5 +73,8 @@ def format_failed_cases(failed_cases: list[dict[str, Any]]) -> str:
     """Format the list of failed cases into a readable log string."""
     lines = []
     for c in failed_cases:
-        lines.append(f"FAIL: Case ID {c.get('case_id')} ({c.get('requirement_id')}) - {c.get('message')}")
+        case_id = c.get("case_id")
+        req_id = c.get("requirement_id")
+        msg = c.get("message")
+        lines.append(f"FAIL: Case ID {case_id} ({req_id}) - {msg}")
     return "\n".join(lines)
