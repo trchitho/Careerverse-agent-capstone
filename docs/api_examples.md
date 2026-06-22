@@ -422,3 +422,115 @@ curl -X GET http://127.0.0.1:8000/api/v1/recommendations/saved/demo-session-001
 ]
 ```
 
+---
+
+## 14. Liveness Check (v1)
+Checks if the application process is running.
+
+```bash
+curl -X GET http://127.0.0.1:8000/api/v1/health/live
+```
+
+**Response (HTTP 200)**:
+```json
+{
+  "status": "healthy",
+  "timestamp": "2026-06-22T08:45:00Z"
+}
+```
+
+---
+
+## 15. Readiness Check (v1)
+Checks if datasets and dependencies are loaded correctly.
+
+```bash
+curl -X GET http://127.0.0.1:8000/api/v1/health/ready
+```
+
+**Response (HTTP 200)**:
+```json
+{
+  "status": "ready",
+  "timestamp": "2026-06-22T08:45:00Z",
+  "dataset_loaded": true
+}
+```
+
+---
+
+## 16. Submit Feedback (v1)
+Solicits user evaluations for generated recommendations.
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/v1/feedback/recommendation \
+  -H "Content-Type: application/json" \
+  -d '{
+    "career_id": "ai_fullstack_developer",
+    "career_title": "AI Full-Stack Developer",
+    "rating": 5,
+    "helpful": true,
+    "comment": "Very detailed learning timeline!"
+  }'
+```
+
+**Response (HTTP 201 Created)**:
+```json
+{
+  "id": "f83b28b7-cd34-45aa-aa5e-6eb452b4122d",
+  "created_at": "2026-06-22T08:45:00Z",
+  "career_id": "ai_fullstack_developer",
+  "career_title": "AI Full-Stack Developer",
+  "rating": 5,
+  "helpful": true,
+  "comment": "Very detailed learning timeline!",
+  "source": "web"
+}
+```
+
+---
+
+## 17. Feedback Summary (v1)
+Lists recorded feedback logs.
+
+```bash
+curl -X GET http://127.0.0.1:8000/api/v1/feedback/summary
+```
+
+**Response (HTTP 200)**:
+```json
+[
+  {
+    "id": "f83b28b7-cd34-45aa-aa5e-6eb452b4122d",
+    "created_at": "2026-06-22T08:45:00Z",
+    "career_id": "ai_fullstack_developer",
+    "career_title": "AI Full-Stack Developer",
+    "rating": 5,
+    "helpful": true,
+    "comment": "Very detailed learning timeline!",
+    "source": "web"
+  }
+]
+```
+
+---
+
+## 18. Metrics Summary (v1)
+Retrieves aggregated metrics of local performance.
+
+```bash
+curl -X GET http://127.0.0.1:8000/api/v1/metrics/summary
+```
+
+**Response (HTTP 200)**:
+```json
+{
+  "total_feedback_count": 1,
+  "average_rating": 5.0,
+  "helpful_count": 1,
+  "not_helpful_count": 0,
+  "app_mode": "development",
+  "llm_fallback_enabled": true
+}
+```
+
