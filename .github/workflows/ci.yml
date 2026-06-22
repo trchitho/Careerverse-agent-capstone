@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate dataset
+        run: python scripts/validate_domain_dataset.py
+
+      - name: Run audit prompt checks
+        run: python scripts/audit_prompt_0_to_7.py
+
+      - name: Run API smoke test
+        run: python scripts/smoke_test_api.py
+
+      - name: Run agent evaluations
+        run: python -m app.evals.evaluate_agent
+
+      - name: Check documentation consistency
+        run: python scripts/check_documentation_consistency.py
+
+      - name: Compile python modules
+        run: python -m compileall app
+
+      - name: Run Ruff check
+        run: ruff check .
+
+      - name: Run Pytest
+        run: pytest
+
+  frontend-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "web/package-lock.json"
+
+      - name: Install and build
+        run: |
+          cd web
+          npm ci
+          npm run build
+
+  docker-build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t careerverse-agent-api:ci .
