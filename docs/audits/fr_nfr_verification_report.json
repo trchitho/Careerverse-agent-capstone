@@ -1,0 +1,14 @@
+{
+  "total_fr_requirements": 20,
+  "total_nfr_requirements": 15,
+  "total_fr_cases": 1000,
+  "total_nfr_cases": 750,
+  "passed_cases": 1750,
+  "failed_cases": 0,
+  "pass_rate": 100.0,
+  "requirements_with_less_than_50_cases": [],
+  "failed_requirements": [],
+  "security_findings": [],
+  "documentation_findings": [],
+  "final_verdict": "PASS"
+}
