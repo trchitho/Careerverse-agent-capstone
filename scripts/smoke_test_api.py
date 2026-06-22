@@ -107,6 +107,18 @@ def main() -> int:
             lambda: client.post("/api/v1/recommend", json=INJECTION_PROFILE),
             400,
         ),
+        ("GET /api/v1/health/live", lambda: client.get("/api/v1/health/live"), 200),
+        ("GET /api/v1/health/ready", lambda: client.get("/api/v1/health/ready"), 200),
+        (
+            "POST /api/v1/feedback/recommendation",
+            lambda: client.post(
+                "/api/v1/feedback/recommendation",
+                json={"rating": 5, "helpful": True, "comment": "Excellent recommendations"}
+            ),
+            201,
+        ),
+        ("GET /api/v1/feedback/summary", lambda: client.get("/api/v1/feedback/summary"), 200),
+        ("GET /api/v1/metrics/summary", lambda: client.get("/api/v1/metrics/summary"), 200),
     ]
 
     failures: list[str] = []
