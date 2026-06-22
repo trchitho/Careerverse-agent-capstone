@@ -23,6 +23,30 @@ def health_check() -> dict[str, str]:
     return {"status": "ok", "message": "CareerVerse Agent API v1 is running."}
 
 
+@router.get("/health/live")
+def health_live() -> dict[str, str]:
+    """Return the process liveness check status."""
+    return {"status": "ok", "message": "Liveness check passed. Process is healthy."}
+
+
+@router.get("/health/ready")
+def health_ready() -> dict[str, str]:
+    """Return the data catalog readiness status check."""
+    from app.repositories import JsonCareerRepository
+    try:
+        repo = JsonCareerRepository()
+        careers = repo.list_careers()
+        if not careers:
+            raise ValueError("Catalog has no records loaded.")
+        status = "ok"
+        message = "Readiness check passed. Data is loaded and healthy."
+    except Exception as exc:
+        status = "error"
+        message = f"Readiness check failed: {str(exc)}"
+
+    return {"status": status, "message": message}
+
+
 @router.get("/metadata")
 def metadata() -> dict[str, object]:
     """Return versioned project and runtime metadata."""
