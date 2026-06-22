@@ -23,6 +23,19 @@ def test_check_documentation_files_exist():
         ROOT / "docs" / "frontend.md",
         ROOT / "docs" / "observability.md",
         ROOT / "docs" / "feedback_analytics.md",
+        ROOT / ".github" / "workflows" / "ci.yml",
+        ROOT / ".github" / "workflows" / "security.yml",
+        ROOT / "docs" / "deployment.md",
+        ROOT / "docs" / "operations_runbook.md",
+        ROOT / "scripts" / "pre_deploy_check.py",
+        ROOT / "docs" / "launch" / "market_launch_checklist.md",
+        ROOT / "docs" / "launch" / "product_one_pager.md",
+        ROOT / "docs" / "launch" / "user_onboarding.md",
+        ROOT / "docs" / "launch" / "faq.md",
+        ROOT / "docs" / "launch" / "known_limitations.md",
+        ROOT / "docs" / "launch" / "privacy_note.md",
+        ROOT / "docs" / "launch" / "responsible_ai_note.md",
+        ROOT / "docs" / "audits" / "PROMPT_11_TO_20_PRODUCTION_AUDIT.md",
     ]
     for f in files:
         assert f.exists(), f"File {f.name} does not exist"
