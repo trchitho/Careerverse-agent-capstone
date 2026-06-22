@@ -124,6 +124,9 @@ def main() -> int:
     persistence_plan_content = persistence_plan_path.read_text(encoding="utf-8")
     explanation_service_content = explanation_service_path.read_text(encoding="utf-8")
     session_storage_content = session_storage_path.read_text(encoding="utf-8")
+    frontend_content = frontend_path.read_text(encoding="utf-8")
+    observability_content = observability_path.read_text(encoding="utf-8")
+    feedback_analytics_content = feedback_analytics_path.read_text(encoding="utf-8")
     
     # 2. Check README headings
     print("\nChecking README.md headings:")
@@ -161,7 +164,10 @@ def main() -> int:
         api_examples_content + "\n" +
         persistence_plan_content + "\n" +
         explanation_service_content + "\n" +
-        session_storage_content
+        session_storage_content + "\n" +
+        frontend_content + "\n" +
+        observability_content + "\n" +
+        feedback_analytics_content
     )
     for pattern, message in FORBIDDEN_PATTERNS:
         match = re.search(pattern, all_docs_content, re.IGNORECASE)
