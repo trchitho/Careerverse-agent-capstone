@@ -50,16 +50,61 @@ export const apiClient = {
       body: JSON.stringify(profile),
     }),
 
-  recommendCareer: (profile: UserProfileRequest, topK: number = 3) =>
-    safeFetch<AgentRecommendationResponse>(`/api/v1/recommend?top_k=${topK}`, {
+  recommendCareer: async (profile: UserProfileRequest, topK: number = 3): Promise<AgentRecommendationResponse> => {
+    const raw = await safeFetch<any>(`/api/v1/recommend?top_k=${topK}`, {
       method: 'POST',
       body: JSON.stringify(profile),
-    }),
+    });
+
+    const topRecommendations = (raw.top_recommendations || []).map((rec: any) => ({
+      career_id: rec.career_id,
+      title: rec.title,
+      score: (rec.score || 0) / 100,
+      breakdown: {
+        interest_match: (rec.score_breakdown?.interest_score || 0) / 100,
+        skill_match: (rec.score_breakdown?.skill_score || 0) / 100,
+        goal_match: (rec.score_breakdown?.goal_score || 0) / 100,
+      },
+      matched_skills: rec.matched_skills || [],
+      missing_skills: rec.missing_skills_preview || [],
+      fit_explanation: rec.explanation,
+    }));
+
+    const topCareerId = topRecommendations[0]?.career_id || '';
+
+    return {
+      user_summary: raw.user_summary,
+      top_recommendations: topRecommendations,
+      skill_gap: {
+        career_id: topCareerId,
+        missing_skills: raw.skill_gap?.missing_skills || [],
+        readiness_percentage: Math.round(raw.skill_gap?.readiness_score || 0),
+      },
+      personalized_roadmap: {
+        career_id: raw.personalized_roadmap?.career_id || topCareerId,
+        duration_days: 30,
+        weekly_tasks: (raw.personalized_roadmap?.thirty_day_plan || []).map((w: any) => ({
+          week: w.week,
+          topic: w.focus || w.topic || '',
+          description: w.checkpoint || w.description || '',
+        })),
+      },
+      safety_notice: raw.safety_notice || '',
+      course_concepts_demonstrated: raw.course_concepts_demonstrated || [],
+    };
+  },
 
   getTools: () => safeFetch<McpTool[]>('/api/v1/tools'),
 
-  searchCareers: (query: string) =>
-    safeFetch<McpSearchCareerResponse[]>(`/api/v1/mcp/search/careers?q=${encodeURIComponent(query)}`),
+  searchCareers: async (query: string): Promise<McpSearchCareerResponse[]> => {
+    const raw = await safeFetch<any>(`/api/v1/mcp/search/careers?q=${encodeURIComponent(query)}`);
+    const items = raw.items || [];
+    return items.map((c: any) => ({
+      career_id: c.career_id || c.id,
+      title: c.title,
+      required_skills: c.required_skills || [],
+    }));
+  },
 
   sendRecommendationFeedback: (feedback: FeedbackRequest) =>
     safeFetch<FeedbackResponse>('/api/v1/feedback/recommendation', {
