@@ -4332,7 +4332,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4374,7 +4374,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4416,7 +4416,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4458,7 +4458,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4500,7 +4500,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4542,7 +4542,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4584,7 +4584,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4626,7 +4626,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4668,7 +4668,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4710,7 +4710,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4752,7 +4752,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4794,7 +4794,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4836,7 +4836,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4878,7 +4878,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4920,7 +4920,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -4962,7 +4962,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5004,7 +5004,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5046,7 +5046,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5088,7 +5088,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5130,7 +5130,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5172,7 +5172,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5214,7 +5214,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5256,7 +5256,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5298,7 +5298,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5340,7 +5340,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5382,7 +5382,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5424,7 +5424,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5466,7 +5466,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5508,7 +5508,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5550,7 +5550,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5592,7 +5592,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5634,7 +5634,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5676,7 +5676,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5718,7 +5718,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5760,7 +5760,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5802,7 +5802,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5844,7 +5844,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5886,7 +5886,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5928,7 +5928,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -5970,7 +5970,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6012,7 +6012,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6054,7 +6054,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6096,7 +6096,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6138,7 +6138,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6180,7 +6180,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6222,7 +6222,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6264,7 +6264,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6306,7 +6306,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6348,7 +6348,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -6390,7 +6390,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/api/v1/saved_recommendations.py"
+      "app/api/v1/recommendations.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -12732,7 +12732,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -12774,7 +12774,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -12816,7 +12816,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -12858,7 +12858,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -12900,7 +12900,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -12942,7 +12942,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -12984,7 +12984,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13026,7 +13026,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13068,7 +13068,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13110,7 +13110,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13152,7 +13152,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13194,7 +13194,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13236,7 +13236,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13278,7 +13278,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13320,7 +13320,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13362,7 +13362,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13404,7 +13404,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13446,7 +13446,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13488,7 +13488,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13530,7 +13530,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13572,7 +13572,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13614,7 +13614,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13656,7 +13656,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13698,7 +13698,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13740,7 +13740,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13782,7 +13782,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13824,7 +13824,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13866,7 +13866,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13908,7 +13908,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13950,7 +13950,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -13992,7 +13992,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14034,7 +14034,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14076,7 +14076,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14118,7 +14118,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14160,7 +14160,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14202,7 +14202,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14244,7 +14244,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14286,7 +14286,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14328,7 +14328,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14370,7 +14370,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14412,7 +14412,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14454,7 +14454,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14496,7 +14496,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14538,7 +14538,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14580,7 +14580,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14622,7 +14622,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14664,7 +14664,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14706,7 +14706,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14748,7 +14748,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
@@ -14790,7 +14790,7 @@
     "automation_level": "automated",
     "verification_method": "file_scan",
     "target_files": [
-      "app/core/career_scorer.py"
+      "app/tools/career_tools.py"
     ],
     "target_endpoints": [],
     "tags": [
