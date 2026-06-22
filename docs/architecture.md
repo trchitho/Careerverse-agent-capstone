@@ -26,17 +26,30 @@ The backend acts as a service layer that ingests user profiles and outputs recom
 
 ```mermaid
 flowchart TD
+    subgraph Client Layer
+        Web[React Web UI Client]
+    end
+
     subgraph FastAPI API Layer
-        API[app.main:app] --> Health[GET /]
-        API --> Meta[GET /metadata]
-        API --> Val[POST /profiles/validate]
-        API --> Rec[POST /recommend]
-        API --> MCP[MCP Routes /mcp/*]
+        API[app.main:app]
+        ReqID[Request ID Middleware]
+        
+        Web -->|HTTP Requests| ReqID
+        ReqID --> API
+        
+        API --> Health[Health: /api/v1/health/live | ready]
+        API --> Meta[Metadata: /api/v1/metadata]
+        API --> Val[Profile: /api/v1/profiles/validate]
+        API --> Rec[Recommend: /api/v1/recommend]
+        API --> Feed[Feedback: /api/v1/feedback/*]
+        API --> Metrics[Metrics: /api/v1/metrics/summary]
+        API --> MCP[MCP Routes: /api/v1/mcp/*]
     end
 
     subgraph Safety & Validation Layer
         Val --> Pyd[Pydantic Profile Schemas]
         Rec --> Safe[Safety Layer: detect_prompt_injection]
+        Feed --> FdSafe[Comment Sanitizer & Filter]
     end
 
     subgraph Multi-Agent Orchestration Layer
@@ -54,6 +67,11 @@ flowchart TD
         Tools --> Skills[(app/data/skills.json)]
         Tools --> Roadmaps[(app/data/roadmaps.json)]
         MCP --> Tools
+    end
+    
+    subgraph Feedback & Metrics Store
+        FdSafe --> FdRepo[(InMemoryFeedbackRepository)]
+        Metrics --> FdRepo
     end
 ```
 
