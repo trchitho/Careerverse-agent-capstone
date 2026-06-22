@@ -30,7 +30,7 @@ export const RecommendationResults: React.FC<RecommendationResultsProps> = ({
             className="recommendation-item"
             style={{
               cursor: 'pointer',
-              borderColor: isSelected ? 'var(--color-cyan)' : 'var(--color-accent)',
+              borderLeftColor: isSelected ? 'var(--color-cyan)' : 'var(--color-accent)',
               backgroundColor: isSelected ? 'rgba(6, 182, 212, 0.04)' : undefined,
             }}
             onClick={() => onSelectCareer(rec)}
