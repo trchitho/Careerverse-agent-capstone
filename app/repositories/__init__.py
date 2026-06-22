@@ -1,6 +1,7 @@
 """Repository layer exports for CareerVerse Agent."""
 
 from app.repositories.career_repository import JsonCareerRepository
+from app.repositories.feedback_repository import InMemoryFeedbackRepository
 from app.repositories.interfaces import (
     CareerRepository,
     RoadmapRepository,
@@ -9,6 +10,7 @@ from app.repositories.interfaces import (
 )
 from app.repositories.roadmap_repository import JsonRoadmapRepository
 from app.repositories.session_repository import InMemorySavedRecommendationRepository
+from app.repositories.skill_repository import JsonSkillRepository
 
 __all__ = [
     "CareerRepository",
@@ -19,4 +21,5 @@ __all__ = [
     "JsonSkillRepository",
     "JsonRoadmapRepository",
     "InMemorySavedRecommendationRepository",
+    "InMemoryFeedbackRepository",
 ]
