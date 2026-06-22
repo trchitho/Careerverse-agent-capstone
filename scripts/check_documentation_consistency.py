@@ -355,6 +355,38 @@ def main() -> int:
         print("FAIL: Documentation does not state feedback storage is local/demo/in-memory.")
         failures += 1
 
+    # 6d. CI/CD, Deployment, and Launch Pack assertions
+    print("\nChecking CI/CD, Deployment, and Launch Pack assertions:")
+    if "ci/cd" not in readme_content.lower():
+        print("FAIL: README does not mention CI/CD.")
+        failures += 1
+    else:
+        print("  PASS: README mentions CI/CD")
+
+    if "deployment" not in readme_content.lower():
+        print("FAIL: README does not mention deployment.")
+        failures += 1
+    else:
+        print("  PASS: README mentions deployment")
+
+    if "launch pack" not in readme_content.lower() and "production readiness" not in readme_content.lower():
+        print("FAIL: README does not mention launch pack or production readiness.")
+        failures += 1
+    else:
+        print("  PASS: README mentions launch pack / production readiness")
+
+    if "guarantees employment" in all_docs_content.lower() and "does not guarantee" not in all_docs_content.lower():
+        print("FAIL: Unsafe job guarantee claim detected.")
+        failures += 1
+    else:
+        print("  PASS: No positive claims about employment guarantees found")
+
+    if "provides clinical diagnosis" in all_docs_content.lower():
+        print("FAIL: Unsafe clinical diagnosis claim detected.")
+        failures += 1
+    else:
+        print("  PASS: No clinical diagnosis claims found")
+
     # 7. Check for obvious credentials in docs
     print("\nChecking for obvious credentials in documentation:")
     cred_patterns = [
