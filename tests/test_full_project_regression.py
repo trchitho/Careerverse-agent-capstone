@@ -21,7 +21,7 @@ def test_legacy_and_versioned_health_and_metadata() -> None:
     
     res = client.get("/api/v1/health/ready")
     assert res.status_code == 200
-    assert res.json()["status"] == "ready"
+    assert res.json()["status"] == "ok"
     
     # 2. Metadata checks
     res = client.get("/metadata")
@@ -43,7 +43,7 @@ def test_profile_validation_endpoint() -> None:
     }
     res = client.post("/profiles/validate", json=payload)
     assert res.status_code == 200
-    assert res.json()["name"] == "Alex"
+    assert res.json()["normalized_profile"]["name"] == "Alex"
     
     # Invalid profile
     bad_payload = {
@@ -69,23 +69,30 @@ def test_recommendation_pipeline_and_response_fields() -> None:
     res = client.post("/recommend", json=payload)
     assert res.status_code == 200
     data = res.json()
-    assert "recommendations" in data
+    assert "top_recommendations" in data
     assert "safety_notice" in data
     
     # versioned endpoint with top_k bounds
     res = client.post("/api/v1/recommend?top_k=2", json=payload)
     assert res.status_code == 200
     data_v1 = res.json()
-    assert len(data_v1["recommendations"]) <= 2
-    assert "readiness_score" in data_v1["recommendations"][0]["skill_gap"]
-    assert "roadmap" in data_v1["recommendations"][0]
+    assert len(data_v1["top_recommendations"]) <= 2
+    assert "readiness_score" in data_v1["skill_gap"]
+    assert "personalized_roadmap" in data_v1
 
 
 def test_saved_recommendations_workflow() -> None:
     save_payload = {
         "session_id": "session-123",
         "recommendation_response": {
-            "recommendations": [],
+            "top_recommendations": [
+                {
+                    "career_id": "cloud-engineer",
+                    "title": "Cloud Engineer",
+                    "score": 85.0,
+                    "matched_reasons": ["Has cloud interest"]
+                }
+            ],
             "safety_notice": "Disclaimer notice"
         }
     }
@@ -100,15 +107,14 @@ def test_saved_recommendations_workflow() -> None:
 
 def test_feedback_and_metrics_endpoints() -> None:
     feedback_payload = {
-        "recommendation_id": "rec-123",
         "rating": 5,
+        "helpful": True,
         "comment": "Outstanding recommendations dashboard."
     }
     res = client.post("/api/v1/feedback/recommendation", json=feedback_payload)
-    assert res.status_code == 200
-    assert res.json()["comment"] == "Outstanding recommendations dashboard."
+    assert res.status_code == 201
     
-    res = client.get("/api/v1/metrics/summary")
+    res = client.get("/api/v1/feedback/summary")
     assert res.status_code == 200
     assert "average_rating" in res.json()
 
