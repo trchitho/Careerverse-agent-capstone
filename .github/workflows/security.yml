@@ -61,4 +61,5 @@ jobs:
 
       - name: Run safety and security tests
         run: |
-          python -m pytest tests/test_security_hygiene.py tests/test_safety.py tests/test_safety_tools.py tests/test_recommend_safety_api.py
+          python -m pytest tests/test_security_hygiene.py tests/test_safety.py tests/test_safety_tools.py tests/test_recommend_safety_api.py tests/test_full_project_security_regression.py
+          python scripts/verify_all_fr_nfr.py
