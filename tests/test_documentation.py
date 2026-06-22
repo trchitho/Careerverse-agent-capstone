@@ -36,6 +36,15 @@ def test_check_documentation_files_exist():
         ROOT / "docs" / "launch" / "privacy_note.md",
         ROOT / "docs" / "launch" / "responsible_ai_note.md",
         ROOT / "docs" / "audits" / "PROMPT_11_TO_20_PRODUCTION_AUDIT.md",
+        ROOT / "docs" / "requirements" / "fr_catalog.md",
+        ROOT / "docs" / "requirements" / "nfr_catalog.md",
+        ROOT / "docs" / "requirements" / "fr_nfr_traceability_matrix.md",
+        ROOT / "docs" / "requirements" / "test_strategy.md",
+        ROOT / "docs" / "requirements" / "test_case_design.md",
+        ROOT / "docs" / "audits" / "fr_nfr_verification_report.json",
+        ROOT / "docs" / "audits" / "fr_nfr_verification_report.md",
+        ROOT / "docs" / "audits" / "FR_NFR_FULL_VERIFICATION_AUDIT.md",
+        ROOT / "docs" / "audits" / "FULL_PROJECT_QUALITY_GATE_AUDIT.md",
     ]
     for f in files:
         assert f.exists(), f"File {f.name} does not exist"
