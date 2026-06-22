@@ -29,6 +29,17 @@ export const App: React.FC = () => {
     fetchMetrics();
   }, []);
 
+  useEffect(() => {
+    if (selectedCareer) {
+      setTimeout(() => {
+        const element = document.getElementById('details-section');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 80);
+    }
+  }, [selectedCareer]);
+
   const fetchMetrics = async () => {
     try {
       const data = await apiClient.getMetricsSummary();
@@ -124,7 +135,7 @@ export const App: React.FC = () => {
               </div>
 
               {selectedCareer && (
-                <>
+                <div id="details-section" style={{ display: 'flex', gap: '1.5rem', flexDirection: 'column' }}>
                   <SkillGapCard skillGap={response.skill_gap} selectedCareer={selectedCareer} />
                   <RoadmapPreview roadmap={response.personalized_roadmap} selectedCareer={selectedCareer} />
                   
@@ -136,7 +147,7 @@ export const App: React.FC = () => {
                       onSubmitted={handleFeedbackSubmitted}
                     />
                   </div>
-                </>
+                </div>
               )}
             </div>
           )}
