@@ -17,7 +17,7 @@ from app.services.feedback_service import (
 router = APIRouter(tags=["Feedback"])
 
 
-@router.post("/feedback/recommendation", response_model=RecommendationFeedbackResponse)
+@router.post("/feedback/recommendation", response_model=RecommendationFeedbackResponse, status_code=201)
 def post_feedback(
     request: RecommendationFeedbackRequest,
 ) -> RecommendationFeedbackResponse:
