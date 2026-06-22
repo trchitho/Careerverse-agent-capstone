@@ -296,10 +296,16 @@ def main() -> int:
     if "feedback analytics" not in readme_content.lower():
         print("FAIL: README does not mention Feedback Analytics.")
         failures += 1
-    if "request bodies" not in all_docs_content.lower() or "not logged" not in all_docs_content.lower():
+    if (
+        "request bodies" not in all_docs_content.lower()
+        or "not logged" not in all_docs_content.lower()
+    ):
         print("FAIL: Documentation does not assert that request bodies are not logged.")
         failures += 1
-    if "inmemoryfeedbackrepository" not in all_docs_content.lower() and "in-memory" not in all_docs_content.lower():
+    if (
+        "inmemoryfeedbackrepository" not in all_docs_content.lower()
+        and "in-memory" not in all_docs_content.lower()
+    ):
         print("FAIL: Documentation does not state feedback storage is local/demo/in-memory.")
         failures += 1
 
