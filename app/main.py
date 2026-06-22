@@ -3,6 +3,7 @@
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.exception_handlers import request_validation_exception_handler
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.agents import CareerAdvisorAgent
@@ -16,7 +17,9 @@ from app.core.constants import (
     PROJECT_VERSION,
 )
 from app.core.exceptions import AppError
+from app.core.logging_config import configure_logging
 from app.mcp_server import CareerMCPServer
+from app.middleware import RequestIDMiddleware
 from app.schemas import (
     AgentRecommendationResponse,
     ProfileValidationResponse,
@@ -25,6 +28,9 @@ from app.schemas import (
 )
 from app.tools.safety_tools import get_safety_notice, validate_profile_safety
 
+# Configure structured JSON logging on startup
+configure_logging()
+
 settings = get_settings()
 career_advisor = CareerAdvisorAgent()
 mcp_server = CareerMCPServer()
@@ -32,6 +38,16 @@ app = FastAPI(
     title=settings.app_name,
     description=PROJECT_DESCRIPTION,
     version=settings.app_version,
+)
+
+# Attach request tracking and CORS middlewares
+app.add_middleware(RequestIDMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Local development CORS allowance
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(api_router)
