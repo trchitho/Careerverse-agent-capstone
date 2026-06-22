@@ -282,6 +282,27 @@ def main() -> int:
         print("FAIL: README does not state no production authentication.")
         failures += 1
 
+    # 6c. Web UI, Observability, and Feedback assertions
+    print("\nChecking Web UI, Observability, and Feedback assertions:")
+    if "web ui" not in readme_content.lower():
+        print("FAIL: README does not mention Web UI.")
+        failures += 1
+    if "vite_api_base_url" not in readme_content.lower():
+        print("FAIL: README does not mention VITE_API_BASE_URL.")
+        failures += 1
+    if "observability" not in readme_content.lower():
+        print("FAIL: README does not mention Observability.")
+        failures += 1
+    if "feedback analytics" not in readme_content.lower():
+        print("FAIL: README does not mention Feedback Analytics.")
+        failures += 1
+    if "request bodies" not in all_docs_content.lower() or "not logged" not in all_docs_content.lower():
+        print("FAIL: Documentation does not assert that request bodies are not logged.")
+        failures += 1
+    if "inmemoryfeedbackrepository" not in all_docs_content.lower() and "in-memory" not in all_docs_content.lower():
+        print("FAIL: Documentation does not state feedback storage is local/demo/in-memory.")
+        failures += 1
+
     # 7. Check for obvious credentials in docs
     print("\nChecking for obvious credentials in documentation:")
     cred_patterns = [
