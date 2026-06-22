@@ -184,6 +184,11 @@ def main() -> int:
     limitations_content = limitations_path.read_text(encoding="utf-8")
     privacy_content = privacy_path.read_text(encoding="utf-8")
     responsible_ai_content = responsible_ai_path.read_text(encoding="utf-8")
+    fr_catalog_content = fr_catalog_path.read_text(encoding="utf-8")
+    nfr_catalog_content = nfr_catalog_path.read_text(encoding="utf-8")
+    traceability_content = traceability_path.read_text(encoding="utf-8")
+    strategy_content = strategy_path.read_text(encoding="utf-8")
+    design_content = design_path.read_text(encoding="utf-8")
     
     # 2. Check README headings
     print("\nChecking README.md headings:")
@@ -233,7 +238,12 @@ def main() -> int:
         faq_content + "\n" +
         limitations_content + "\n" +
         privacy_content + "\n" +
-        responsible_ai_content
+        responsible_ai_content + "\n" +
+        fr_catalog_content + "\n" +
+        nfr_catalog_content + "\n" +
+        traceability_content + "\n" +
+        strategy_content + "\n" +
+        design_content
     )
     for pattern, message in FORBIDDEN_PATTERNS:
         match = re.search(pattern, all_docs_content, re.IGNORECASE)
@@ -412,6 +422,33 @@ def main() -> int:
         failures += 1
     else:
         print("  PASS: No clinical diagnosis claims found")
+
+    # 6e. Requirements verification and matrix checks
+    print("\nChecking requirements documentation and matrix checks:")
+    if (
+        "fr/nfr" not in readme_content.lower()
+        and "verify_all_fr_nfr" not in readme_content.lower()
+    ):
+        print("FAIL: README does not mention FR/NFR verification.")
+        failures += 1
+    else:
+        print("  PASS: README mentions FR/NFR verification")
+
+    if (
+        "unmapped" in fr_catalog_content.lower()
+        or "unmapped" in nfr_catalog_content.lower()
+        or "unmapped" in traceability_content.lower()
+    ):
+        print("FAIL: Unmapped requirements detected in documentation.")
+        failures += 1
+    else:
+        print("  PASS: No unmapped requirements found in documentation")
+
+    if "todo" in traceability_content.lower():
+        print("FAIL: Traceability matrix contains unresolved TODO items.")
+        failures += 1
+    else:
+        print("  PASS: Traceability matrix is complete with no TODOs")
 
     # 7. Check for obvious credentials in docs
     print("\nChecking for obvious credentials in documentation:")
