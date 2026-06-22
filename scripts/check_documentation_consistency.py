@@ -369,13 +369,19 @@ def main() -> int:
     else:
         print("  PASS: README mentions deployment")
 
-    if "launch pack" not in readme_content.lower() and "production readiness" not in readme_content.lower():
+    if (
+        "launch pack" not in readme_content.lower()
+        and "production readiness" not in readme_content.lower()
+    ):
         print("FAIL: README does not mention launch pack or production readiness.")
         failures += 1
     else:
         print("  PASS: README mentions launch pack / production readiness")
 
-    if "guarantees employment" in all_docs_content.lower() and "does not guarantee" not in all_docs_content.lower():
+    if (
+        "guarantees employment" in all_docs_content.lower()
+        and "does not guarantee" not in all_docs_content.lower()
+    ):
         print("FAIL: Unsafe job guarantee claim detected.")
         failures += 1
     else:
