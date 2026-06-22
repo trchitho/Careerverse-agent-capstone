@@ -155,6 +155,15 @@ def main() -> int:
     frontend_content = frontend_path.read_text(encoding="utf-8")
     observability_content = observability_path.read_text(encoding="utf-8")
     feedback_analytics_content = feedback_analytics_path.read_text(encoding="utf-8")
+    deployment_content = deployment_path.read_text(encoding="utf-8")
+    runbook_content = runbook_path.read_text(encoding="utf-8")
+    launch_checklist_content = launch_checklist_path.read_text(encoding="utf-8")
+    one_pager_content = one_pager_path.read_text(encoding="utf-8")
+    onboarding_content = onboarding_path.read_text(encoding="utf-8")
+    faq_content = faq_path.read_text(encoding="utf-8")
+    limitations_content = limitations_path.read_text(encoding="utf-8")
+    privacy_content = privacy_path.read_text(encoding="utf-8")
+    responsible_ai_content = responsible_ai_path.read_text(encoding="utf-8")
     
     # 2. Check README headings
     print("\nChecking README.md headings:")
@@ -195,7 +204,16 @@ def main() -> int:
         session_storage_content + "\n" +
         frontend_content + "\n" +
         observability_content + "\n" +
-        feedback_analytics_content
+        feedback_analytics_content + "\n" +
+        deployment_content + "\n" +
+        runbook_content + "\n" +
+        launch_checklist_content + "\n" +
+        one_pager_content + "\n" +
+        onboarding_content + "\n" +
+        faq_content + "\n" +
+        limitations_content + "\n" +
+        privacy_content + "\n" +
+        responsible_ai_content
     )
     for pattern, message in FORBIDDEN_PATTERNS:
         match = re.search(pattern, all_docs_content, re.IGNORECASE)
