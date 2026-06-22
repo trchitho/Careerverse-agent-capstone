@@ -48,6 +48,12 @@ jobs:
       - name: Run Pytest
         run: pytest
 
+      - name: Run requirements verification checks
+        run: python scripts/verify_all_fr_nfr.py
+
+      - name: Run full project quality gates
+        run: python scripts/verify_full_project.py
+
   frontend-quality:
     runs-on: ubuntu-latest
     steps:
