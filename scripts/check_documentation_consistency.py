@@ -105,6 +105,17 @@ def main() -> int:
     responsible_ai_path = ROOT / "docs" / "launch" / "responsible_ai_note.md"
     prod_audit_path = ROOT / "docs" / "audits" / "PROMPT_11_TO_20_PRODUCTION_AUDIT.md"
 
+    # Requirements and Quality Gates documents
+    fr_catalog_path = ROOT / "docs" / "requirements" / "fr_catalog.md"
+    nfr_catalog_path = ROOT / "docs" / "requirements" / "nfr_catalog.md"
+    traceability_path = ROOT / "docs" / "requirements" / "fr_nfr_traceability_matrix.md"
+    strategy_path = ROOT / "docs" / "requirements" / "test_strategy.md"
+    design_path = ROOT / "docs" / "requirements" / "test_case_design.md"
+    ver_json_report = ROOT / "docs" / "audits" / "fr_nfr_verification_report.json"
+    ver_md_report = ROOT / "docs" / "audits" / "fr_nfr_verification_report.md"
+    fr_nfr_audit_path = ROOT / "docs" / "audits" / "FR_NFR_FULL_VERIFICATION_AUDIT.md"
+    quality_gate_audit_path = ROOT / "docs" / "audits" / "FULL_PROJECT_QUALITY_GATE_AUDIT.md"
+
     files_to_check = [
         readme_path,
         arch_path,
@@ -133,6 +144,15 @@ def main() -> int:
         privacy_path,
         responsible_ai_path,
         prod_audit_path,
+        fr_catalog_path,
+        nfr_catalog_path,
+        traceability_path,
+        strategy_path,
+        design_path,
+        ver_json_report,
+        ver_md_report,
+        fr_nfr_audit_path,
+        quality_gate_audit_path,
     ]
     for f in files_to_check:
         if not check_file_exists(f):
