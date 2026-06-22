@@ -369,6 +369,30 @@ Launch materials are available under `docs/launch/`, including the product one-p
 
 ---
 
+## FR/NFR Verification
+
+The repository includes a full functional and non-functional requirements verification suite.
+
+To verify requirements, run:
+```bash
+python scripts/verify_all_fr_nfr.py
+```
+
+To run the full project quality gate:
+```bash
+python scripts/verify_full_project.py
+```
+
+The FR/NFR verification includes:
+- At least 50 test cases per functional requirement.
+- At least 50 test cases per non-functional requirement.
+- Traceability matrix mapping.
+- Security and privacy regression checks.
+- API and web regression checks.
+- Documentation consistency checks.
+
+---
+
 ## Local Evaluation
 To execute the aggregate offline validation suite, run:
 ```bash
