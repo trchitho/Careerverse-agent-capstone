@@ -351,6 +351,24 @@ The feedback system solicits and stores anonymous recommendation ratings and com
 
 ---
 
+## CI/CD
+
+This repository includes GitHub Actions workflows for backend validation, frontend build, documentation consistency, evaluation, and security hygiene.
+
+---
+
+## Deployment Preparation
+
+Deployment documentation is available in `docs/deployment.md`. The primary documented target is Google Cloud Run. The repository does not claim a live deployment unless a deployment has been explicitly verified.
+
+---
+
+## Production Readiness and Launch Pack
+
+Launch materials are available under `docs/launch/`, including the product one-pager, onboarding guide, FAQ, known limitations, privacy note, and responsible AI note.
+
+---
+
 ## Local Evaluation
 To execute the aggregate offline validation suite, run:
 ```bash
