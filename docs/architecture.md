@@ -144,19 +144,22 @@ Built on FastAPI, the server runs completely asynchronously. It features a centr
 - **Versioned Layer (`/api/v1`)**: Stabilized routes organized in [app/api/v1/](file:///e:/OneDrive/Desktop/careerverse-agent-capstone/Careerverse-agent-capstone/app/api/v1) for new integrations.
 - **Saved Recommendations Endpoints**: Exposes versioned endpoints `/api/v1/recommendations/save` and `/api/v1/recommendations/saved/{session_id}` to store and list recommendation summaries.
 - **Unified Error Contract**: Intercepts application-level errors (like `UnsafeProfileError`, `ResourceNotFoundError`) and validation errors (`RequestValidationError`) on versioned endpoints, formatting them under a standardized `ErrorResponse` model (Pydantic schemas) to avoid exposing framework stack traces or raw malicious inputs.
+- **Request Tracking & Logging**: Uses custom request tracking middleware (`X-Request-ID`) and a structured log formatter to capture execution health without recording sensitive fields or payloads.
+- **Feedback Store**: Implements the `InMemoryFeedbackRepository` to collect user ratings and comments temporarily for local quality checks.
 
 ---
 
 ## 14. Implemented vs Future Architecture
 
 > [!IMPORTANT]
-> **This project uses local JSON datasets for the Kaggle MVP instead of a production database.** There is no real database connection (such as PostgreSQL, pgvector, or Neo4j) configured in the current version.
+> **This project uses local JSON datasets for the Kaggle MVP instead of a production database.** There is no real database connection (such as PostgreSQL, pgvector, or Neo4j) configured in the current version. Feedback is stored ephemerally in RAM.
 
 | Feature Area | Current Implemented MVP | Future Production Roadmap |
 |---|---|---|
-| **Database** | Offline JSON templates (`app/data/`) | PostgreSQL with `pgvector` & Neo4j graph db |
+| **Database** | Offline JSON templates (`app/data/`) & ephemerally stored RAM feedback | PostgreSQL with `pgvector` & Neo4j graph db |
 | **Model Integration** | Deterministic score engine & templates | Live Gemini API orchestration layer via Google GenAI SDK |
 | **MCP Interface** | FastAPI REST endpoints mimicking MCP | Standard MCP Server SDK with stdio/SSE transports |
-| **Authentication** | None (Zero-Trust Input Validation only) | OAuth2, JWT tokens, and RBAC admin roles |
-| **Frontend** | Interactive Swagger UI (`/docs`) | Next.js visual dashboard, CV parser, and speech client |
-| **Deployment** | Local hosting (`uvicorn`) | Dockerized container deployable to GCP Cloud Run / Kubernetes |
+| **Authentication** | None (Zero-Trust Input Validation & local session ID tokens) | OAuth2, JWT tokens, and RBAC admin roles |
+| **Frontend** | React + TypeScript + Vite Dashboard & Swagger UI | Next.js visual dashboard, CV parser, and speech client |
+| **Observability** | Structured console/file logging, `X-Request-ID` tracking, liveness/readiness health routes | Centralized logging/tracing warehouse (e.g. Sentry/OpenTelemetry) |
+| **Deployment** | Local hosting (`uvicorn`) & Docker runtime | Dockerized container deployable to GCP Cloud Run / Kubernetes |
